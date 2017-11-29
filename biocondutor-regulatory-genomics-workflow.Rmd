@@ -1,0 +1,90 @@
+---
+title: "Bioconductor Regulatory Genomics Workflow"
+author: "Enrico Ferrero"
+output: html_notebook
+---
+
+# Introduction
+
+TODO: pharma challenge, better targets, genetics, post-GWAS challenge
+
+# Workflow
+
+## Overview
+
+In this workflow we will explore how regulatory (aka functional) genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
+
+We will start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information. 
+
+## Install and load packages
+
+The code below will install all required packages and dependencies from Bioconductor.
+
+```{r}
+source("https://bioconductor.org/biocLite.R")
+# uncomment following line to install packages
+#biocLite(c("DESeq2", "recount"))
+```
+
+## Differential gene expression analysis
+
+The RNA-seq data comes from patients with systemic lupus erythematosus (SLE) and healthy conbtrols and was published in Hung et al. 2015 (PMID: 26382853).
+
+We are going to use recount to obtain gene-level counts:
+
+```{r}
+# uncomment following line to download dataset
+#download_study("SRP062966")
+load(file.path("SRP062966", "rse_gene.RData"))
+rse <- scale_counts(rse_gene)
+rse
+```
+
+For a more detailed description of the recount package refer to its [vignette](http://bioconductor.org/packages/release/bioc/vignettes/recount/inst/doc/recount-quickstart.html) and [workflow](https://f1000research.com/articles/6-1558):
+
+So, we have 117 samples.
+Let's look at the metadata to check how we can split them between cases and controls:
+
+```{r}
+colData(rse)
+```
+
+
+We need to create a new metadata column containing the groups, starting from the 'title' column:
+
+```{r}
+colData(rse)$group <- sub("[[:digit:]]+", "", colData(rse)$title)
+colData(rse)$group
+```
+
+OK, now we are ready to perform a differential gene expression analysis with DESeq2:
+
+```{r}
+dds <- DESeqDataSet(rse, ~group)
+dds <- DESeq(dds, parallel=TRUE)
+res <- results(dds, alpha=0.05, parallel=TRUE)
+summary(res)
+```
+
+Note that we used an extremely simple model; in the real world you will probably need to account for co-variables, potential confounders and interactions between them.
+Please refer to the DESeq2 [vignette](http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) and this [workflow](https://www.bioconductor.org/help/workflows/rnaseqGene/) for more details on how to use DESeq2.
+
+Now we can select our differentially expressed genes (DEGs) using an adjusted p-value threshold of 0.05:
+
+```{r}
+deg <- subset(res, padj < 0.05)
+deg
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
