@@ -1,7 +1,9 @@
 ---
 title: "Bioconductor Regulatory Genomics Workflow"
 author: "Enrico Ferrero"
-output: html_notebook
+output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 # Introduction
@@ -23,16 +25,17 @@ The code below will install all required packages and dependencies from Biocondu
 ```{r}
 source("https://bioconductor.org/biocLite.R")
 # uncomment following line to install packages
-#biocLite(c("DESeq2", "recount"))
+#biocLite(c("DESeq2", "recount", "pheatmap", "RcolorBrewer"))
 ```
 
-## Differential gene expression analysis
+## Gene expression data and differential gene expression analysis
 
-The RNA-seq data comes from patients with systemic lupus erythematosus (SLE) and healthy conbtrols and was published in Hung et al. 2015 (PMID: 26382853).
+The RNA-seq data we will be using comes from blood of patients with systemic lupus erythematosus (SLE) and healthy controls, and was published in (Hung et al. 2015)[https://www.ncbi.nlm.nih.gov/pubmed/26382853].
 
-We are going to use recount to obtain gene-level counts:
+We are going to use `recount` to obtain gene-level counts:
 
 ```{r}
+library(recount)
 # uncomment following line to download dataset
 #download_study("SRP062966")
 load(file.path("SRP062966", "rse_gene.RData"))
@@ -40,45 +43,139 @@ rse <- scale_counts(rse_gene)
 rse
 ```
 
-For a more detailed description of the recount package refer to its [vignette](http://bioconductor.org/packages/release/bioc/vignettes/recount/inst/doc/recount-quickstart.html) and [workflow](https://f1000research.com/articles/6-1558):
+For a more detailed description of the `recount` package refer to its [vignette](http://bioconductor.org/packages/release/bioc/vignettes/recount/inst/doc/recount-quickstart.html) and [workflow](https://f1000research.com/articles/6-1558):
 
 So, we have 117 samples.
+This is what the data looks like:
+
+```{r}
+assay(rse)[1:10, 1:10]
+```
+
 Let's look at the metadata to check how we can split them between cases and controls:
 
 ```{r}
 colData(rse)
 ```
 
-
-We need to create a new metadata column containing the groups, starting from the 'title' column:
+The most interesting part of the metadata is contained in the `characteristics` column, which is a `CharacterList` object:
 
 ```{r}
-colData(rse)$group <- sub("[[:digit:]]+", "", colData(rse)$title)
-colData(rse)$group
+colData(rse)$characteristics
 ```
 
-OK, now we are ready to perform a differential gene expression analysis with DESeq2:
+Let's create some new columns with this information that can be used for the differential expression analysis.
+We will also make sure that they are encoded as factors and that the correct reference layer is used:
 
 ```{r}
-dds <- DESeqDataSet(rse, ~group)
-dds <- DESeq(dds, parallel=TRUE)
-res <- results(dds, alpha=0.05, parallel=TRUE)
-summary(res)
+# disease status
+colData(rse)$disease_status <- sapply(colData(rse)$characteristics, "[", 1)
+colData(rse)$disease_status <- sub("disease status: ", "", colData(rse)$disease_status)
+colData(rse)$disease_status <- sub("systemic lupus erythematosus \\(SLE\\)", "SLE", colData(rse)$disease_status)
+colData(rse)$disease_status <- factor(colData(rse)$disease_status, levels=c("healthy", "SLE"))
+# anti-ro
+colData(rse)$anti_ro <- sapply(colData(rse)$characteristics, "[", 3)
+colData(rse)$anti_ro <- sub("anti-ro: ", "", colData(rse)$anti_ro)
+colData(rse)$anti_ro <- factor(colData(rse)$anti_ro)
+# ism
+colData(rse)$ism <- sapply(colData(rse)$characteristics, "[", 4)
+colData(rse)$ism <-sub("ism: ", "", colData(rse)$ism)
+colData(rse)$ism <- factor(colData(rse)$ism)
+```
+
+Let's check it's what we expect:
+
+```{r}
+colData(rse)[c("disease_status", "anti_ro", "ism")]
+```
+
+OK, this looks more readable.
+Let's check how many samples we have in each group:
+
+```{r}
+table(colData(rse)$disease_status)
+```
+
+To speed up code execution we will limit the number of SLE samples.
+For simplicity, we select the first 18 (healthy) and the last 18 (SLE) samples from the original `RangedSummarizedExperiment` object:
+
+```{r}
+rse <- rse[, c(1:18, 82:99)]
+```
+
+Now we are ready to perform a simple differential gene expression analysis with DESeq2:
+
+```{r}
+library(DESeq2)
+dds <- DESeqDataSet(rse, ~ disease_status)
+dds <- DESeq(dds)
+dds
 ```
 
 Note that we used an extremely simple model; in the real world you will probably need to account for co-variables, potential confounders and interactions between them.
 Please refer to the DESeq2 [vignette](http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) and this [workflow](https://www.bioconductor.org/help/workflows/rnaseqGene/) for more details on how to use DESeq2.
 
-Now we can select our differentially expressed genes (DEGs) using an adjusted p-value threshold of 0.05:
+We can now look at the data in more detail.
+We use the variance stabilising transformation (VST) [Anders and Huber 2010]() for visualisation purposes:
+
+```{r}
+vsd <- vst(dds, blind=FALSE)
+```
+
+First, let's look at distances between samples to see if we can recover a separation between SLE and healthy samples:
+
+```{r}
+sampleDists <- as.matrix(dist(t(assay(vsd))))
+rownames(sampleDists) <- vsd$disease_status
+sampleDists[c(1, 18, 19, 36), c(1, 18, 19, 36)]
+```
+
+We will use the `pheatmap` and `RColorBrewer` packages for drawing the heatmap:
+
+```{r}
+library(pheatmap)
+library(RColorBrewer)
+colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255)
+pheatmap(sampleDists, col=colors)
+```
+
+Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes:
+
+```{r}
+plotPCA(vsd, intgroup="disease_status")
+```
+
+This looks better, we can see some separation of healthy and SLE samples along both PC1 and PC2, though some SLE samples appear very similar to the healthy ones.
+Next, we select genes that are differentially expressed below a 0.05 adjusted p-value threshold:
+
+```{r}
+res <- results(dds, alpha=0.05)
+res
+```
+
+We can look at a summary of the results:
+
+```{r}
+summary(res)
+```
+
+We can also visualise the log fold changes using an MA plot [Dudoit et al. 2002]():
+
+```{r}
+plotMA(res, ylim=c(-5,5))
+```
+
+For convenience, we will save our differentially expressed genes (DEGs) in another  object:
 
 ```{r}
 deg <- subset(res, padj < 0.05)
 deg
 ```
 
+## Accessing GWAS data
 
-
-
+We have more than 3500 genes at this stage.
+One way to prioritise them could be to check which of these can be linked to SLE  
 
 
 
