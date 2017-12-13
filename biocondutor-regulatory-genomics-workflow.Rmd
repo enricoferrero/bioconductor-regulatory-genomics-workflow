@@ -25,12 +25,12 @@ The code below will install all required packages and dependencies from Biocondu
 ```{r}
 source("https://bioconductor.org/biocLite.R")
 # uncomment following line to install packages
-#biocLite(c("DESeq2", "recount", "pheatmap", "RcolorBrewer"))
+#biocLite(c("DESeq2", "GenomicFeatures", "ggplot2", "gwascat", recount", "pheatmap", "RcolorBrewer", "VariantAnnotation"))
 ```
 
 ## Gene expression data and differential gene expression analysis
 
-The RNA-seq data we will be using comes from blood of patients with systemic lupus erythematosus (SLE) and healthy controls, and was published in (Hung et al. 2015)[https://www.ncbi.nlm.nih.gov/pubmed/26382853].
+The RNA-seq data we will be using comes from blood of patients with systemic lupus erythematosus (SLE) and healthy controls, and was published in [Hung et al. 2015](https://www.ncbi.nlm.nih.gov/pubmed/26382853).
 
 We are going to use `recount` to obtain gene-level counts:
 
@@ -44,14 +44,16 @@ rse
 ```
 
 For a more detailed description of the `recount` package refer to its [vignette](http://bioconductor.org/packages/release/bioc/vignettes/recount/inst/doc/recount-quickstart.html) and [workflow](https://f1000research.com/articles/6-1558):
+Other Bioconductor packages that can be used to get data from gene expression experiments directly in R are [GEOquery]() and [ArrayExpress](). 
 
-So, we have 117 samples.
+So, we have `r ncol(rse)` samples.
 This is what the data looks like:
 
 ```{r}
 assay(rse)[1:10, 1:10]
 ```
 
+From the gene IDs, we note this is a GENCODE annotation, which will be usedful later on.
 Let's look at the metadata to check how we can split them between cases and controls:
 
 ```{r}
@@ -72,7 +74,11 @@ We will also make sure that they are encoded as factors and that the correct ref
 colData(rse)$disease_status <- sapply(colData(rse)$characteristics, "[", 1)
 colData(rse)$disease_status <- sub("disease status: ", "", colData(rse)$disease_status)
 colData(rse)$disease_status <- sub("systemic lupus erythematosus \\(SLE\\)", "SLE", colData(rse)$disease_status)
-colData(rse)$disease_status <- factor(colData(rse)$disease_status, levels=c("healthy", "SLE"))
+colData(rse)$disease_status <- factor(colData(rse)$disease_status, levels = c("healthy", "SLE"))
+# tissue
+colData(rse)$tissue <- sapply(colData(rse)$characteristics, "[", 2)
+colData(rse)$tissue <- sub("tissue: ", "", colData(rse)$tissue)
+colData(rse)$tissue <- factor(colData(rse)$tissue)
 # anti-ro
 colData(rse)$anti_ro <- sapply(colData(rse)$characteristics, "[", 3)
 colData(rse)$anti_ro <- sub("anti-ro: ", "", colData(rse)$anti_ro)
@@ -86,7 +92,7 @@ colData(rse)$ism <- factor(colData(rse)$ism)
 Let's check it's what we expect:
 
 ```{r}
-colData(rse)[c("disease_status", "anti_ro", "ism")]
+colData(rse)[c("disease_status", "tissue", "anti_ro", "ism")]
 ```
 
 OK, this looks more readable.
@@ -114,12 +120,13 @@ dds
 
 Note that we used an extremely simple model; in the real world you will probably need to account for co-variables, potential confounders and interactions between them.
 Please refer to the DESeq2 [vignette](http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) and this [workflow](https://www.bioconductor.org/help/workflows/rnaseqGene/) for more details on how to use DESeq2.
+[edgeR]() and [limma]() are goo dalternatives to DESEq2 for performing differential expression analyses.
 
 We can now look at the data in more detail.
 We use the variance stabilising transformation (VST) [Anders and Huber 2010]() for visualisation purposes:
 
 ```{r}
-vsd <- vst(dds, blind=FALSE)
+vsd <- vst(dds, blind = FALSE)
 ```
 
 First, let's look at distances between samples to see if we can recover a separation between SLE and healthy samples:
@@ -130,26 +137,26 @@ rownames(sampleDists) <- vsd$disease_status
 sampleDists[c(1, 18, 19, 36), c(1, 18, 19, 36)]
 ```
 
-We will use the `pheatmap` and `RColorBrewer` packages for drawing the heatmap:
+We will use the [pheatmap]() and [RColorBrewer]() packages for drawing the heatmap:
 
 ```{r}
 library(pheatmap)
 library(RColorBrewer)
 colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255)
-pheatmap(sampleDists, col=colors)
+pheatmap(sampleDists, col = colors)
 ```
 
 Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes:
 
 ```{r}
-plotPCA(vsd, intgroup="disease_status")
+plotPCA(vsd, intgroup = "disease_status")
 ```
 
 This looks better, we can see some separation of healthy and SLE samples along both PC1 and PC2, though some SLE samples appear very similar to the healthy ones.
 Next, we select genes that are differentially expressed below a 0.05 adjusted p-value threshold:
 
 ```{r}
-res <- results(dds, alpha=0.05)
+res <- results(dds, alpha = 0.05)
 res
 ```
 
@@ -162,26 +169,148 @@ summary(res)
 We can also visualise the log fold changes using an MA plot [Dudoit et al. 2002]():
 
 ```{r}
-plotMA(res, ylim=c(-5,5))
+plotMA(res, ylim = c(-5,5))
 ```
 
 For convenience, we will save our differentially expressed genes (DEGs) in another  object:
 
 ```{r}
-deg <- subset(res, padj < 0.05)
-deg
+degs <- subset(res, padj < 0.05)
+degs <- as.data.frame(degs)
+head(degs)
 ```
 
 ## Accessing GWAS data
 
-We have more than 3500 genes at this stage.
-One way to prioritise them could be to check which of these can be linked to SLE  
+We have more than 3500 genes of interest at this stage.
+Since we know that therapeutic targets with genetic evidence are more likely to progress through the drug discovery pipeline [Nelson et al., 2015](), one way to prioritise them could be to check which of these can be genetically linked to SLE.
+To get hold of relevant GWAS data, we will be using the [gwascat]() Bioconductor package, which provides an interface to the [GWAS catalog]()
+An alternative is to use the [GRASP]() database with the [grasp2db]() package.
 
+```{r}
+library(gwascat)
+# uncomment following line to download file and build the gwasloc object all in one step
+#snps <- makeCurrentGwascat()
+# uncomment following line to download file
+#download.file("http://www.ebi.ac.uk/gwas/api/search/downloads/alternative", destfile = "gwas_catalog_v1.0.1-associations_e90_r2017-12-04.tsv")
+snps <- read.delim("gwas_catalog_v1.0.1-associations_e90_r2017-12-04.tsv", check.names = FALSE, stringsAsFactors = FALSE)
+snps <- gwascat:::gwdf2GRanges(snps, extractDate = "2017-12-04")
+genome(snps) <- "GRCh38"
+snps
+```
 
+SNPs is a `gwasloc` object which is simply a wrapper around a `GRanges` object, the standard way to express genomic ranges in Bioconductor.
+We are interested in SNPs associated with SLE:
 
+```{r}
+snps <- subsetByTraits(snps, tr = "Systemic lupus erythematosus")
+snps
+```
 
+We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (note that p-values lower than 1e-25 are truncated):
 
+```{r}
+traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus")
+```
 
+## Annotation of coding and proximal SNPs to target genes 
+
+In order to annotate these variants, We need a a `TxDb` object, a reference of where transcripts are located on the genome.
+We can build this using the [GenomicFeatutres]() package and annotation from GENCODE (which is the gene annotation used in our RNA-seq experiment):
+
+```{r}
+library(GenomicFeatures)
+#download.file("ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gff3.gz", destfile = "gencode.v25.annotation.gff3.gz")
+txdb <- makeTxDbFromGFF("gencode.v25.annotation.gff3.gz")
+txdb
+```
+
+We will also need to convert the `gwasloc` object into a standard `GRanges` object:
+
+```{r}
+snps <- GRanges(snps)
+```
+
+Let's check if the `gwasloc` and `TxDb` object use the same notation for chromosomes:
+
+```{r}
+seqlevelsStyle(snps)
+seqlevels(snps)
+seqlevelsStyle(txdb)
+seqlevels(txdb)
+```
+
+OK, they do.
+Now we can annotate our SNPs to genes using the [VariantAnnotation]() package:
+
+```{r}
+library(VariantAnnotation)
+snps_anno <- locateVariants(snps, txdb, AllVariants())
+snps_anno <- unique(snps_anno)
+snps_anno
+```
+
+You can consult this [vignette]() and this [workflow]() for a more in-depth overview of the package.
+We can visualise where these SNPs are located with [ggplot2]():
+
+```{r}
+library(ggplot2)
+loc <- data.frame(table(snps_anno$LOCATION))
+ggplot(data = loc, aes(x = reorder(Var1, -Freq), y = Freq)) +
+  geom_bar(stat="identity") +
+  xlab("Location") +
+  ylab("Count")
+```
+
+As expected [Maurano et al. 2012](), The great majority of SNPs is located within introns and in intergenic regions.
+For the moment, we will focus on SNPs that are either coding or in promoter and UTR regions, as these can be assigned to target genes rather unambigously:
+
+```{r}
+snps_easy <- subset(snps_anno, LOCATION == "coding" | LOCATION == "promoter" | LOCATION == "threeUTR" | LOCATION == "fiveUTR")
+snps_easy <- as.data.frame(snps_easy)
+head(snps_easy)
+```
+
+Now we can check if any of the genes we found to be differentially expressed in SLE is also genetically associated with the disease:
+
+```{r}
+snps_easy_in_degs <- merge(degs, snps_easy, by.x = "row.names", by.y = "GENEID", all = FALSE)
+snps_easy_in_degs
+```
+
+We can map the GENCODE gene IDs to gene symbols using the annotation in the original `RangedSummarizedExperiment` object:
+
+```{r}
+rowData(rse)
+snps_easy_in_degs <- merge(rowData(rse), snps_easy_in_degs, by.x = "gene_id", by.y = "Row.names", all = FALSE)
+snps_easy_in_degs
+```
+
+So, we have `r nrow(snps_easy_in_degs)` genes showing differential expression in SLE that are also genetically associated with the disease.
+While this is an interesting result, these hits are likely to be already well-known as potential SLE targets given their genetic association.
+
+## Use of regulatory genomic data to map distal SNPs to target genes
+
+What about all the SNPs in introns and intergenic regions?
+Some of those might be regulatory SNPs affecting the expression level of their target gene through a distal enhancer.
+
+A well-established way to gain insights into target genes of regulatory SNPs is to use expression quantitative trait loci (eQTL) data, where correlations between genetic variants and expression of genes are computed across different tissues or cell types [REF]().
+However, in this workflow we will not be discussing this approach and will focus on utilising regulatory genomic data such as correlations and chromatin interactions between enhancers and promoters.
+
+# FANTOM5
+
+The FANTOM5 consortium [REF]() profiled gene expression across a large panel of tissues and cell types using cap analysis of gene expression (CAGE).
+This technology allows mapping of transcription start sites (TSSs) and enhancer RNAs (eRNAs) genome-wide.
+Correlations between these promoter and enhancer elements across a large panel of tissues and cell types can then be used to identify significant promoter - enhancer pairs, that we can use to map distal regulatory SNPs to target genes.
+
+We can have a look at the data in this way:
+
+```{r}
+# uncomment the following line to download the file
+#download.file("http://enhancer.binf.ku.dk/presets/enhancer_tss_associations.bed", destfile = "enhancer_tss_associations.bed")
+fantom <- read.delim("enhancer_tss_associations.bed", skip = 1)
+head(fantom)
+```
 
 
 
