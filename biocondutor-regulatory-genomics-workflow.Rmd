@@ -6,6 +6,10 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(results = "hide", message = FALSE, warning = FALSE, fig.width = 8, fig.height = 8)
+```
+
 # Introduction
 
 TODO: pharma challenge, better targets, genetics, post-GWAS challenge
@@ -14,9 +18,9 @@ TODO: pharma challenge, better targets, genetics, post-GWAS challenge
 
 ## Overview
 
-In this workflow we will explore how regulatory (aka functional) genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
+In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
 
-We will start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information. 
+We will start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
 ## Install and load packages
 
@@ -25,7 +29,7 @@ The code below will install all required packages and dependencies from Biocondu
 ```{r}
 source("https://bioconductor.org/biocLite.R")
 # uncomment following line to install packages
-#biocLite(c("DESeq2", "GenomicFeatures", "ggplot2", "gwascat", recount", "pheatmap", "RcolorBrewer", "VariantAnnotation"))
+#biocLite(c("DESeq2", "GenomicFeatures", "GenomicRanges", "ggplot2", "gwascat", recount", "pheatmap", "RcolorBrewer", "rtracklayer", "R.utils", "splitstackshape", VariantAnnotation"))
 ```
 
 ## Gene expression data and differential gene expression analysis
@@ -120,7 +124,7 @@ dds
 
 Note that we used an extremely simple model; in the real world you will probably need to account for co-variables, potential confounders and interactions between them.
 Please refer to the DESeq2 [vignette](http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) and this [workflow](https://www.bioconductor.org/help/workflows/rnaseqGene/) for more details on how to use DESeq2.
-[edgeR]() and [limma]() are goo dalternatives to DESEq2 for performing differential expression analyses.
+[edgeR]() and [limma]() are good alternatives to DESEq2 for performing differential expression analyses.
 
 We can now look at the data in more detail.
 We use the variance stabilising transformation (VST) [Anders and Huber 2010]() for visualisation purposes:
@@ -172,12 +176,20 @@ We can also visualise the log fold changes using an MA plot [Dudoit et al. 2002]
 plotMA(res, ylim = c(-5,5))
 ```
 
-For convenience, we will save our differentially expressed genes (DEGs) in another  object:
+For convenience, we will save our differentially expressed genes (DEGs) in another object:
 
 ```{r}
 degs <- subset(res, padj < 0.05)
 degs <- as.data.frame(degs)
 head(degs)
+```
+
+We also map the GENCODE gene IDs to gene symbols using the annotation in the original `RangedSummarizedExperiment` object, which is going to be convenient later on:
+
+```{r}
+rowData(rse)
+degs <- merge(rowData(rse), degs, by.x = "gene_id", by.y = "row.names", all = FALSE)
+degs
 ```
 
 ## Accessing GWAS data
@@ -209,7 +221,7 @@ snps
 
 We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (note that p-values lower than 1e-25 are truncated):
 
-```{r}
+```{r, fig.height = 8, fig.width = 12}
 traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus")
 ```
 
@@ -222,6 +234,7 @@ We can build this using the [GenomicFeatutres]() package and annotation from GEN
 library(GenomicFeatures)
 #download.file("ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gff3.gz", destfile = "gencode.v25.annotation.gff3.gz")
 txdb <- makeTxDbFromGFF("gencode.v25.annotation.gff3.gz")
+txdb <- keepStandardChromosomes(txdb)
 txdb
 ```
 
@@ -229,6 +242,7 @@ We will also need to convert the `gwasloc` object into a standard `GRanges` obje
 
 ```{r}
 snps <- GRanges(snps)
+names(snps) <- snps$SNPS
 ```
 
 Let's check if the `gwasloc` and `TxDb` object use the same notation for chromosomes:
@@ -241,7 +255,8 @@ seqlevels(txdb)
 ```
 
 OK, they do.
-Now we can annotate our SNPs to genes using the [VariantAnnotation]() package:
+Now we can annotate our SNPs to genes using the [VariantAnnotation]() package.
+Note that we also want to keep some of the metadata from the GWAS catalog.
 
 ```{r}
 library(VariantAnnotation)
@@ -257,9 +272,7 @@ We can visualise where these SNPs are located with [ggplot2]():
 library(ggplot2)
 loc <- data.frame(table(snps_anno$LOCATION))
 ggplot(data = loc, aes(x = reorder(Var1, -Freq), y = Freq)) +
-  geom_bar(stat="identity") +
-  xlab("Location") +
-  ylab("Count")
+  geom_bar(stat="identity")
 ```
 
 As expected [Maurano et al. 2012](), The great majority of SNPs is located within introns and in intergenic regions.
@@ -278,18 +291,10 @@ snps_easy_in_degs <- merge(degs, snps_easy, by.x = "row.names", by.y = "GENEID",
 snps_easy_in_degs
 ```
 
-We can map the GENCODE gene IDs to gene symbols using the annotation in the original `RangedSummarizedExperiment` object:
-
-```{r}
-rowData(rse)
-snps_easy_in_degs <- merge(rowData(rse), snps_easy_in_degs, by.x = "gene_id", by.y = "Row.names", all = FALSE)
-snps_easy_in_degs
-```
-
-So, we have `r nrow(snps_easy_in_degs)` genes showing differential expression in SLE that are also genetically associated with the disease.
+So, we have `r length(snps_easy_in_degs$gene_id)` genes showing differential expression in SLE that are also genetically associated with the disease.
 While this is an interesting result, these hits are likely to be already well-known as potential SLE targets given their genetic association.
 
-## Use of regulatory genomic data to map distal SNPs to target genes
+## Use of regulatory genomic data to map intronic and intergenic SNPs to target genes
 
 What about all the SNPs in introns and intergenic regions?
 Some of those might be regulatory SNPs affecting the expression level of their target gene through a distal enhancer.
@@ -297,20 +302,165 @@ Some of those might be regulatory SNPs affecting the expression level of their t
 A well-established way to gain insights into target genes of regulatory SNPs is to use expression quantitative trait loci (eQTL) data, where correlations between genetic variants and expression of genes are computed across different tissues or cell types [REF]().
 However, in this workflow we will not be discussing this approach and will focus on utilising regulatory genomic data such as correlations and chromatin interactions between enhancers and promoters.
 
-# FANTOM5
+First, let's create a dataset of candidate regulatory SNPs that are either intronic or intergenic and remove the annotation obtained with `VariantAnnotation`:
+
+```{r}
+snps_hard <- subset(snps_anno, LOCATION == "intron" | LOCATION == "intergenic", select = "LOCATION")
+snps_hard
+```
+
+# FANTOM5 data
 
 The FANTOM5 consortium [REF]() profiled gene expression across a large panel of tissues and cell types using cap analysis of gene expression (CAGE).
 This technology allows mapping of transcription start sites (TSSs) and enhancer RNAs (eRNAs) genome-wide.
 Correlations between these promoter and enhancer elements across a large panel of tissues and cell types can then be used to identify significant promoter - enhancer pairs, that we can use to map distal regulatory SNPs to target genes.
 
-We can have a look at the data in this way:
+We can have a look at the enhancer - promoter correlation data in this way:
 
 ```{r}
 # uncomment the following line to download the file
 #download.file("http://enhancer.binf.ku.dk/presets/enhancer_tss_associations.bed", destfile = "enhancer_tss_associations.bed")
-fantom <- read.delim("enhancer_tss_associations.bed", skip = 1)
+fantom <- read.delim("enhancer_tss_associations.bed", skip = 1, stringsAsFactors = FALSE)
 head(fantom)
 ```
+
+Everything we need is in the fourth column, `name`: genomic location of the enhancer, gene identifiers, correlation and significance.
+We will use the splitstackshape package [REF]() to parse it:
+
+```{r}
+library(splitstackshape)
+fantom <- as.data.frame(cSplit(fantom, splitCols = "name", sep = ";", direction = "wide"))
+head(fantom)
+```
+
+Now we need to parse the `name_1` column which contains the genomic location of the enhancers:
+
+```{r}
+locs <- strsplit(as.character(fantom$name_1), "[:-]")
+fantom$chr <- sapply(locs, "[", 1)
+fantom$start <- as.numeric(sapply(locs, "[", 2))
+fantom$end <- as.numeric(sapply(locs, "[", 3))
+fantom$symbol <- fantom$name_3
+fantom$corr <- sub("R:", "", fantom$name_4)
+fantom$fdr <- sub("FDR:", "", fantom$name_5)
+head(fantom)
+```
+
+We can select only those enhancer - promoter pairs with a decent level of correlation and significance and tidy the data at the same time:
+
+```{r}
+fantom <- unique(subset(fantom, subset = corr >= 0.25 & fdr < 1e-5, select = c("chr", "start", "end", "symbol")))
+head(fantom)
+```
+
+Now we would like to check whether any of our candidate regulatory SNPs are falling in any of these enhancers.
+To do this, we have to convert the `data.frame` into a `GRanges` object:
+
+```{r}
+fantom <- makeGRangesFromDataFrame(fantom, keep.extra.columns = TRUE)
+fantom
+```
+
+From the publication [REF]() we know these are mapped to genome reference GRCh37, so we will uplift them to GRCh38 using rtracklayer [REF]() and a mapping ("chain") file.
+The R.utils package is required to extract the gzipped file: 
+
+```{r}
+library(rtracklayer)
+library(R.utils)
+# uncomment the following line to download file
+#download.file("http://hgdownload.cse.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz", destfile = "hg19ToHg38.over.chain.gz")
+# uncomment the following line to extract gzipped file
+#gunzip("hg19ToHg38.over.chain.gz")
+ch <- import.chain("hg19ToHg38.over.chain")
+fantom <- unlist(liftOver(fantom, ch))
+fantom
+```
+
+We will use the GenomicRanges package [REF]() to compute the overlap between SNPs and enhancers:
+
+```{r}
+library(GenomicRanges)
+hits <- findOverlaps(snps_hard, fantom)
+snps_hard_in_fantom = snps_hard[queryHits(hits)]
+fantom_with_snps_hard = fantom[subjectHits(hits)]
+mcols(snps_hard_in_fantom) <- cbind(mcols(snps_hard_in_fantom), mcols(fantom_with_snps_hard))
+snps_hard_in_fantom <- as.data.frame(snps_hard_in_fantom)
+snps_hard_in_fantom
+```
+
+We note that some of the SNPs are assigned to more than one gene.
+This is because enhancers are promiscuous and can regulate multiple genes.
+
+We can now check if any of these genes is differentially expressed in our RNA-seq data:
+
+```{r}
+snps_hard_in_fantom_in_degs <- merge(snps_hard_in_fantom, degs, by = "symbol", all = FALSE)
+snps_hard_in_fantom_in_degs
+```
+
+We have identified `r length(snps_hard_in_fantom_in_degs$gene_id)` genes whose putative enhancers contain SLE GWAS SNPs.
+Note that these were not previously identified as candidate genes of interest:
+
+```{r}
+intersect(snps_easy_in_degs$symbol, snps_hard_in_fantom_in_degs$symbol)
+```
+
+# Promoter Capture Hi-C data
+
+More recently, chromatin interaction data was generated across 17 human primary blood cell types [REF]().
+More than 30,000 promoter baits were used to capture promoter-interacting regions genome-wide.
+These regions were then mapped to enhancer based on the Ensembl Regulatory Build [REF]() and can be accessed in the supplementary data of the paper:
+
+```{r}
+# uncomment the following line to download file
+#download.file("http://www.cell.com/cms/attachment/2086554122/2074217047/mmc4.zip", destfile = "mmc4.zip")
+# uncomment the following lines to extract zipped files
+#unzip("mmc4.zip")
+#unzip("DATA_S1.zip")
+pchic <- read.delim("ActivePromoterEnhancerLinks.tsv", stringsAsFactors = FALSE)
+head(pchic)
+```
+
+In this case, we will have to map the promoter baits to genes first.
+We can do this by converting the baits to a `GRanges` object and then using the `TxDb` object we previously built to extract positions of transcription start sites (TSSs):
+
+```{r}
+baits <- GRanges(seqnames = pchic$baitChr, ranges = IRanges(start = pchic$baitSt, end = pchic$baitEnd))
+tsss <- promoters(txdb, upstream = 0, downstream = 1, columns = "gene_id")
+hits <- nearest(baits, tsss)
+baits$gene_id <- unlist(tsss[hits]$gene_id)
+baits
+```
+
+Now we can create a `GRanges` object of the enhancers in the promoter capture Hi-C data with the bait annotation attached:
+
+```{r}
+pchic <- GRanges(seqnames = pchic$oeChr, ranges = IRanges(start = pchic$oeSt, end = pchic$oeEnd), gene_id = baits$gene_id)
+pchic <- unique(pchic)
+pchic
+```
+
+Next, we basically repeat the steps we have taken when working with the FANTOM5 data to find SLE GWAS SNPs overalapping with these enhancers:
+
+```{r}
+hits <- findOverlaps(snps_hard, pchic)
+snps_hard_in_pchic = snps_hard[queryHits(hits)]
+pchic_with_snps_hard = pchic[subjectHits(hits)]
+mcols(snps_hard_in_pchic) <- cbind(mcols(snps_hard_in_pchic), mcols(pchic_with_snps_hard))
+snps_hard_in_pchic <- as.data.frame(snps_hard_in_pchic)
+snps_hard_in_pchic
+```
+
+Finally, we check if any of these enhancer containing SLE variants are known to putatively regulate genes differentially expressed in SLE:
+
+```{r}
+snps_hard_in_pchic_in_degs <- merge(snps_hard_in_pchic, degs, by = "gene_id", all = FALSE)
+snps_hard_in_pchic_in_degs
+```
+
+## Conclusions
+
+
 
 
 
