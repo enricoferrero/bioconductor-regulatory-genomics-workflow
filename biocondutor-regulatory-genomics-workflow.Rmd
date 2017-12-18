@@ -1,26 +1,62 @@
 ---
 title: "Bioconductor Regulatory Genomics Workflow"
 author: "Enrico Ferrero"
-output: html_document
+output:
+  html_document:
+    theme: flatly
+    highlight: tango
+bibliography: references.bib
 editor_options: 
   chunk_output_type: console
 ---
 
-```{r global_options, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(results = "hide", message = FALSE, warning = FALSE, fig.width = 8, fig.height = 8)
 ```
 
 # Introduction
 
-TODO: pharma challenge, better targets, genetics, post-GWAS challenge
+Discovering and bringing new drugs to the market is a long, expensive and inefficient process [@Waring2015; @DiMasi2016].
+Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patients’ access to medicines.
+Of note, the majority of drug discovery programmes fail for efficacy reasons [@Harrison2016], with up to 40% of these failures due to lack of a clear link between the target and the disease under investigation [@Cook2014].
+
+Target selection, the first step in drug discovery programmes, is a critical decision point.
+It has previously been shown that therapeutic targets with a genetic link to the disease under investigation are more likely to progress through the drug discovery pipeline, suggesting that genetics can be used as a tool to prioritise and validate drug targets in early discovery [@Plenge2013; @Nelson2015].
+
+Over the last decade, genome-wide association studies (GWASs) have revolutionised the field of human genetics allowing to survey DNA mutations associated with disease and other complex traits on an unprecedented scale [@Visscher2017].
+Similarly, phenome-wide association studies (PheWAS) are emerging as a complementary methodology to decipher the genetic bases of the human phenome [@Bush2016].
+While many of these associations might not actually be relevant for the disease etiology [@Boyle2017], these methods hold much promise to guide towards the next generation of drug targets [@Finan2017]. 
+
+Arguably, the biggest challenge in translating findings from GWASs to therapies is that the great majority of single nucleotide polymorphisms (SNPs) associated with disease are found in non-coding regions of the genome and therefore cannot be easily linked to a target gene [@Maurano2012].
+Many of these SNPs could be regulatory variants, affecting the expression of nearby or distal genes by interfering with the process of transcription (e.g.: binding of transcription factors at promoters or enhancers) [@Ward2012].
+
+The most established way to map disease-associated regulatory variants to target genes is probably to use expression quantitative trait loci (eQTLs) [@Albert2015], variants that affect the expression of specific genes.
+Over the last few years, the GTEx consortium assembled a valuable resource by performing large-scale mapping of genome-wide correlations between genetic variants and gene expression across 44 human tissues [@Gtex2017].
+
+However, depending on the power of the study, it might not be possible to detect all existing regulatory variants as eQTLs.
+An alternative is to use information on the location of promoters and distal enhancers across the genome and link these regulatory elements to their target genes.
+Large, multi-centre Initiatives such as ENCODE [@Encode2012], Roadmap Epigenomics [@Roadmap2015] and BLUEPRINT [@Adams2012; @Stunnenberg2016] mapped regulatory elements in the genome by profiling a number of chromatin features including DNase hypersensitive sites (DHSs), several types of histone marks and binding of chromatin-associated proteins in a large number of cell lines, primary cell types and tissues.
+Similarly, the FANTOM5 consortium used cap analysis of gene expression (CAGE) to identify promoters and enhancers across hundreds of cells and tissues [@Fantom2014].
+
+Knowing that a certain stretch of DNA is an enhancer is however not informative of the target gene(s).
+One way to infer links between enhancers and promoters *in silico* is to identify significant correlations across a large panel of cell types, an approach that was used for distal and promoter DHSs [@Thurman2012] as well as for CAGE-defined promoters and enhancers [@Andersson2014].
+Experimental methods to assay interactions between regulatory elements also exist.
+Chromatin interaction analysis by paired-end tag sequencing (ChIA-PET) [@Fullwood2009; @Zhang2013] couples chromatin immunoprecipitation with DNA ligation and sequencing to identify regions of DNA that are interacting thanks to the binding of a specific protein.
+Promoter capture Hi-C [@Mifsud2015; @Javierre2016] extends chromatin conformation capture by using "baits" to enrich for promoter interactions and increase resolution.
+
+Overall, linking genetic variants to their candidate target genes is not straightforward, not only because of the complexity of the human genome and transcriptional regulation, but also because of the variety of data types and approaches that can be used.
+To address this, we developed STOPGAP (systematic target opportunity assessement by genetic association predictions), a database of disease variants mapped to their most likely target gene(s) using different types of regulatory genomic data [@Shen2017].
+The database is currently undergoing a major overhaul and will eventually be superseeded by POSTGAP [@Ensembl2017].
+A similar resource and valid alternative is INFERNO (inferring the molecular mechanisms of noncoding variants) [@Amlie-Wolf2017].
 
 # Workflow
 
 ## Overview
 
 In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
+We will use eQTL data from GTEx [@Gtex2017], FANTOM5 correlations between promoters and enhancers [@Andersson2014] and promoter capture Hi-C data [Javierre2016].
 
-We will start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
+We start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
 ## Install and load packages
 
@@ -29,14 +65,14 @@ The code below will install all required packages and dependencies from Biocondu
 ```{r}
 source("https://bioconductor.org/biocLite.R")
 # uncomment following line to install packages
-#biocLite(c("DESeq2", "GenomicFeatures", "GenomicRanges", "ggplot2", "gwascat", recount", "pheatmap", "RcolorBrewer", "rtracklayer", "R.utils", "splitstackshape", VariantAnnotation"))
+#biocLite(c("DESeq2", "GenomicFeatures", "GenomicRanges", "ggplot2", "gwascat", "ldblock", recount", "pheatmap", "RcolorBrewer", "rtracklayer", "R.utils", "splitstackshape", VariantAnnotation"))
 ```
 
 ## Gene expression data and differential gene expression analysis
 
-The RNA-seq data we will be using comes from blood of patients with systemic lupus erythematosus (SLE) and healthy controls, and was published in [Hung et al. 2015](https://www.ncbi.nlm.nih.gov/pubmed/26382853).
+The RNA-seq data we will be using comes from blood of patients with systemic lupus erythematosus (SLE) and healthy controls [@Hung2015].
 
-We are going to use `recount` to obtain gene-level counts:
+We are going to use `recount` [@Collado-Torres2017] to obtain gene-level counts:
 
 ```{r}
 library(recount)
@@ -47,8 +83,7 @@ rse <- scale_counts(rse_gene)
 rse
 ```
 
-For a more detailed description of the `recount` package refer to its [vignette](http://bioconductor.org/packages/release/bioc/vignettes/recount/inst/doc/recount-quickstart.html) and [workflow](https://f1000research.com/articles/6-1558):
-Other Bioconductor packages that can be used to get data from gene expression experiments directly in R are [GEOquery]() and [ArrayExpress](). 
+Other Bioconductor packages that can be used to get data from gene expression experiments directly in R are `GEOquery` [@Davis2007] and `ArrayExpress` [@Kauffmann2009]. 
 
 So, we have `r ncol(rse)` samples.
 This is what the data looks like:
@@ -113,7 +148,7 @@ For simplicity, we select the first 18 (healthy) and the last 18 (SLE) samples f
 rse <- rse[, c(1:18, 82:99)]
 ```
 
-Now we are ready to perform a simple differential gene expression analysis with DESeq2:
+Now we are ready to perform a simple differential gene expression analysis with `DESeq2` [@Love2014]:
 
 ```{r}
 library(DESeq2)
@@ -123,11 +158,10 @@ dds
 ```
 
 Note that we used an extremely simple model; in the real world you will probably need to account for co-variables, potential confounders and interactions between them.
-Please refer to the DESeq2 [vignette](http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html) and this [workflow](https://www.bioconductor.org/help/workflows/rnaseqGene/) for more details on how to use DESeq2.
-[edgeR]() and [limma]() are good alternatives to DESEq2 for performing differential expression analyses.
+`edgeR` [@Robinson2010] and `limma` [@Ritchie2015] are good alternatives to `DESEq2` for performing differential expression analyses.
 
 We can now look at the data in more detail.
-We use the variance stabilising transformation (VST) [Anders and Huber 2010]() for visualisation purposes:
+We use the variance stabilising transformation (VST) [@Anders2010] for visualisation purposes:
 
 ```{r}
 vsd <- vst(dds, blind = FALSE)
@@ -141,7 +175,7 @@ rownames(sampleDists) <- vsd$disease_status
 sampleDists[c(1, 18, 19, 36), c(1, 18, 19, 36)]
 ```
 
-We will use the [pheatmap]() and [RColorBrewer]() packages for drawing the heatmap:
+We will use the `pheatmap` [@Kolde2015] and `RColorBrewer` [Neuwirth2014] packages for drawing the heatmap:
 
 ```{r}
 library(pheatmap)
@@ -170,7 +204,7 @@ We can look at a summary of the results:
 summary(res)
 ```
 
-We can also visualise the log fold changes using an MA plot [Dudoit et al. 2002]():
+We can also visualise the log fold changes using an MA plot:
 
 ```{r}
 plotMA(res, ylim = c(-5,5))
@@ -195,9 +229,9 @@ degs
 ## Accessing GWAS data
 
 We have more than 3500 genes of interest at this stage.
-Since we know that therapeutic targets with genetic evidence are more likely to progress through the drug discovery pipeline [Nelson et al., 2015](), one way to prioritise them could be to check which of these can be genetically linked to SLE.
-To get hold of relevant GWAS data, we will be using the [gwascat]() Bioconductor package, which provides an interface to the [GWAS catalog]()
-An alternative is to use the [GRASP]() database with the [grasp2db]() package.
+Since we know that therapeutic targets with genetic evidence are more likely to progress through the drug discovery pipeline [@Nelson2015], one way to prioritise them could be to check which of these can be genetically linked to SLE.
+To get hold of relevant GWAS data, we will be using the `gwascat` Bioconductor package [@Carey2017a], which provides an interface to the GWAS catalog [@MacArthur2017].
+An alternative is to use the GRASP [@Eicher2017] database with the `grasp2db` [@Carey2017b] package.
 
 ```{r}
 library(gwascat)
@@ -225,10 +259,22 @@ We can visualise these as a Manhattan plot to look at the distribution of GWAS p
 traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus")
 ```
 
+## Linkage disequilibrium expansion
+
+Genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the SNPs on the array are the true casual SNPs [@Bush2012].
+The alleles of other SNPs can be imputed thanks to the structure of linkage disequilibrium (LD) blocks present in chromosomes. 
+When linking variants to target genes, it is therefore important to perform LD expansion and take into consideration neighbouring SNPs that are inherited with the tag SNPs.
+We can use the `ldblock` Bioconductor package [@Carey2017c] for this task:
+
+```{r}
+library(ldblock)
+TODO
+```
+
 ## Annotation of coding and proximal SNPs to target genes 
 
 In order to annotate these variants, We need a a `TxDb` object, a reference of where transcripts are located on the genome.
-We can build this using the [GenomicFeatutres]() package and annotation from GENCODE (which is the gene annotation used in our RNA-seq experiment):
+We can build this using the `GenomicFeatutres` [@Lawrence2013] package and annotation from GENCODE (which is the gene annotation used in our RNA-seq experiment):
 
 ```{r}
 library(GenomicFeatures)
@@ -242,7 +288,6 @@ We will also need to convert the `gwasloc` object into a standard `GRanges` obje
 
 ```{r}
 snps <- GRanges(snps)
-names(snps) <- snps$SNPS
 ```
 
 Let's check if the `gwasloc` and `TxDb` object use the same notation for chromosomes:
@@ -255,8 +300,7 @@ seqlevels(txdb)
 ```
 
 OK, they do.
-Now we can annotate our SNPs to genes using the [VariantAnnotation]() package.
-Note that we also want to keep some of the metadata from the GWAS catalog.
+Now we can annotate our SNPs to genes using the `VariantAnnotation` [@Obenchain2014] package:
 
 ```{r}
 library(VariantAnnotation)
@@ -265,8 +309,15 @@ snps_anno <- unique(snps_anno)
 snps_anno
 ```
 
-You can consult this [vignette]() and this [workflow]() for a more in-depth overview of the package.
-We can visualise where these SNPs are located with [ggplot2]():
+We lost all the metadata from the original `snps` object, but we can recover it using the `QUERYID` column in `snps_anno`.
+We will only keep the SNP IDs and GWAS p-values:
+
+```{r}
+snps_metadata <- snps[snps_anno$QUERYID]
+mcols(snps_anno) <- cbind(mcols(snps_metadata)[c("SNPS", "P-VALUE")], mcols(snps_anno))
+```
+
+We can visualise where these SNPs are located with `ggplot2` [@Wickham2009]:
 
 ```{r}
 library(ggplot2)
@@ -275,7 +326,7 @@ ggplot(data = loc, aes(x = reorder(Var1, -Freq), y = Freq)) +
   geom_bar(stat="identity")
 ```
 
-As expected [Maurano et al. 2012](), The great majority of SNPs is located within introns and in intergenic regions.
+As expected, the great majority of SNPs is located within introns and in intergenic regions [@Maurano2012].
 For the moment, we will focus on SNPs that are either coding or in promoter and UTR regions, as these can be assigned to target genes rather unambigously:
 
 ```{r}
@@ -298,20 +349,20 @@ While this is an interesting result, these hits are likely to be already well-kn
 
 What about all the SNPs in introns and intergenic regions?
 Some of those might be regulatory SNPs affecting the expression level of their target gene through a distal enhancer.
-
-A well-established way to gain insights into target genes of regulatory SNPs is to use expression quantitative trait loci (eQTL) data, where correlations between genetic variants and expression of genes are computed across different tissues or cell types [REF]().
-However, in this workflow we will not be discussing this approach and will focus on utilising regulatory genomic data such as correlations and chromatin interactions between enhancers and promoters.
-
-First, let's create a dataset of candidate regulatory SNPs that are either intronic or intergenic and remove the annotation obtained with `VariantAnnotation`:
+Let's create a dataset of candidate regulatory SNPs that are either intronic or intergenic and remove the annotation obtained with `VariantAnnotation`:
 
 ```{r}
 snps_hard <- subset(snps_anno, LOCATION == "intron" | LOCATION == "intergenic", select = "LOCATION")
 snps_hard
 ```
 
-# FANTOM5 data
+### TODO: eQTL data
 
-The FANTOM5 consortium [REF]() profiled gene expression across a large panel of tissues and cell types using cap analysis of gene expression (CAGE).
+A well-established way to gain insights into target genes of regulatory SNPs is to use eQTL data, where correlations between genetic variants and expression of genes are computed across different tissues or cell types [@Albert2015].
+
+### FANTOM5 data
+
+The FANTOM5 consortium profiled gene expression across a large panel of tissues and cell types using CAGE [@Fantom2014; Andersson2014].
 This technology allows mapping of transcription start sites (TSSs) and enhancer RNAs (eRNAs) genome-wide.
 Correlations between these promoter and enhancer elements across a large panel of tissues and cell types can then be used to identify significant promoter - enhancer pairs, that we can use to map distal regulatory SNPs to target genes.
 
@@ -361,8 +412,8 @@ fantom <- makeGRangesFromDataFrame(fantom, keep.extra.columns = TRUE)
 fantom
 ```
 
-From the publication [REF]() we know these are mapped to genome reference GRCh37, so we will uplift them to GRCh38 using rtracklayer [REF]() and a mapping ("chain") file.
-The R.utils package is required to extract the gzipped file: 
+From the publication [@Andersson2014] we know these are mapped to genome reference GRCh37, so we will uplift them to GRCh38 using `rtracklayer` [@Lawrence2009] and a mapping ("chain") file.
+The `R.utils` package [@Bengtsson2014] is required to extract the gzipped file: 
 
 ```{r}
 library(rtracklayer)
@@ -376,7 +427,7 @@ fantom <- unlist(liftOver(fantom, ch))
 fantom
 ```
 
-We will use the GenomicRanges package [REF]() to compute the overlap between SNPs and enhancers:
+We will use the `GenomicRanges` package [@Larence2013] to compute the overlap between SNPs and enhancers:
 
 ```{r}
 library(GenomicRanges)
@@ -405,11 +456,11 @@ Note that these were not previously identified as candidate genes of interest:
 intersect(snps_easy_in_degs$symbol, snps_hard_in_fantom_in_degs$symbol)
 ```
 
-# Promoter Capture Hi-C data
+### Promoter Capture Hi-C data
 
-More recently, chromatin interaction data was generated across 17 human primary blood cell types [REF]().
+More recently, chromatin interaction data was generated across 17 human primary blood cell types [@Javierre2016].
 More than 30,000 promoter baits were used to capture promoter-interacting regions genome-wide.
-These regions were then mapped to enhancer based on the Ensembl Regulatory Build [REF]() and can be accessed in the supplementary data of the paper:
+These regions were then mapped to enhancer based on the Ensembl Regulatory Build [@Zerbuno2015] and can be accessed in the supplementary data of the paper:
 
 ```{r}
 # uncomment the following line to download file
@@ -458,7 +509,21 @@ snps_hard_in_pchic_in_degs <- merge(snps_hard_in_pchic, degs, by = "gene_id", al
 snps_hard_in_pchic_in_degs
 ```
 
-## Conclusions
+# Conclusions
+
+# Abbreviations
+
+CAGE: cap analysis of gene expression
+
+eQTL: expression quantitative trait locus
+
+GWAS: genome-wide association study
+
+PheWAS: phenome-wide association study
+
+SNP: single nucleotide polymorphism
+
+# References
 
 
 
