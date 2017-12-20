@@ -5,21 +5,21 @@ true
 Introduction
 ============
 
-Discovering and bringing new drugs to the market is a long, expensive and inefficient process (Waring et al. 2015; DiMasi, Grabowski, and Hansen 2016). Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patientsâ€™ access to medicines. Of note, the majority of drug discovery programmes fail for efficacy reasons (Harrison 2016), with up to 40% of these failures due to lack of a clear link between the target and the disease under investigation (Cook et al. 2014).
+Discovering and bringing new drugs to the market is a long, expensive and inefficient process \[1, 2\]. Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patientsâ€™ access to medicines. Of note, the majority of drug discovery programmes fail for efficacy reasons \[3\], with up to 40% of these failures due to lack of a clear link between the target and the disease under investigation \[4\].
 
-Target selection, the first step in drug discovery programmes, is a critical decision point. It has previously been shown that therapeutic targets with a genetic link to the disease under investigation are more likely to progress through the drug discovery pipeline, suggesting that genetics can be used as a tool to prioritise and validate drug targets in early discovery (Plenge, Scolnick, and Altshuler 2013; Nelson et al. 2015).
+Target selection, the first step in drug discovery programmes, is a critical decision point. It has previously been shown that therapeutic targets with a genetic link to the disease under investigation are more likely to progress through the drug discovery pipeline, suggesting that genetics can be used as a tool to prioritise and validate drug targets in early discovery \[5, 6\].
 
-Over the last decade, genome-wide association studies (GWASs) have revolutionised the field of human genetics allowing to survey DNA mutations associated with disease and other complex traits on an unprecedented scale (Visscher et al. 2017). Similarly, phenome-wide association studies (PheWAS) are emerging as a complementary methodology to decipher the genetic bases of the human phenome (Bush, Oetjens, and Crawford 2016). While many of these associations might not actually be relevant for the disease aetiology (Boyle, Li, and Pritchard 2017), these methods hold much promise to guide towards the next generation of drug targets (Finan et al. 2017).
+Over the last decade, genome-wide association studies (GWASs) have revolutionised the field of human genetics allowing to survey DNA mutations associated with disease and other complex traits on an unprecedented scale \[7\]. Similarly, phenome-wide association studies (PheWAS) are emerging as a complementary methodology to decipher the genetic bases of the human phenome \[8\]. While many of these associations might not actually be relevant for the disease aetiology \[9\], these methods hold much promise to guide towards the next generation of drug targets \[10\].
 
-Arguably, the biggest challenge in translating findings from GWASs to therapies is that the great majority of single nucleotide polymorphisms (SNPs) associated with disease are found in non-coding regions of the genome and therefore cannot be easily linked to a target gene (Maurano et al. 2012). Many of these SNPs could be regulatory variants, affecting the expression of nearby or distal genes by interfering with the process of transcription (e.g.: binding of transcription factors at promoters or enhancers) (Ward and Kellis 2012).
+Arguably, the biggest challenge in translating findings from GWASs to therapies is that the great majority of single nucleotide polymorphisms (SNPs) associated with disease are found in non-coding regions of the genome and therefore cannot be easily linked to a target gene \[11\]. Many of these SNPs could be regulatory variants, affecting the expression of nearby or distal genes by interfering with the process of transcription (e.g.: binding of transcription factors at promoters or enhancers) \[12\].
 
-The most established way to map disease-associated regulatory variants to target genes is probably to use expression quantitative trait loci (eQTLs) (Albert and Kruglyak 2015), variants that affect the expression of specific genes. Over the last few years, the GTEx consortium assembled a valuable resource by performing large-scale mapping of genome-wide correlations between genetic variants and gene expression across 44 human tissues (GTEx Consortium et al. 2017).
+The most established way to map disease-associated regulatory variants to target genes is probably to use expression quantitative trait loci (eQTLs) \[13\], variants that affect the expression of specific genes. Over the last few years, the GTEx consortium assembled a valuable resource by performing large-scale mapping of genome-wide correlations between genetic variants and gene expression across 44 human tissues \[14\].
 
-However, depending on the power of the study, it might not be possible to detect all existing regulatory variants as eQTLs. An alternative is to use information on the location of promoters and distal enhancers across the genome and link these regulatory elements to their target genes. Large, multi-centre Initiatives such as ENCODE (ENCODE Project Consortium 2012), Roadmap Epigenomics (Roadmap Epigenomics Consortium et al. 2015) and BLUEPRINT (Adams et al. 2012; Stunnenberg, International Human Epigenome Consortium, and Hirst 2016) mapped regulatory elements in the genome by profiling a number of chromatin features including DNase hypersensitive sites (DHSs), several types of histone marks and binding of chromatin-associated proteins in a large number of cell lines, primary cell types and tissues. Similarly, the FANTOM consortium used cap analysis of gene expression (CAGE) to identify promoters and enhancers across hundreds of cells and tissues (FANTOM Consortium and the RIKEN PMI and CLST (DGT) et al. 2014).
+However, depending on the power of the study, it might not be possible to detect all existing regulatory variants as eQTLs. An alternative is to use information on the location of promoters and distal enhancers across the genome and link these regulatory elements to their target genes. Large, multi-centre Initiatives such as ENCODE \[15\], Roadmap Epigenomics \[16\] and BLUEPRINT \[17, 18\] mapped regulatory elements in the genome by profiling a number of chromatin features including DNase hypersensitive sites (DHSs), several types of histone marks and binding of chromatin-associated proteins in a large number of cell lines, primary cell types and tissues. Similarly, the FANTOM consortium used cap analysis of gene expression (CAGE) to identify promoters and enhancers across hundreds of cells and tissues \[19\].
 
-Knowing that a certain stretch of DNA is an enhancer is however not informative of the target gene(s). One way to infer links between enhancers and promoters *in silico* is to identify significant correlations across a large panel of cell types, an approach that was used for distal and promoter DHSs (Thurman et al. 2012) as well as for CAGE-defined promoters and enhancers (Andersson et al. 2014). Experimental methods to assay interactions between regulatory elements also exist. Chromatin interaction analysis by paired-end tag sequencing (ChIA-PET) (Fullwood et al. 2009; Zhang et al. 2013) couples chromatin immunoprecipitation with DNA ligation and sequencing to identify regions of DNA that are interacting thanks to the binding of a specific protein. Promoter capture Hi-C (Mifsud et al. 2015; Javierre et al. 2016) extends chromatin conformation capture by using "baits" to enrich for promoter interactions and increase resolution.
+Knowing that a certain stretch of DNA is an enhancer is however not informative of the target gene(s). One way to infer links between enhancers and promoters *in silico* is to identify significant correlations across a large panel of cell types, an approach that was used for distal and promoter DHSs \[20\] as well as for CAGE-defined promoters and enhancers \[21\]. Experimental methods to assay interactions between regulatory elements also exist. Chromatin interaction analysis by paired-end tag sequencing (ChIA-PET) \[22, 23\] couples chromatin immunoprecipitation with DNA ligation and sequencing to identify regions of DNA that are interacting thanks to the binding of a specific protein. Promoter capture Hi-C \[24, 25\] extends chromatin conformation capture by using "baits" to enrich for promoter interactions and increase resolution.
 
-Overall, linking genetic variants to their candidate target genes is not straightforward, not only because of the complexity of the human genome and transcriptional regulation, but also because of the variety of data types and approaches that can be used. To address this, we developed STOPGAP (systematic target opportunity assessment by genetic association predictions), a database of disease variants mapped to their most likely target gene(s) using different types of regulatory genomic data (Shen et al. 2017). The database is currently undergoing a major overhaul and will eventually be superseded by POSTGAP (Ensembl 2017a). A similar resource and valid alternative is INFERNO (inferring the molecular mechanisms of noncoding variants) (Amlie-Wolf et al. 2017).
+Overall, linking genetic variants to their candidate target genes is not straightforward, not only because of the complexity of the human genome and transcriptional regulation, but also because of the variety of data types and approaches that can be used. To address this, we developed STOPGAP (systematic target opportunity assessment by genetic association predictions), a database of disease variants mapped to their most likely target gene(s) using different types of regulatory genomic data \[26\]. The database is currently undergoing a major overhaul and will eventually be superseded by POSTGAP \[27\]. A similar resource and valid alternative is INFERNO (inferring the molecular mechanisms of noncoding variants) \[28\].
 
 Workflow
 ========
@@ -27,7 +27,7 @@ Workflow
 Overview
 --------
 
-In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs. We will use eQTL data from GTEx (GTEx Consortium et al. 2017), FANTOM5 correlations between promoters and enhancers (Andersson et al. 2014) and promoter capture Hi-C data \[Javierre2016\].
+In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs. We will use eQTL data from GTEx \[14\], FANTOM5 correlations between promoters and enhancers \[21\] and promoter capture Hi-C data \[Javierre2016\].
 
 We start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
@@ -45,9 +45,9 @@ source("https://bioconductor.org/biocLite.R")
 Gene expression data and differential gene expression analysis
 --------------------------------------------------------------
 
-The RNA-seq data we will be using comes from blood of patients with systemic lupus erythematosus (SLE) and healthy controls (Hung et al. 2015).
+The RNA-seq data we will be using comes from blood of patients with systemic lupus erythematosus (SLE) and healthy controls \[29\].
 
-We are going to use `recount` (Collado-Torres et al. 2017) to obtain gene-level counts:
+We are going to use `recount` \[30\] to obtain gene-level counts:
 
 ``` r
 library(recount)
@@ -68,7 +68,7 @@ rse
     ## colnames(117): SRR2443263 SRR2443262 ... SRR2443147 SRR2443149
     ## colData names(21): project sample ... title characteristics
 
-Other Bioconductor packages that can be used to access data from gene expression experiments directly in R are `GEOquery` (Davis and Meltzer 2007) and `ArrayExpress` (Kauffmann et al. 2009).
+Other Bioconductor packages that can be used to access data from gene expression experiments directly in R are `GEOquery` \[31\] and `ArrayExpress` \[32\].
 
 So, we have 117 samples. This is what the data looks like:
 
@@ -303,7 +303,7 @@ To speed up code execution we will limit the number of SLE samples. For simplici
 rse <- rse[, c(1:18, 82:99)]
 ```
 
-Now we are ready to perform a simple differential gene expression analysis with `DESeq2` (Love, Huber, and Anders 2014):
+Now we are ready to perform a simple differential gene expression analysis with `DESeq2` \[33\]:
 
 ``` r
 library(DESeq2)
@@ -322,9 +322,9 @@ dds
     ## colnames(36): SRR2443263 SRR2443262 ... SRR2443166 SRR2443165
     ## colData names(27): project sample ... sizeFactor replaceable
 
-Note that we used an extremely simple model; in the real world you will probably need to account for co-variables, potential confounders and interactions between them. `edgeR` (Robinson, McCarthy, and Smyth 2010) and `limma` (Ritchie et al. 2015) are good alternatives to `DESEq2` for performing differential expression analyses.
+Note that we used an extremely simple model; in the real world you will probably need to account for co-variables, potential confounders and interactions between them. `edgeR` \[34\] and `limma` \[35\] are good alternatives to `DESEq2` for performing differential expression analyses.
 
-We can now look at the data in more detail. We use the variance stabilising transformation (VST) (Anders and Huber 2010) for visualisation purposes:
+We can now look at the data in more detail. We use the variance stabilising transformation (VST) \[36\] for visualisation purposes:
 
 ``` r
 vsd <- vst(dds, blind = FALSE)
@@ -344,7 +344,7 @@ sampleDists[c(1, 18, 19, 36), c(1, 18, 19, 36)]
     ## SLE       93.30292   115.8796    0.00000  115.06568
     ## SLE       99.84061   127.2800  115.06568    0.00000
 
-We will use the `pheatmap` (Kolde 2015) and `RColorBrewer` \[Neuwirth2014\] packages for drawing the heatmap (Figure @ref(fig:heatmap)):
+We will use the `pheatmap` \[37\] and `RColorBrewer` \[Neuwirth2014\] packages for drawing the heatmap (Figure @ref(fig:heatmap)):
 
 ``` r
 library(pheatmap)
@@ -495,7 +495,7 @@ tail(degs)
 Accessing GWAS data
 -------------------
 
-We have more than 3500 genes of interest at this stage. Since we know that therapeutic targets with genetic evidence are more likely to progress through the drug discovery pipeline (Nelson et al. 2015), one way to prioritise them could be to check which of these can be genetically linked to SLE. To get hold of relevant GWAS data, we will be using the `gwascat` Bioconductor package (V. J. Carey 2017b), which provides an interface to the GWAS catalog (MacArthur et al. 2017). An alternative is to use the GRASP (Eicher et al. 2015) database with the `grasp2db` (V. J. Carey 2017a) package.
+We have more than 3500 genes of interest at this stage. Since we know that therapeutic targets with genetic evidence are more likely to progress through the drug discovery pipeline \[6\], one way to prioritise them could be to check which of these can be genetically linked to SLE. To get hold of relevant GWAS data, we will be using the `gwascat` Bioconductor package \[38\], which provides an interface to the GWAS catalog \[39\]. An alternative is to use the GRASP \[40\] database with the `grasp2db` \[41\] package.
 
 ``` r
 library(gwascat)
@@ -568,12 +568,12 @@ traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus")
 
 ![Manhattan plot showing variants significantly associated with SLE.](biocondutor-regulatory-genomics-workflow_files/figure-markdown_github/manhattan-1.png)
 
-We note here that genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the *tag* SNPs on the array are the true casual SNPs (Bush and Moore 2012). The alleles of other SNPs can be imputed from tag SNPs thanks to the structure of linkage disequilibrium (LD) blocks present in chromosomes. Thus, when linking variants to target genes in a real-world setting, it is important to take into consideration neighbouring SNPs that are in high LD and inherited with the tag SNPs. For simplicity, We will skip this LD expansion step and refer the reader to the Ensembl REST API (Yates et al. 2015; Ensembl 2017c), the Ensembl Linkage Disequilibrium Calculator (Ensembl 2017b) and the Bioconductor packages `trio` (Schwender et al. 2015) and `ldblock` (V. J. Carey 2017c) to perform this task.
+We note here that genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the *tag* SNPs on the array are the true casual SNPs \[42\]. The alleles of other SNPs can be imputed from tag SNPs thanks to the structure of linkage disequilibrium (LD) blocks present in chromosomes. Thus, when linking variants to target genes in a real-world setting, it is important to take into consideration neighbouring SNPs that are in high LD and inherited with the tag SNPs. For simplicity, We will skip this LD expansion step and refer the reader to the Ensembl REST API \[43, 44\], the Ensembl Linkage Disequilibrium Calculator \[45\] and the Bioconductor packages `trio` \[46\] and `ldblock` \[47\] to perform this task.
 
 Annotation of coding and proximal SNPs to target genes
 ------------------------------------------------------
 
-In order to annotate these variants, We need a a `TxDb` object, a reference of where transcripts are located on the genome. We can build this using the `GenomicFeatutres` (Lawrence et al. 2013) package and annotation from GENCODE (which is the gene annotation used in our RNA-seq experiment):
+In order to annotate these variants, We need a a `TxDb` object, a reference of where transcripts are located on the genome. We can build this using the `GenomicFeatutres` \[48\] package and annotation from GENCODE (which is the gene annotation used in our RNA-seq experiment):
 
 ``` r
 library(GenomicFeatures)
@@ -595,7 +595,7 @@ txdb
     ## # exon_nrow: 1182765
     ## # cds_nrow: 704859
     ## # Db created by: GenomicFeatures package from Bioconductor
-    ## # Creation time: 2017-12-20 17:00:09 +0000 (Wed, 20 Dec 2017)
+    ## # Creation time: 2017-12-20 18:02:03 +0000 (Wed, 20 Dec 2017)
     ## # GenomicFeatures version at creation time: 1.30.0
     ## # RSQLite version at creation time: 2.0
     ## # DBSCHEMAVERSION: 1.2
@@ -637,7 +637,7 @@ seqlevels(txdb)
     ## [17] "chr17" "chr18" "chr19" "chr20" "chr21" "chr22" "chrX"  "chrY" 
     ## [25] "chrM"
 
-OK, they do. Now we can annotate our SNPs to genes using the `VariantAnnotation` (Obenchain et al. 2014) package:
+OK, they do. Now we can annotate our SNPs to genes using the `VariantAnnotation` \[49\] package:
 
 ``` r
 library(VariantAnnotation)
@@ -779,7 +779,7 @@ snps_anno
     ##   -------
     ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 
-We can visualise where these SNPs are located with `ggplot2` (Wickham 2009) (Figure @ref(fig:barplot)):
+We can visualise where these SNPs are located with `ggplot2` \[50\] (Figure @ref(fig:barplot)):
 
 ``` r
 library(ggplot2)
@@ -790,7 +790,7 @@ ggplot(data = loc, aes(x = reorder(Var1, -Freq), y = Freq)) +
 
 ![Barplot showing genomic locations associated with SLE variants.](biocondutor-regulatory-genomics-workflow_files/figure-markdown_github/barplot-1.png)
 
-As expected (Maurano et al. 2012), the great majority of SNPs is located within introns and in intergenic regions. For the moment, we will focus on SNPs that are either coding or in promoter and UTR regions, as these can be assigned to target genes rather unambiguously:
+As expected \[11\], the great majority of SNPs is located within introns and in intergenic regions. For the moment, we will focus on SNPs that are either coding or in promoter and UTR regions, as these can be assigned to target genes rather unambiguously:
 
 ``` r
 snps_easy <- subset(snps_anno, LOCATION == "coding" | LOCATION == "promoter" | LOCATION == "threeUTR" | LOCATION == "fiveUTR")
@@ -958,7 +958,7 @@ snps_hard
 
 ### eQTL data
 
-A well-established way to gain insights into target genes of regulatory SNPs is to use eQTL data, where correlations between genetic variants and expression of genes are computed across different tissues or cell types (Albert and Kruglyak 2015). We will use blood eQTL data from the GTEx consortium (GTEx Consortium et al. 2017). To get the data, you will have to register and download the file `GTEx_Analysis_v7_eQTL.tar.gz` from the GTEx portal website (GTEx Consortium 2017) to the current working directory:
+A well-established way to gain insights into target genes of regulatory SNPs is to use eQTL data, where correlations between genetic variants and expression of genes are computed across different tissues or cell types \[13\]. We will use blood eQTL data from the GTEx consortium \[14\]. To get the data, you will have to register and download the file `GTEx_Analysis_v7_eQTL.tar.gz` from the GTEx portal website \[51\] to the current working directory:
 
 ``` r
 # uncomment the following line to extract the gzipped archive file
@@ -1115,7 +1115,7 @@ seqlevels(gtex_blood)
     ##  [9] "chr9"  "chr10" "chr11" "chr12" "chr13" "chr14" "chr15" "chr16"
     ## [17] "chr17" "chr18" "chr19" "chr20" "chr21" "chr22" "chrX"
 
-From the publication (GTEx Consortium et al. 2017), we know the genomic coordinates are mapped to genome reference GRCh37, so we will have to uplift them to GRCh38 using `rtracklayer` (Lawrence, Gentleman, and Carey 2009) and a mapping ("chain") file. The `R.utils` package (Bengtsson 2017) is required to extract the gzipped file:
+From the publication \[14\], we know the genomic coordinates are mapped to genome reference GRCh37, so we will have to uplift them to GRCh38 using `rtracklayer` \[52\] and a mapping ("chain") file. The `R.utils` package \[53\] is required to extract the gzipped file:
 
 ``` r
 library(rtracklayer)
@@ -1128,7 +1128,7 @@ ch <- import.chain("hg19ToHg38.over.chain")
 gtex_blood <- unlist(liftOver(gtex_blood, ch))
 ```
 
-We will use the `GenomicRanges` package (Lawrence et al. 2013) to compute the overlap between GWAS SNPs and eQTLs:
+We will use the `GenomicRanges` package \[48\] to compute the overlap between GWAS SNPs and eQTLs:
 
 ``` r
 library(GenomicRanges)
@@ -1171,7 +1171,7 @@ head(snps_hard_in_gtex_blood)
 
 So, we have 59 blood eQTL variants that are associated with SLE. We can now check whether any of the genes differentially expressed in SLE is an *eGene*, a gene whose expression is influenced by an eQTL:
 
-We note that gene IDs in GTEx are mapped to GENCODE v19 (GTEx Consortium et al. 2017), while we are using the newer v25 for the DEGs. To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl Gene IDs:
+We note that gene IDs in GTEx are mapped to GENCODE v19 \[14\], while we are using the newer v25 for the DEGs. To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl gene IDs:
 
 ``` r
 snps_hard_in_gtex_blood$ensembl_id <- sub("(ENSG[0-9]+)\\.[0-9]+", "\\1", snps_hard_in_gtex_blood$gene_id)
@@ -1275,7 +1275,7 @@ prioritised_hits
 
 ### FANTOM5 data
 
-The FANTOM consortium profiled gene expression across a large panel of tissues and cell types using CAGE (FANTOM Consortium and the RIKEN PMI and CLST (DGT) et al. 2014; Andersson et al. 2014). This technology allows mapping of transcription start sites (TSSs) and enhancer RNAs (eRNAs) genome-wide. Correlations between these promoter and enhancer elements across a large panel of tissues and cell types can then be used to identify significant promoter - enhancer pairs, that we can use to map distal regulatory SNPs to target genes.
+The FANTOM consortium profiled gene expression across a large panel of tissues and cell types using CAGE \[19, 21\]. This technology allows mapping of transcription start sites (TSSs) and enhancer RNAs (eRNAs) genome-wide. Correlations between these promoter and enhancer elements across a large panel of tissues and cell types can then be used to identify significant promoter - enhancer pairs, that we can use to map distal regulatory SNPs to target genes.
 
 We can have a look at the enhancer - promoter correlation data in this way:
 
@@ -1315,7 +1315,7 @@ head(fantom)
     ## 5      0,6712
     ## 6     0,70169
 
-Everything we need is in the fourth column, `name`: genomic location of the enhancer, gene identifiers, correlation and significance. We will use the `splitstackshape` package (Mahto 2014) to parse it:
+Everything we need is in the fourth column, `name`: genomic location of the enhancer, gene identifiers, correlation and significance. We will use the `splitstackshape` package \[54\] to parse it:
 
 ``` r
 library(splitstackshape)
@@ -1426,7 +1426,7 @@ fantom
     ##   -------
     ##   seqinfo: 24 sequences from an unspecified genome; no seqlengths
 
-Similar to the GTEx data, the FANTOM5 data is also mapped to GRCh37 (FANTOM Consortium and the RIKEN PMI and CLST (DGT) et al. 2014), so we will have to uplift the GRCh37 coordinates to GRCh38:
+Similar to the GTEx data, the FANTOM5 data is also mapped to GRCh37 \[19\], so we will have to uplift the GRCh37 coordinates to GRCh38:
 
 ``` r
 fantom <- unlist(liftOver(fantom, ch))
@@ -1568,7 +1568,7 @@ prioritised_hits
 
 ### Promoter Capture Hi-C data
 
-More recently, chromatin interaction data was generated across 17 human primary blood cell types (Javierre et al. 2016). More than 30,000 promoter baits were used to capture promoter-interacting regions genome-wide. These regions were then mapped to enhancer based on the Ensembl Regulatory Build (Zerbino et al. 2015) and can be accessed in the supplementary data of the paper:
+More recently, chromatin interaction data was generated across 17 human primary blood cell types \[25\]. More than 30,000 promoter baits were used to capture promoter-interacting regions genome-wide. These regions were then mapped to enhancer based on the Ensembl Regulatory Build \[55\] and can be accessed in the supplementary data of the paper:
 
 ``` r
 # uncomment the following line to download file
@@ -1793,7 +1793,7 @@ prioritised_hits
 Conclusions
 ===========
 
-In this Bioconductor workflow we have used several packages and datasets downloaded from genomic projects and publications to show how regulatory genomic data can be used to annotate significant hits from GWASs and provide an intermediate layer connecting genetic and transcriptomic data. Overall, we identified 17 SLE-associated SNPs that we mapped to 16 genes differentially expressed in SLE, using eQTL data (GTEx Consortium et al. 2017) and enhancer - promoter relationships from CAGE (FANTOM Consortium and the RIKEN PMI and CLST (DGT) et al. 2014) and promoter capture Hi-C experiments (Javierre et al. 2016).
+In this Bioconductor workflow we have used several packages and datasets downloaded from genomic projects and publications to show how regulatory genomic data can be used to annotate significant hits from GWASs and provide an intermediate layer connecting genetic and transcriptomic data. Overall, we identified 17 SLE-associated SNPs that we mapped to 16 genes differentially expressed in SLE, using eQTL data \[14\] and enhancer - promoter relationships from CAGE \[19\] and promoter capture Hi-C experiments \[25\].
 
 While simplified, the workflow also demonstrates some real-world challenges encountered when working with genomic data from different sources, such as different genome references and gene annotation conventions as well as parsing of files with custom formats into Bioconductor-compatible objects. As the sample size and power of GWASs and gene expression studies continue to increase, it will become more and more challenging to identify truly significant hits and interpret them. The use of regulatory genomics data as presented here can be an important skill and tool to gain insights into large biomedical datasets and help in the identification of biomarkers and therapeutic targets.
 
@@ -1825,112 +1825,112 @@ The author declared that no grants were involved in supporting this work.
 References
 ==========
 
-Adams, David, Lucia Altucci, Stylianos E Antonarakis, Juan Ballesteros, Stephan Beck, Adrian Bird, Christoph Bock, et al. 2012. “BLUEPRINT to decode the epigenetic signature written in blood.” *Nature Biotechnology* 30 (3): 224–6. doi:[10.1038/nbt.2153](https://doi.org/10.1038/nbt.2153).
+1. Waring MJ, Arrowsmith J, Leach AR, Leeson PD, Mandrell S, Owen RM, et al. An analysis of the attrition of drug candidates from four major pharmaceutical companies. Nature reviews Drug discovery. 2015;14:475–86. doi:[10.1038/nrd4609](https://doi.org/10.1038/nrd4609).
 
-Albert, Frank W., and Leonid Kruglyak. 2015. “The role of regulatory variation in complex traits and disease.” *Nature Reviews. Genetics* 16 (4). Nature Publishing Group: 197–212. doi:[10.1038/nrg3891](https://doi.org/10.1038/nrg3891).
+2. DiMasi JA, Grabowski HG, Hansen RW. Innovation in the pharmaceutical industry: New estimates of R&D costs. Journal of health economics. 2016;47:20–33. doi:[10.1016/j.jhealeco.2016.01.012](https://doi.org/10.1016/j.jhealeco.2016.01.012).
 
-Amlie-Wolf, Alexandre, Mitchell Tang, Elisabeth E. Mlynarski, Pavel P. Kuksa, Otto Valladares, Zivadin Katanic, Debby Tsuang, Christopher D. Brown, Gerard D. Schellenberg, and Li-San Wang. 2017. “INFERNO - INFERring the molecular mechanisms of NOncoding genetic variants.” *bioRxiv*, October. Cold Spring Harbor Laboratory, 211599. doi:[10.1101/211599](https://doi.org/10.1101/211599).
+3. Harrison RK. Phase II and phase III failures: 2013-2015. Nature reviews Drug discovery. 2016;15:817–8. doi:[10.1038/nrd.2016.184](https://doi.org/10.1038/nrd.2016.184).
 
-Anders, Simon, and Wolfgang Huber. 2010. “Differential expression analysis for sequence count data.” *Genome Biology* 11 (10): R106. doi:[10.1186/gb-2010-11-10-r106](https://doi.org/10.1186/gb-2010-11-10-r106).
+4. Cook D, Brown D, Alexander R, March R, Morgan P, Satterthwaite G, et al. Lessons learned from the fate of AstraZeneca’s drug pipeline: a five-dimensional framework. Nature reviews Drug discovery. 2014;13:419–31. doi:[10.1038/nrd4309](https://doi.org/10.1038/nrd4309).
 
-Andersson, Robin, Claudia Gebhard, Irene Miguel-Escalada, Ilka Hoof, Jette Bornholdt, Mette Boyd, Yun Chen, et al. 2014. “An atlas of active enhancers across human cell types and tissues.” *Nature* 507 (7493): 455–61. doi:[10.1038/nature12787](https://doi.org/10.1038/nature12787).
+5. Plenge RM, Scolnick EM, Altshuler D. Validating therapeutic targets through human genetics. Nature reviews Drug discovery. 2013;12:581–94. doi:[10.1038/nrd4051](https://doi.org/10.1038/nrd4051).
 
-Bengtsson, Henrik. 2017. “R.utils: various programming utilities.” <https://cran.r-project.org/package=R.utils>.
+6. Nelson MR, Tipney H, Painter JL, Shen J, Nicoletti P, Shen Y, et al. The support of human genetic evidence for approved drug indications. Nature genetics. 2015;47:856–60. doi:[10.1038/ng.3314](https://doi.org/10.1038/ng.3314).
 
-Boyle, Evan A., Yang I. Li, and Jonathan K. Pritchard. 2017. “An Expanded View of Complex Traits: From Polygenic to Omnigenic.” *Cell* 169 (7): 1177–86. doi:[10.1016/j.cell.2017.05.038](https://doi.org/10.1016/j.cell.2017.05.038).
+7. Visscher PM, Wray NR, Zhang Q, Sklar P, McCarthy MI, Brown MA, et al. 10 Years of GWAS Discovery: Biology, Function, and Translation. American journal of human genetics. 2017;101:5–22. doi:[10.1016/j.ajhg.2017.06.005](https://doi.org/10.1016/j.ajhg.2017.06.005).
 
-Bush, William S, Matthew T Oetjens, and Dana C Crawford. 2016. “Unravelling the human genome-phenome relationship using phenome-wide association studies.” *Nature Reviews. Genetics* 17 (3): 129–45. doi:[10.1038/nrg.2015.36](https://doi.org/10.1038/nrg.2015.36).
+8. Bush WS, Oetjens MT, Crawford DC. Unravelling the human genome-phenome relationship using phenome-wide association studies. Nature reviews Genetics. 2016;17:129–45. doi:[10.1038/nrg.2015.36](https://doi.org/10.1038/nrg.2015.36).
 
-Bush, William S., and Jason H. Moore. 2012. “Chapter 11: Genome-wide association studies.” Edited by Fran Lewitter and Maricel Kann. *PLoS Computational Biology* 8 (12): e1002822. doi:[10.1371/journal.pcbi.1002822](https://doi.org/10.1371/journal.pcbi.1002822).
+9. Boyle EA, Li YI, Pritchard JK. An Expanded View of Complex Traits: From Polygenic to Omnigenic. Cell. 2017;169:1177–86. doi:[10.1016/j.cell.2017.05.038](https://doi.org/10.1016/j.cell.2017.05.038).
 
-Carey, Vincent J. 2017a. “Grasp2db.” <https://bioconductor.org/packages/grasp2db/>.
+10. Finan C, Gaulton A, Kruger FA, Lumbers RT, Shah T, Engmann J, et al. The druggable genome and support for target identification and validation in drug development. Science translational medicine. 2017;9:eaag1166. doi:[10.1126/scitranslmed.aag1166](https://doi.org/10.1126/scitranslmed.aag1166).
 
-———. 2017b. “Gwascat.” <https://www.bioconductor.org/packages/gwascat/>.
+11. Maurano MT, Humbert R, Rynes E, Thurman RE, Haugen E, Wang H, et al. Systematic localization of common disease-associated variation in regulatory DNA. Science (New York, NY). 2012;337:1190–5. doi:[10.1126/science.1222794](https://doi.org/10.1126/science.1222794).
 
-———. 2017c. “Ldblock.” <https://bioconductor.org/packages/ldblock/>.
+12. Ward LD, Kellis M. Interpreting noncoding genetic variation in complex traits and human disease. Nature biotechnology. 2012;30:1095–106. doi:[10.1038/nbt.2422](https://doi.org/10.1038/nbt.2422).
 
-Collado-Torres, Leonardo, Abhinav Nellore, Kai Kammers, Shannon E Ellis, Margaret A Taub, Kasper D Hansen, Andrew E Jaffe, Ben Langmead, and Jeffrey T Leek. 2017. “Reproducible RNA-seq analysis using recount2.” *Nature Biotechnology* 35 (4): 319–21. doi:[10.1038/nbt.3838](https://doi.org/10.1038/nbt.3838).
+13. Albert FW, Kruglyak L. The role of regulatory variation in complex traits and disease. Nature reviews Genetics. 2015;16:197–212. doi:[10.1038/nrg3891](https://doi.org/10.1038/nrg3891).
 
-Cook, David, Dearg Brown, Robert Alexander, Ruth March, Paul Morgan, Gemma Satterthwaite, and Menelas N Pangalos. 2014. “Lessons learned from the fate of AstraZeneca’s drug pipeline: a five-dimensional framework.” *Nature Reviews. Drug Discovery* 13 (6). Nature Publishing Group: 419–31. doi:[10.1038/nrd4309](https://doi.org/10.1038/nrd4309).
+14. GTEx Consortium, Laboratory DA&C(WG, Statistical Methods groups—Analysis Working Group, Enhancing GTEx (eGTEx) groups, NIH Common Fund, NIH/NCI, et al. Genetic effects on gene expression across human tissues. Nature. 2017;550:204–13. doi:[10.1038/nature24277](https://doi.org/10.1038/nature24277).
 
-Davis, S., and P. S. Meltzer. 2007. “GEOquery: a bridge between the Gene Expression Omnibus (GEO) and BioConductor.” *Bioinformatics* 23 (14): 1846–7. doi:[10.1093/bioinformatics/btm254](https://doi.org/10.1093/bioinformatics/btm254).
+15. ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. Nature. 2012;489:57–74. doi:[10.1038/nature11247](https://doi.org/10.1038/nature11247).
 
-DiMasi, Joseph A., Henry G. Grabowski, and Ronald W. Hansen. 2016. “Innovation in the pharmaceutical industry: New estimates of R&D costs.” *Journal of Health Economics* 47 (May): 20–33. doi:[10.1016/j.jhealeco.2016.01.012](https://doi.org/10.1016/j.jhealeco.2016.01.012).
+16. Roadmap Epigenomics Consortium, Kundaje A, Meuleman W, Ernst J, Bilenky M, Yen A, et al. Integrative analysis of 111 reference human epigenomes. Nature. 2015;518:317–30. doi:[10.1038/nature14248](https://doi.org/10.1038/nature14248).
 
-Eicher, John D., Christa Landowski, Brian Stackhouse, Arielle Sloan, Wenjie Chen, Nicole Jensen, Ju-Ping Lien, Richard Leslie, and Andrew D. Johnson. 2015. “GRASP v2.0: an update on the Genome-Wide Repository of Associations between SNPs and phenotypes.” *Nucleic Acids Research* 43 (Database issue): D799–804. doi:[10.1093/nar/gku1202](https://doi.org/10.1093/nar/gku1202).
+17. Adams D, Altucci L, Antonarakis SE, Ballesteros J, Beck S, Bird A, et al. BLUEPRINT to decode the epigenetic signature written in blood. Nature biotechnology. 2012;30:224–6. doi:[10.1038/nbt.2153](https://doi.org/10.1038/nbt.2153).
 
-ENCODE Project Consortium. 2012. “An integrated encyclopedia of DNA elements in the human genome.” *Nature* 489 (7414): 57–74. doi:[10.1038/nature11247](https://doi.org/10.1038/nature11247).
+18. Stunnenberg HG, International Human Epigenome Consortium, Hirst M. The International Human Epigenome Consortium: A Blueprint for Scientific Collaboration and Discovery. Cell. 2016;167:1897. doi:[10.1016/j.cell.2016.12.002](https://doi.org/10.1016/j.cell.2016.12.002).
 
-Ensembl. 2017a. “Linkage Disequilibrium Calculator.” [https://www.ensembl.org/Homo{\\\_}sapiens/Tools/LD?db=core](https://www.ensembl.org/Homo{\_}sapiens/Tools/LD?db=core).
+19. FANTOM Consortium and the RIKEN PMI and CLST (DGT), Forrest ARR, Kawaji H, Rehli M, Baillie JK, Hoon MJL de, et al. A promoter-level mammalian expression atlas. Nature. 2014;507:462–70. doi:[10.1038/nature13182](https://doi.org/10.1038/nature13182).
 
-———. 2017b. “POSTGAP.” <https://github.com/Ensembl/postgap>.
+20. Thurman RE, Rynes E, Humbert R, Vierstra J, Maurano MT, Haugen E, et al. The accessible chromatin landscape of the human genome. Nature. 2012;489:75–82. doi:[10.1038/nature11232](https://doi.org/10.1038/nature11232).
 
-———. 2017c. “Rest API: GET ld/:species/pairwise/:id1/:id2.” [http://rest.ensembl.org/documentation/info/ld{\\\_}pairwise{\\\_}get](http://rest.ensembl.org/documentation/info/ld{\_}pairwise{\_}get).
+21. Andersson R, Gebhard C, Miguel-Escalada I, Hoof I, Bornholdt J, Boyd M, et al. An atlas of active enhancers across human cell types and tissues. Nature. 2014;507:455–61. doi:[10.1038/nature12787](https://doi.org/10.1038/nature12787).
 
-FANTOM Consortium and the RIKEN PMI and CLST (DGT), Alistair R R Forrest, Hideya Kawaji, Michael Rehli, J Kenneth Baillie, Michiel J L de Hoon, Vanja Haberle, et al. 2014. “A promoter-level mammalian expression atlas.” *Nature* 507 (7493). Nature Publishing Group: 462–70. doi:[10.1038/nature13182](https://doi.org/10.1038/nature13182).
+22. Fullwood MJ, Wei C-L, Liu ET, Ruan Y. Next-generation DNA sequencing of paired-end tags (PET) for transcriptome and genome analyses. Genome research. 2009;19:521–32. doi:[10.1101/gr.074906.107](https://doi.org/10.1101/gr.074906.107).
 
-Finan, Chris, Anna Gaulton, Felix A. Kruger, R. Thomas Lumbers, Tina Shah, Jorgen Engmann, Luana Galver, et al. 2017. “The druggable genome and support for target identification and validation in drug development.” *Science Translational Medicine* 9 (383): eaag1166. doi:[10.1126/scitranslmed.aag1166](https://doi.org/10.1126/scitranslmed.aag1166).
+23. Zhang Y, Wong C-H, Birnbaum RY, Li G, Favaro R, Ngan CY, et al. Chromatin connectivity maps reveal dynamic promoter-enhancer long-range associations. Nature. 2013;504:306–10. doi:[10.1038/nature12716](https://doi.org/10.1038/nature12716).
 
-Fullwood, Melissa J., Chia-Lin Wei, Edison T. Liu, and Yijun Ruan. 2009. “Next-generation DNA sequencing of paired-end tags (PET) for transcriptome and genome analyses.” *Genome Research* 19 (4): 521–32. doi:[10.1101/gr.074906.107](https://doi.org/10.1101/gr.074906.107).
+24. Mifsud B, Tavares-Cadete F, Young AN, Sugar R, Schoenfelder S, Ferreira L, et al. Mapping long-range promoter contacts in human cells with high-resolution capture Hi-C. Nature genetics. 2015;47:598–606. doi:[10.1038/ng.3286](https://doi.org/10.1038/ng.3286).
 
-GTEx Consortium. 2017. “GTEx Portal.” <https://www.gtexportal.org>.
+25. Javierre BM, Burren OS, Wilder SP, Kreuzhuber R, Hill SM, Sewitz S, et al. Lineage-Specific Genome Architecture Links Enhancers and Non-coding Disease Variants to Target Gene Promoters. Cell. 2016;167:1369–1384.e19. doi:[10.1016/j.cell.2016.09.037](https://doi.org/10.1016/j.cell.2016.09.037).
 
-GTEx Consortium, Data Analysis &Coordinating Center (LDACC)—Analysis Working Group Laboratory, Statistical Methods groups—Analysis Working Group, Enhancing GTEx (eGTEx) groups, NIH Common Fund, NIH/NCI, NIH/NHGRI, et al. 2017. “Genetic effects on gene expression across human tissues.” *Nature* 550 (7675): 204–13. doi:[10.1038/nature24277](https://doi.org/10.1038/nature24277).
+26. Shen J, Song K, Slater AJ, Ferrero E, Nelson MR. STOPGAP: a database for systematic target opportunity assessment by genetic association predictions. Bioinformatics (Oxford, England). 2017;33:2784–6. doi:[10.1093/bioinformatics/btx274](https://doi.org/10.1093/bioinformatics/btx274).
 
-Harrison, Richard K. 2016. “Phase II and phase III failures: 2013-2015.” *Nature Reviews. Drug Discovery* 15 (12): 817–18. doi:[10.1038/nrd.2016.184](https://doi.org/10.1038/nrd.2016.184).
+27. Ensembl. Linkage Disequilibrium Calculator. 2017. [https://www.ensembl.org/Homo{\\\_}sapiens/Tools/LD?db=core](https://www.ensembl.org/Homo{\_}sapiens/Tools/LD?db=core).
 
-Hung, T., G. A. Pratt, B. Sundararaman, M. J. Townsend, C. Chaivorapol, T. Bhangale, R. R. Graham, et al. 2015. “The Ro60 autoantigen binds endogenous retroelements and regulates inflammatory gene expression.” *Science (New York, N.Y.)* 350 (6259): 455–9. doi:[10.1126/science.aac7442](https://doi.org/10.1126/science.aac7442).
+28. Amlie-Wolf A, Tang M, Mlynarski EE, Kuksa PP, Valladares O, Katanic Z, et al. INFERNO - INFERring the molecular mechanisms of NOncoding genetic variants. bioRxiv. 2017;211599. doi:[10.1101/211599](https://doi.org/10.1101/211599).
 
-Javierre, Biola M, Oliver S Burren, Steven P Wilder, Roman Kreuzhuber, Steven M Hill, Sven Sewitz, Jonathan Cairns, et al. 2016. “Lineage-Specific Genome Architecture Links Enhancers and Non-coding Disease Variants to Target Gene Promoters.” *Cell* 167 (5): 1369–1384.e19. doi:[10.1016/j.cell.2016.09.037](https://doi.org/10.1016/j.cell.2016.09.037).
+29. Hung T, Pratt GA, Sundararaman B, Townsend MJ, Chaivorapol C, Bhangale T, et al. The Ro60 autoantigen binds endogenous retroelements and regulates inflammatory gene expression. Science (New York, NY). 2015;350:455–9. doi:[10.1126/science.aac7442](https://doi.org/10.1126/science.aac7442).
 
-Kauffmann, Audrey, Tim F. Rayner, Helen Parkinson, Misha Kapushesky, Margus Lukk, Alvis Brazma, and Wolfgang Huber. 2009. “Importing ArrayExpress datasets into R/Bioconductor.” *Bioinformatics (Oxford, England)* 25 (16): 2092–4. doi:[10.1093/bioinformatics/btp354](https://doi.org/10.1093/bioinformatics/btp354).
+30. Collado-Torres L, Nellore A, Kammers K, Ellis SE, Taub MA, Hansen KD, et al. Reproducible RNA-seq analysis using recount2. Nature biotechnology. 2017;35:319–21. doi:[10.1038/nbt.3838](https://doi.org/10.1038/nbt.3838).
 
-Kolde, Raivo. 2015. “Pheatmap: Pretty Heatmaps.” <http://cran.r-project.org/package=pheatmap>.
+31. Davis S, Meltzer PS. GEOquery: a bridge between the Gene Expression Omnibus (GEO) and BioConductor. Bioinformatics. 2007;23:1846–7. doi:[10.1093/bioinformatics/btm254](https://doi.org/10.1093/bioinformatics/btm254).
 
-Lawrence, Michael, Robert Gentleman, and Vincent Carey. 2009. “rtracklayer: an R package for interfacing with genome browsers.” *Bioinformatics (Oxford, England)* 25 (14): 1841–2. doi:[10.1093/bioinformatics/btp328](https://doi.org/10.1093/bioinformatics/btp328).
+32. Kauffmann A, Rayner TF, Parkinson H, Kapushesky M, Lukk M, Brazma A, et al. Importing ArrayExpress datasets into R/Bioconductor. Bioinformatics (Oxford, England). 2009;25:2092–4. doi:[10.1093/bioinformatics/btp354](https://doi.org/10.1093/bioinformatics/btp354).
 
-Lawrence, Michael, Wolfgang Huber, Hervé Pagès, Patrick Aboyoun, Marc Carlson, Robert Gentleman, Martin T. Morgan, and Vincent J. Carey. 2013. “Software for computing and annotating genomic ranges.” Edited by Andreas Prlic. *PLoS Computational Biology* 9 (8): e1003118. doi:[10.1371/journal.pcbi.1003118](https://doi.org/10.1371/journal.pcbi.1003118).
+33. Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome biology. 2014;15:550. doi:[10.1186/s13059-014-0550-8](https://doi.org/10.1186/s13059-014-0550-8).
 
-Love, Michael I, Wolfgang Huber, and Simon Anders. 2014. “Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2.” *Genome Biology* 15 (12): 550. doi:[10.1186/s13059-014-0550-8](https://doi.org/10.1186/s13059-014-0550-8).
+34. Robinson MD, McCarthy DJ, Smyth GK. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics (Oxford, England). 2010;26:139–40. doi:[10.1093/bioinformatics/btp616](https://doi.org/10.1093/bioinformatics/btp616).
 
-MacArthur, Jacqueline, Emily Bowler, Maria Cerezo, Laurent Gil, Peggy Hall, Emma Hastings, Heather Junkins, et al. 2017. “The new NHGRI-EBI Catalog of published genome-wide association studies (GWAS Catalog).” *Nucleic Acids Research* 45 (D1): D896–D901. doi:[10.1093/nar/gkw1133](https://doi.org/10.1093/nar/gkw1133).
+35. Ritchie ME, Phipson B, Wu D, Hu Y, Law CW, Shi W, et al. limma powers differential expression analyses for RNA-sequencing and microarray studies. Nucleic acids research. 2015;43:e47. doi:[10.1093/nar/gkv007](https://doi.org/10.1093/nar/gkv007).
 
-Mahto, Ananda. 2014. “Splitstackshape: Stack and Reshape Datasets After Splitting Concatenated Values.” <https://cran.r-project.org/package=splitstackshape>.
+36. Anders S, Huber W. Differential expression analysis for sequence count data. Genome biology. 2010;11:R106. doi:[10.1186/gb-2010-11-10-r106](https://doi.org/10.1186/gb-2010-11-10-r106).
 
-Maurano, Matthew T, Richard Humbert, Eric Rynes, Robert E Thurman, Eric Haugen, Hao Wang, Alex P Reynolds, et al. 2012. “Systematic localization of common disease-associated variation in regulatory DNA.” *Science (New York, N.Y.)* 337 (6099): 1190–5. doi:[10.1126/science.1222794](https://doi.org/10.1126/science.1222794).
+37. Kolde R. Pheatmap: Pretty heatmaps. 2015. <http://cran.r-project.org/package=pheatmap>.
 
-Mifsud, Borbala, Filipe Tavares-Cadete, Alice N Young, Robert Sugar, Stefan Schoenfelder, Lauren Ferreira, Steven W Wingett, et al. 2015. “Mapping long-range promoter contacts in human cells with high-resolution capture Hi-C.” *Nature Genetics* 47 (6): 598–606. doi:[10.1038/ng.3286](https://doi.org/10.1038/ng.3286).
+38. Carey VJ. Gwascat. 2017. <https://www.bioconductor.org/packages/gwascat/>.
 
-Nelson, Matthew R., Hannah Tipney, Jeffery L. Painter, Judong Shen, Paola Nicoletti, Yufeng Shen, Aris Floratos, et al. 2015. “The support of human genetic evidence for approved drug indications.” *Nature Genetics* 47 (8). Nature Publishing Group: 856–60. doi:[10.1038/ng.3314](https://doi.org/10.1038/ng.3314).
+39. MacArthur J, Bowler E, Cerezo M, Gil L, Hall P, Hastings E, et al. The new NHGRI-EBI Catalog of published genome-wide association studies (GWAS Catalog). Nucleic acids research. 2017;45:D896–901. doi:[10.1093/nar/gkw1133](https://doi.org/10.1093/nar/gkw1133).
 
-Obenchain, Valerie, Michael Lawrence, Vincent Carey, Stephanie Gogarten, Paul Shannon, and Martin Morgan. 2014. “VariantAnnotation: a Bioconductor package for exploration and annotation of genetic variants.” *Bioinformatics (Oxford, England)* 30 (14): 2076–8. doi:[10.1093/bioinformatics/btu168](https://doi.org/10.1093/bioinformatics/btu168).
+40. Eicher JD, Landowski C, Stackhouse B, Sloan A, Chen W, Jensen N, et al. GRASP v2.0: an update on the Genome-Wide Repository of Associations between SNPs and phenotypes. Nucleic acids research. 2015;43 Database issue:D799–804. doi:[10.1093/nar/gku1202](https://doi.org/10.1093/nar/gku1202).
 
-Plenge, Robert M., Edward M. Scolnick, and David Altshuler. 2013. “Validating therapeutic targets through human genetics.” *Nature Reviews. Drug Discovery* 12 (8). Nature Publishing Group: 581–94. doi:[10.1038/nrd4051](https://doi.org/10.1038/nrd4051).
+41. Carey VJ. Grasp2db. 2017. <https://bioconductor.org/packages/grasp2db/>.
 
-Ritchie, Matthew E., Belinda Phipson, Di Wu, Yifang Hu, Charity W. Law, Wei Shi, and Gordon K. Smyth. 2015. “limma powers differential expression analyses for RNA-sequencing and microarray studies.” *Nucleic Acids Research* 43 (7): e47. doi:[10.1093/nar/gkv007](https://doi.org/10.1093/nar/gkv007).
+42. Bush WS, Moore JH. Chapter 11: Genome-wide association studies. PLoS computational biology. 2012;8:e1002822. doi:[10.1371/journal.pcbi.1002822](https://doi.org/10.1371/journal.pcbi.1002822).
 
-Roadmap Epigenomics Consortium, Anshul Kundaje, Wouter Meuleman, Jason Ernst, Misha Bilenky, Angela Yen, Alireza Heravi-Moussavi, et al. 2015. “Integrative analysis of 111 reference human epigenomes.” *Nature* 518 (7539): 317–30. doi:[10.1038/nature14248](https://doi.org/10.1038/nature14248).
+43. Yates A, Beal K, Keenan S, McLaren W, Pignatelli M, Ritchie GRS, et al. The Ensembl REST API: Ensembl Data for Any Language. Bioinformatics (Oxford, England). 2015;31:143–5. doi:[10.1093/bioinformatics/btu613](https://doi.org/10.1093/bioinformatics/btu613).
 
-Robinson, Mark D., Davis J. McCarthy, and Gordon K. Smyth. 2010. “edgeR: a Bioconductor package for differential expression analysis of digital gene expression data.” *Bioinformatics (Oxford, England)* 26 (1): 139–40. doi:[10.1093/bioinformatics/btp616](https://doi.org/10.1093/bioinformatics/btp616).
+44. Ensembl. Rest API: GET ld/:species/pairwise/:id1/:id2. 2017. [http://rest.ensembl.org/documentation/info/ld{\\\_}pairwise{\\\_}get](http://rest.ensembl.org/documentation/info/ld{\_}pairwise{\_}get).
 
-Schwender, Holger, Qing Li, Philipp Berger, Christoph Neumann, Margaret Taub, and Ingo Ruczinski. 2015. “trio: testing of SNPs and SNP interactions in case-parent trio studies.” <https://www.bioconductor.org/packages/trio/>.
+45. Ensembl. POSTGAP. 2017. <https://github.com/Ensembl/postgap>.
 
-Shen, Judong, Kijoung Song, Andrew J. Slater, Enrico Ferrero, and Matthew R. Nelson. 2017. “STOPGAP: a database for systematic target opportunity assessment by genetic association predictions.” *Bioinformatics (Oxford, England)* 33 (17). Oxford University Press: 2784–6. doi:[10.1093/bioinformatics/btx274](https://doi.org/10.1093/bioinformatics/btx274).
+46. Schwender H, Li Q, Berger P, Neumann C, Taub M, Ruczinski I. trio: testing of SNPs and SNP interactions in case-parent trio studies. 2015. <https://www.bioconductor.org/packages/trio/>.
 
-Stunnenberg, Hendrik G., International Human Epigenome Consortium, and Martin Hirst. 2016. “The International Human Epigenome Consortium: A Blueprint for Scientific Collaboration and Discovery.” *Cell* 167 (7): 1897. doi:[10.1016/j.cell.2016.12.002](https://doi.org/10.1016/j.cell.2016.12.002).
+47. Carey VJ. Ldblock. 2017. <https://bioconductor.org/packages/ldblock/>.
 
-Thurman, Robert E, Eric Rynes, Richard Humbert, Jeff Vierstra, Matthew T Maurano, Eric Haugen, Nathan C Sheffield, et al. 2012. “The accessible chromatin landscape of the human genome.” *Nature* 489 (7414). Nature Publishing Group: 75–82. doi:[10.1038/nature11232](https://doi.org/10.1038/nature11232).
+48. Lawrence M, Huber W, Pagès H, Aboyoun P, Carlson M, Gentleman R, et al. Software for computing and annotating genomic ranges. PLoS computational biology. 2013;9:e1003118. doi:[10.1371/journal.pcbi.1003118](https://doi.org/10.1371/journal.pcbi.1003118).
 
-Visscher, Peter M., Naomi R. Wray, Qian Zhang, Pamela Sklar, Mark I. McCarthy, Matthew A. Brown, and Jian Yang. 2017. “10 Years of GWAS Discovery: Biology, Function, and Translation.” *American Journal of Human Genetics* 101 (1): 5–22. doi:[10.1016/j.ajhg.2017.06.005](https://doi.org/10.1016/j.ajhg.2017.06.005).
+49. Obenchain V, Lawrence M, Carey V, Gogarten S, Shannon P, Morgan M. VariantAnnotation: a Bioconductor package for exploration and annotation of genetic variants. Bioinformatics (Oxford, England). 2014;30:2076–8. doi:[10.1093/bioinformatics/btu168](https://doi.org/10.1093/bioinformatics/btu168).
 
-Ward, Lucas D, and Manolis Kellis. 2012. “Interpreting noncoding genetic variation in complex traits and human disease.” *Nature Biotechnology* 30 (11): 1095–1106. doi:[10.1038/nbt.2422](https://doi.org/10.1038/nbt.2422).
+50. Wickham H. Ggplot2. New York, NY: Springer New York; 2009. doi:[10.1007/978-0-387-98141-3](https://doi.org/10.1007/978-0-387-98141-3).
 
-Waring, Michael J., John Arrowsmith, Andrew R. Leach, Paul D. Leeson, Sam Mandrell, Robert M. Owen, Garry Pairaudeau, et al. 2015. “An analysis of the attrition of drug candidates from four major pharmaceutical companies.” *Nature Reviews. Drug Discovery* 14 (7). Nature Research: 475–86. doi:[10.1038/nrd4609](https://doi.org/10.1038/nrd4609).
+51. GTEx Consortium. GTEx Portal. 2017. <https://www.gtexportal.org>.
 
-Wickham, Hadley. 2009. *Ggplot2*. Edited by Springer-Verlag New York. New York, NY: Springer New York. doi:[10.1007/978-0-387-98141-3](https://doi.org/10.1007/978-0-387-98141-3).
+52. Lawrence M, Gentleman R, Carey V. rtracklayer: an R package for interfacing with genome browsers. Bioinformatics (Oxford, England). 2009;25:1841–2. doi:[10.1093/bioinformatics/btp328](https://doi.org/10.1093/bioinformatics/btp328).
 
-Yates, Andrew, Kathryn Beal, Stephen Keenan, William McLaren, Miguel Pignatelli, Graham R. S. Ritchie, Magali Ruffier, Kieron Taylor, Alessandro Vullo, and Paul Flicek. 2015. “The Ensembl REST API: Ensembl Data for Any Language.” *Bioinformatics (Oxford, England)* 31 (1): 143–5. doi:[10.1093/bioinformatics/btu613](https://doi.org/10.1093/bioinformatics/btu613).
+53. Bengtsson H. R.utils: various programming utilities. 2017. <https://cran.r-project.org/package=R.utils>.
 
-Zerbino, Daniel R, Steven P Wilder, Nathan Johnson, Thomas Juettemann, and Paul R Flicek. 2015. “The ensembl regulatory build.” *Genome Biology* 16 (1). BioMed Central: 56. doi:[10.1186/s13059-015-0621-5](https://doi.org/10.1186/s13059-015-0621-5).
+54. Mahto A. Splitstackshape: Stack and reshape datasets after splitting concatenated values. 2014. <https://cran.r-project.org/package=splitstackshape>.
 
-Zhang, Yubo, Chee-Hong Wong, Ramon Y. Birnbaum, Guoliang Li, Rebecca Favaro, Chew Yee Ngan, Joanne Lim, et al. 2013. “Chromatin connectivity maps reveal dynamic promoter-enhancer long-range associations.” *Nature* 504 (7479): 306–10. doi:[10.1038/nature12716](https://doi.org/10.1038/nature12716).
+55. Zerbino DR, Wilder SP, Johnson N, Juettemann T, Flicek PR. The ensembl regulatory build. Genome biology. 2015;16:56. doi:[10.1186/s13059-015-0621-5](https://doi.org/10.1186/s13059-015-0621-5).

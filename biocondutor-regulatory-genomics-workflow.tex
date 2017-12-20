@@ -821,7 +821,7 @@ We can build this using the \texttt{GenomicFeatutres} \citep{Lawrence2013} packa
 ## # exon_nrow: 1182765
 ## # cds_nrow: 704859
 ## # Db created by: GenomicFeatures package from Bioconductor
-## # Creation time: 2017-12-20 17:05:33 +0000 (Wed, 20 Dec 2017)
+## # Creation time: 2017-12-20 18:16:43 +0000 (Wed, 20 Dec 2017)
 ## # GenomicFeatures version at creation time: 1.30.0
 ## # RSQLite version at creation time: 2.0
 ## # DBSCHEMAVERSION: 1.2
@@ -1489,7 +1489,7 @@ So, we have 59 blood eQTL variants that are associated with SLE.
 We can now check whether any of the genes differentially expressed in SLE is an \emph{eGene}, a gene whose expression is influenced by an eQTL:
 
 We note that gene IDs in GTEx are mapped to GENCODE v19 \citep{GTEx2017a}, while we are using the newer v25 for the DEGs.
-To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl Gene IDs:
+To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl gene IDs:
 
 \begin{Shaded}
 \begin{Highlighting}[]
