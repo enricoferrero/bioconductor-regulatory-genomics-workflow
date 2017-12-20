@@ -563,7 +563,8 @@ snps
 We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (Figure @ref(fig:manhattan), note that p-values lower than 1e-25 are truncated):
 
 ``` r
-traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus")
+traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus") +
+  theme(legend.position="none")
 ```
 
 ![Manhattan plot showing variants significantly associated with SLE.](biocondutor-regulatory-genomics-workflow_files/figure-markdown_github/manhattan-1.png)
@@ -595,7 +596,7 @@ txdb
     ## # exon_nrow: 1182765
     ## # cds_nrow: 704859
     ## # Db created by: GenomicFeatures package from Bioconductor
-    ## # Creation time: 2017-12-20 18:02:03 +0000 (Wed, 20 Dec 2017)
+    ## # Creation time: 2017-12-20 18:55:26 +0000 (Wed, 20 Dec 2017)
     ## # GenomicFeatures version at creation time: 1.30.0
     ## # RSQLite version at creation time: 2.0
     ## # DBSCHEMAVERSION: 1.2
@@ -1825,93 +1826,93 @@ The author declared that no grants were involved in supporting this work.
 References
 ==========
 
-1. Waring MJ, Arrowsmith J, Leach AR, Leeson PD, Mandrell S, Owen RM, et al. An analysis of the attrition of drug candidates from four major pharmaceutical companies. Nature reviews Drug discovery. 2015;14:475–86. doi:[10.1038/nrd4609](https://doi.org/10.1038/nrd4609).
+1. Waring MJ, Arrowsmith J, Leach AR, Leeson PD, Mandrell S, Owen RM, et al. An analysis of the attrition of drug candidates from four major pharmaceutical companies. Nature reviews Drug discovery. 2015;14:475–86.
 
-2. DiMasi JA, Grabowski HG, Hansen RW. Innovation in the pharmaceutical industry: New estimates of R&D costs. Journal of health economics. 2016;47:20–33. doi:[10.1016/j.jhealeco.2016.01.012](https://doi.org/10.1016/j.jhealeco.2016.01.012).
+2. DiMasi JA, Grabowski HG, Hansen RW. Innovation in the pharmaceutical industry: New estimates of R&D costs. Journal of health economics. 2016;47:20–33.
 
-3. Harrison RK. Phase II and phase III failures: 2013-2015. Nature reviews Drug discovery. 2016;15:817–8. doi:[10.1038/nrd.2016.184](https://doi.org/10.1038/nrd.2016.184).
+3. Harrison RK. Phase II and phase III failures: 2013-2015. Nature reviews Drug discovery. 2016;15:817–8.
 
-4. Cook D, Brown D, Alexander R, March R, Morgan P, Satterthwaite G, et al. Lessons learned from the fate of AstraZeneca’s drug pipeline: a five-dimensional framework. Nature reviews Drug discovery. 2014;13:419–31. doi:[10.1038/nrd4309](https://doi.org/10.1038/nrd4309).
+4. Cook D, Brown D, Alexander R, March R, Morgan P, Satterthwaite G, et al. Lessons learned from the fate of AstraZeneca’s drug pipeline: a five-dimensional framework. Nature reviews Drug discovery. 2014;13:419–31.
 
-5. Plenge RM, Scolnick EM, Altshuler D. Validating therapeutic targets through human genetics. Nature reviews Drug discovery. 2013;12:581–94. doi:[10.1038/nrd4051](https://doi.org/10.1038/nrd4051).
+5. Plenge RM, Scolnick EM, Altshuler D. Validating therapeutic targets through human genetics. Nature reviews Drug discovery. 2013;12:581–94.
 
-6. Nelson MR, Tipney H, Painter JL, Shen J, Nicoletti P, Shen Y, et al. The support of human genetic evidence for approved drug indications. Nature genetics. 2015;47:856–60. doi:[10.1038/ng.3314](https://doi.org/10.1038/ng.3314).
+6. Nelson MR, Tipney H, Painter JL, Shen J, Nicoletti P, Shen Y, et al. The support of human genetic evidence for approved drug indications. Nature genetics. 2015;47:856–60.
 
-7. Visscher PM, Wray NR, Zhang Q, Sklar P, McCarthy MI, Brown MA, et al. 10 Years of GWAS Discovery: Biology, Function, and Translation. American journal of human genetics. 2017;101:5–22. doi:[10.1016/j.ajhg.2017.06.005](https://doi.org/10.1016/j.ajhg.2017.06.005).
+7. Visscher PM, Wray NR, Zhang Q, Sklar P, McCarthy MI, Brown MA, et al. 10 Years of GWAS Discovery: Biology, Function, and Translation. American journal of human genetics. 2017;101:5–22.
 
-8. Bush WS, Oetjens MT, Crawford DC. Unravelling the human genome-phenome relationship using phenome-wide association studies. Nature reviews Genetics. 2016;17:129–45. doi:[10.1038/nrg.2015.36](https://doi.org/10.1038/nrg.2015.36).
+8. Bush WS, Oetjens MT, Crawford DC. Unravelling the human genome-phenome relationship using phenome-wide association studies. Nature reviews Genetics. 2016;17:129–45.
 
-9. Boyle EA, Li YI, Pritchard JK. An Expanded View of Complex Traits: From Polygenic to Omnigenic. Cell. 2017;169:1177–86. doi:[10.1016/j.cell.2017.05.038](https://doi.org/10.1016/j.cell.2017.05.038).
+9. Boyle EA, Li YI, Pritchard JK. An Expanded View of Complex Traits: From Polygenic to Omnigenic. Cell. 2017;169:1177–86.
 
-10. Finan C, Gaulton A, Kruger FA, Lumbers RT, Shah T, Engmann J, et al. The druggable genome and support for target identification and validation in drug development. Science translational medicine. 2017;9:eaag1166. doi:[10.1126/scitranslmed.aag1166](https://doi.org/10.1126/scitranslmed.aag1166).
+10. Finan C, Gaulton A, Kruger FA, Lumbers RT, Shah T, Engmann J, et al. The druggable genome and support for target identification and validation in drug development. Science translational medicine. 2017;9:eaag1166.
 
-11. Maurano MT, Humbert R, Rynes E, Thurman RE, Haugen E, Wang H, et al. Systematic localization of common disease-associated variation in regulatory DNA. Science (New York, NY). 2012;337:1190–5. doi:[10.1126/science.1222794](https://doi.org/10.1126/science.1222794).
+11. Maurano MT, Humbert R, Rynes E, Thurman RE, Haugen E, Wang H, et al. Systematic localization of common disease-associated variation in regulatory DNA. Science (New York, NY). 2012;337:1190–5.
 
-12. Ward LD, Kellis M. Interpreting noncoding genetic variation in complex traits and human disease. Nature biotechnology. 2012;30:1095–106. doi:[10.1038/nbt.2422](https://doi.org/10.1038/nbt.2422).
+12. Ward LD, Kellis M. Interpreting noncoding genetic variation in complex traits and human disease. Nature biotechnology. 2012;30:1095–106.
 
-13. Albert FW, Kruglyak L. The role of regulatory variation in complex traits and disease. Nature reviews Genetics. 2015;16:197–212. doi:[10.1038/nrg3891](https://doi.org/10.1038/nrg3891).
+13. Albert FW, Kruglyak L. The role of regulatory variation in complex traits and disease. Nature reviews Genetics. 2015;16:197–212.
 
-14. GTEx Consortium, Laboratory DA&C(WG, Statistical Methods groups—Analysis Working Group, Enhancing GTEx (eGTEx) groups, NIH Common Fund, NIH/NCI, et al. Genetic effects on gene expression across human tissues. Nature. 2017;550:204–13. doi:[10.1038/nature24277](https://doi.org/10.1038/nature24277).
+14. GTEx Consortium, Laboratory DA&C(WG, Statistical Methods groups—Analysis Working Group, Enhancing GTEx (eGTEx) groups, NIH Common Fund, NIH/NCI, et al. Genetic effects on gene expression across human tissues. Nature. 2017;550:204–13.
 
-15. ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. Nature. 2012;489:57–74. doi:[10.1038/nature11247](https://doi.org/10.1038/nature11247).
+15. ENCODE Project Consortium. An integrated encyclopedia of DNA elements in the human genome. Nature. 2012;489:57–74.
 
-16. Roadmap Epigenomics Consortium, Kundaje A, Meuleman W, Ernst J, Bilenky M, Yen A, et al. Integrative analysis of 111 reference human epigenomes. Nature. 2015;518:317–30. doi:[10.1038/nature14248](https://doi.org/10.1038/nature14248).
+16. Roadmap Epigenomics Consortium, Kundaje A, Meuleman W, Ernst J, Bilenky M, Yen A, et al. Integrative analysis of 111 reference human epigenomes. Nature. 2015;518:317–30.
 
-17. Adams D, Altucci L, Antonarakis SE, Ballesteros J, Beck S, Bird A, et al. BLUEPRINT to decode the epigenetic signature written in blood. Nature biotechnology. 2012;30:224–6. doi:[10.1038/nbt.2153](https://doi.org/10.1038/nbt.2153).
+17. Adams D, Altucci L, Antonarakis SE, Ballesteros J, Beck S, Bird A, et al. BLUEPRINT to decode the epigenetic signature written in blood. Nature biotechnology. 2012;30:224–6.
 
-18. Stunnenberg HG, International Human Epigenome Consortium, Hirst M. The International Human Epigenome Consortium: A Blueprint for Scientific Collaboration and Discovery. Cell. 2016;167:1897. doi:[10.1016/j.cell.2016.12.002](https://doi.org/10.1016/j.cell.2016.12.002).
+18. Stunnenberg HG, International Human Epigenome Consortium, Hirst M. The International Human Epigenome Consortium: A Blueprint for Scientific Collaboration and Discovery. Cell. 2016;167:1897.
 
-19. FANTOM Consortium and the RIKEN PMI and CLST (DGT), Forrest ARR, Kawaji H, Rehli M, Baillie JK, Hoon MJL de, et al. A promoter-level mammalian expression atlas. Nature. 2014;507:462–70. doi:[10.1038/nature13182](https://doi.org/10.1038/nature13182).
+19. FANTOM Consortium and the RIKEN PMI and CLST (DGT), Forrest ARR, Kawaji H, Rehli M, Baillie JK, Hoon MJL de, et al. A promoter-level mammalian expression atlas. Nature. 2014;507:462–70.
 
-20. Thurman RE, Rynes E, Humbert R, Vierstra J, Maurano MT, Haugen E, et al. The accessible chromatin landscape of the human genome. Nature. 2012;489:75–82. doi:[10.1038/nature11232](https://doi.org/10.1038/nature11232).
+20. Thurman RE, Rynes E, Humbert R, Vierstra J, Maurano MT, Haugen E, et al. The accessible chromatin landscape of the human genome. Nature. 2012;489:75–82.
 
-21. Andersson R, Gebhard C, Miguel-Escalada I, Hoof I, Bornholdt J, Boyd M, et al. An atlas of active enhancers across human cell types and tissues. Nature. 2014;507:455–61. doi:[10.1038/nature12787](https://doi.org/10.1038/nature12787).
+21. Andersson R, Gebhard C, Miguel-Escalada I, Hoof I, Bornholdt J, Boyd M, et al. An atlas of active enhancers across human cell types and tissues. Nature. 2014;507:455–61.
 
-22. Fullwood MJ, Wei C-L, Liu ET, Ruan Y. Next-generation DNA sequencing of paired-end tags (PET) for transcriptome and genome analyses. Genome research. 2009;19:521–32. doi:[10.1101/gr.074906.107](https://doi.org/10.1101/gr.074906.107).
+22. Fullwood MJ, Wei C-L, Liu ET, Ruan Y. Next-generation DNA sequencing of paired-end tags (PET) for transcriptome and genome analyses. Genome research. 2009;19:521–32.
 
-23. Zhang Y, Wong C-H, Birnbaum RY, Li G, Favaro R, Ngan CY, et al. Chromatin connectivity maps reveal dynamic promoter-enhancer long-range associations. Nature. 2013;504:306–10. doi:[10.1038/nature12716](https://doi.org/10.1038/nature12716).
+23. Zhang Y, Wong C-H, Birnbaum RY, Li G, Favaro R, Ngan CY, et al. Chromatin connectivity maps reveal dynamic promoter-enhancer long-range associations. Nature. 2013;504:306–10.
 
-24. Mifsud B, Tavares-Cadete F, Young AN, Sugar R, Schoenfelder S, Ferreira L, et al. Mapping long-range promoter contacts in human cells with high-resolution capture Hi-C. Nature genetics. 2015;47:598–606. doi:[10.1038/ng.3286](https://doi.org/10.1038/ng.3286).
+24. Mifsud B, Tavares-Cadete F, Young AN, Sugar R, Schoenfelder S, Ferreira L, et al. Mapping long-range promoter contacts in human cells with high-resolution capture Hi-C. Nature genetics. 2015;47:598–606.
 
-25. Javierre BM, Burren OS, Wilder SP, Kreuzhuber R, Hill SM, Sewitz S, et al. Lineage-Specific Genome Architecture Links Enhancers and Non-coding Disease Variants to Target Gene Promoters. Cell. 2016;167:1369–1384.e19. doi:[10.1016/j.cell.2016.09.037](https://doi.org/10.1016/j.cell.2016.09.037).
+25. Javierre BM, Burren OS, Wilder SP, Kreuzhuber R, Hill SM, Sewitz S, et al. Lineage-Specific Genome Architecture Links Enhancers and Non-coding Disease Variants to Target Gene Promoters. Cell. 2016;167:1369–1384.e19.
 
-26. Shen J, Song K, Slater AJ, Ferrero E, Nelson MR. STOPGAP: a database for systematic target opportunity assessment by genetic association predictions. Bioinformatics (Oxford, England). 2017;33:2784–6. doi:[10.1093/bioinformatics/btx274](https://doi.org/10.1093/bioinformatics/btx274).
+26. Shen J, Song K, Slater AJ, Ferrero E, Nelson MR. STOPGAP: a database for systematic target opportunity assessment by genetic association predictions. Bioinformatics (Oxford, England). 2017;33:2784–6.
 
-27. Ensembl. Linkage Disequilibrium Calculator. 2017. [https://www.ensembl.org/Homo{\\\_}sapiens/Tools/LD?db=core](https://www.ensembl.org/Homo{\_}sapiens/Tools/LD?db=core).
+27. Ensembl. Linkage Disequilibrium Calculator. 2017. [https://www.ensembl.org/Homo\\\_sapiens/Tools/LD?db=core](https://www.ensembl.org/Homo\_sapiens/Tools/LD?db=core).
 
-28. Amlie-Wolf A, Tang M, Mlynarski EE, Kuksa PP, Valladares O, Katanic Z, et al. INFERNO - INFERring the molecular mechanisms of NOncoding genetic variants. bioRxiv. 2017;211599. doi:[10.1101/211599](https://doi.org/10.1101/211599).
+28. Amlie-Wolf A, Tang M, Mlynarski EE, Kuksa PP, Valladares O, Katanic Z, et al. INFERNO - INFERring the molecular mechanisms of NOncoding genetic variants. bioRxiv. 2017;211599.
 
-29. Hung T, Pratt GA, Sundararaman B, Townsend MJ, Chaivorapol C, Bhangale T, et al. The Ro60 autoantigen binds endogenous retroelements and regulates inflammatory gene expression. Science (New York, NY). 2015;350:455–9. doi:[10.1126/science.aac7442](https://doi.org/10.1126/science.aac7442).
+29. Hung T, Pratt GA, Sundararaman B, Townsend MJ, Chaivorapol C, Bhangale T, et al. The Ro60 autoantigen binds endogenous retroelements and regulates inflammatory gene expression. Science (New York, NY). 2015;350:455–9.
 
-30. Collado-Torres L, Nellore A, Kammers K, Ellis SE, Taub MA, Hansen KD, et al. Reproducible RNA-seq analysis using recount2. Nature biotechnology. 2017;35:319–21. doi:[10.1038/nbt.3838](https://doi.org/10.1038/nbt.3838).
+30. Collado-Torres L, Nellore A, Kammers K, Ellis SE, Taub MA, Hansen KD, et al. Reproducible RNA-seq analysis using recount2. Nature biotechnology. 2017;35:319–21.
 
-31. Davis S, Meltzer PS. GEOquery: a bridge between the Gene Expression Omnibus (GEO) and BioConductor. Bioinformatics. 2007;23:1846–7. doi:[10.1093/bioinformatics/btm254](https://doi.org/10.1093/bioinformatics/btm254).
+31. Davis S, Meltzer PS. GEOquery: a bridge between the Gene Expression Omnibus (GEO) and BioConductor. Bioinformatics. 2007;23:1846–7.
 
-32. Kauffmann A, Rayner TF, Parkinson H, Kapushesky M, Lukk M, Brazma A, et al. Importing ArrayExpress datasets into R/Bioconductor. Bioinformatics (Oxford, England). 2009;25:2092–4. doi:[10.1093/bioinformatics/btp354](https://doi.org/10.1093/bioinformatics/btp354).
+32. Kauffmann A, Rayner TF, Parkinson H, Kapushesky M, Lukk M, Brazma A, et al. Importing ArrayExpress datasets into R/Bioconductor. Bioinformatics (Oxford, England). 2009;25:2092–4.
 
-33. Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome biology. 2014;15:550. doi:[10.1186/s13059-014-0550-8](https://doi.org/10.1186/s13059-014-0550-8).
+33. Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome biology. 2014;15:550.
 
-34. Robinson MD, McCarthy DJ, Smyth GK. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics (Oxford, England). 2010;26:139–40. doi:[10.1093/bioinformatics/btp616](https://doi.org/10.1093/bioinformatics/btp616).
+34. Robinson MD, McCarthy DJ, Smyth GK. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics (Oxford, England). 2010;26:139–40.
 
-35. Ritchie ME, Phipson B, Wu D, Hu Y, Law CW, Shi W, et al. limma powers differential expression analyses for RNA-sequencing and microarray studies. Nucleic acids research. 2015;43:e47. doi:[10.1093/nar/gkv007](https://doi.org/10.1093/nar/gkv007).
+35. Ritchie ME, Phipson B, Wu D, Hu Y, Law CW, Shi W, et al. limma powers differential expression analyses for RNA-sequencing and microarray studies. Nucleic acids research. 2015;43:e47.
 
-36. Anders S, Huber W. Differential expression analysis for sequence count data. Genome biology. 2010;11:R106. doi:[10.1186/gb-2010-11-10-r106](https://doi.org/10.1186/gb-2010-11-10-r106).
+36. Anders S, Huber W. Differential expression analysis for sequence count data. Genome biology. 2010;11:R106.
 
 37. Kolde R. Pheatmap: Pretty heatmaps. 2015. <http://cran.r-project.org/package=pheatmap>.
 
 38. Carey VJ. Gwascat. 2017. <https://www.bioconductor.org/packages/gwascat/>.
 
-39. MacArthur J, Bowler E, Cerezo M, Gil L, Hall P, Hastings E, et al. The new NHGRI-EBI Catalog of published genome-wide association studies (GWAS Catalog). Nucleic acids research. 2017;45:D896–901. doi:[10.1093/nar/gkw1133](https://doi.org/10.1093/nar/gkw1133).
+39. MacArthur J, Bowler E, Cerezo M, Gil L, Hall P, Hastings E, et al. The new NHGRI-EBI Catalog of published genome-wide association studies (GWAS Catalog). Nucleic acids research. 2017;45:D896–901.
 
-40. Eicher JD, Landowski C, Stackhouse B, Sloan A, Chen W, Jensen N, et al. GRASP v2.0: an update on the Genome-Wide Repository of Associations between SNPs and phenotypes. Nucleic acids research. 2015;43 Database issue:D799–804. doi:[10.1093/nar/gku1202](https://doi.org/10.1093/nar/gku1202).
+40. Eicher JD, Landowski C, Stackhouse B, Sloan A, Chen W, Jensen N, et al. GRASP v2.0: an update on the Genome-Wide Repository of Associations between SNPs and phenotypes. Nucleic acids research. 2015;43 Database issue:D799–804.
 
 41. Carey VJ. Grasp2db. 2017. <https://bioconductor.org/packages/grasp2db/>.
 
-42. Bush WS, Moore JH. Chapter 11: Genome-wide association studies. PLoS computational biology. 2012;8:e1002822. doi:[10.1371/journal.pcbi.1002822](https://doi.org/10.1371/journal.pcbi.1002822).
+42. Bush WS, Moore JH. Chapter 11: Genome-wide association studies. PLoS computational biology. 2012;8:e1002822.
 
-43. Yates A, Beal K, Keenan S, McLaren W, Pignatelli M, Ritchie GRS, et al. The Ensembl REST API: Ensembl Data for Any Language. Bioinformatics (Oxford, England). 2015;31:143–5. doi:[10.1093/bioinformatics/btu613](https://doi.org/10.1093/bioinformatics/btu613).
+43. Yates A, Beal K, Keenan S, McLaren W, Pignatelli M, Ritchie GRS, et al. The Ensembl REST API: Ensembl Data for Any Language. Bioinformatics (Oxford, England). 2015;31:143–5.
 
-44. Ensembl. Rest API: GET ld/:species/pairwise/:id1/:id2. 2017. [http://rest.ensembl.org/documentation/info/ld{\\\_}pairwise{\\\_}get](http://rest.ensembl.org/documentation/info/ld{\_}pairwise{\_}get).
+44. Ensembl. Rest API: GET ld/:species/pairwise/:id1/:id2. 2017. [http://rest.ensembl.org/documentation/info/ld\\\_pairwise\\\_get](http://rest.ensembl.org/documentation/info/ld\_pairwise\_get).
 
 45. Ensembl. POSTGAP. 2017. <https://github.com/Ensembl/postgap>.
 
@@ -1919,18 +1920,18 @@ References
 
 47. Carey VJ. Ldblock. 2017. <https://bioconductor.org/packages/ldblock/>.
 
-48. Lawrence M, Huber W, Pagès H, Aboyoun P, Carlson M, Gentleman R, et al. Software for computing and annotating genomic ranges. PLoS computational biology. 2013;9:e1003118. doi:[10.1371/journal.pcbi.1003118](https://doi.org/10.1371/journal.pcbi.1003118).
+48. Lawrence M, Huber W, Pagès H, Aboyoun P, Carlson M, Gentleman R, et al. Software for computing and annotating genomic ranges. PLoS computational biology. 2013;9:e1003118.
 
-49. Obenchain V, Lawrence M, Carey V, Gogarten S, Shannon P, Morgan M. VariantAnnotation: a Bioconductor package for exploration and annotation of genetic variants. Bioinformatics (Oxford, England). 2014;30:2076–8. doi:[10.1093/bioinformatics/btu168](https://doi.org/10.1093/bioinformatics/btu168).
+49. Obenchain V, Lawrence M, Carey V, Gogarten S, Shannon P, Morgan M. VariantAnnotation: a Bioconductor package for exploration and annotation of genetic variants. Bioinformatics (Oxford, England). 2014;30:2076–8.
 
-50. Wickham H. Ggplot2. New York, NY: Springer New York; 2009. doi:[10.1007/978-0-387-98141-3](https://doi.org/10.1007/978-0-387-98141-3).
+50. Wickham H. Ggplot2. New York, NY: Springer New York; 2009.
 
 51. GTEx Consortium. GTEx Portal. 2017. <https://www.gtexportal.org>.
 
-52. Lawrence M, Gentleman R, Carey V. rtracklayer: an R package for interfacing with genome browsers. Bioinformatics (Oxford, England). 2009;25:1841–2. doi:[10.1093/bioinformatics/btp328](https://doi.org/10.1093/bioinformatics/btp328).
+52. Lawrence M, Gentleman R, Carey V. rtracklayer: an R package for interfacing with genome browsers. Bioinformatics (Oxford, England). 2009;25:1841–2.
 
 53. Bengtsson H. R.utils: various programming utilities. 2017. <https://cran.r-project.org/package=R.utils>.
 
 54. Mahto A. Splitstackshape: Stack and reshape datasets after splitting concatenated values. 2014. <https://cran.r-project.org/package=splitstackshape>.
 
-55. Zerbino DR, Wilder SP, Johnson N, Juettemann T, Flicek PR. The ensembl regulatory build. Genome biology. 2015;16:56. doi:[10.1186/s13059-015-0621-5](https://doi.org/10.1186/s13059-015-0621-5).
+55. Zerbino DR, Wilder SP, Johnson N, Juettemann T, Flicek PR. The ensembl regulatory build. Genome biology. 2015;16:56.

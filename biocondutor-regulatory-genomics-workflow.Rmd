@@ -22,7 +22,7 @@ editor_options:
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.width = 6, fig.height = 6)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.width = 5, fig.height = 5)
 ```
 
 # Introduction
@@ -267,8 +267,9 @@ snps
 
 We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (Figure \@ref(fig:manhattan), note that p-values lower than 1e-25 are truncated):
 
-```{r manhattan, fig.cap = 'Manhattan plot showing variants significantly associated with SLE.', fig.height = 8, fig.width = 12}
-traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus")
+```{r manhattan, fig.cap = 'Manhattan plot showing variants significantly associated with SLE.', fig.height = 6, fig.width = 8}
+traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus") +
+  theme(legend.position="none")
 ```
 
 We note here that genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the *tag* SNPs on the array are the true casual SNPs [@Bush2012].
