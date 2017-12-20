@@ -445,7 +445,7 @@ So, we have `r length(unique(snps_hard_in_gtex_blood$SNPS))` blood eQTL variants
 We can now check whether any of the genes differentially expressed in SLE is an *eGene*, a gene whose expression is influenced by an eQTL:
 
 We note that gene IDs in GTEx are mapped to GENCODE v19 [@GTEx2017a], while we are using the newer v25 for the DEGs.
-To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl Gene IDs:
+To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl gene IDs:
 
 ```{r}
 snps_hard_in_gtex_blood$ensembl_id <- sub("(ENSG[0-9]+)\\.[0-9]+", "\\1", snps_hard_in_gtex_blood$gene_id)
