@@ -1,0 +1,5 @@
+library(rmarkdown)
+#render("biocondutor-regulatory-genomics-workflow.Rmd", output_format = "all")
+render("biocondutor-regulatory-genomics-workflow.Rmd", output_format = "html_document")
+render("biocondutor-regulatory-genomics-workflow.Rmd", output_format = "github_document")
+render("biocondutor-regulatory-genomics-workflow.Rmd", output_format = "BiocWorkflowTools::f1000_article")
