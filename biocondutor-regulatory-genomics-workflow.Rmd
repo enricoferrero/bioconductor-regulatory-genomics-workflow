@@ -14,6 +14,8 @@ output:
     html_preview: false
   BiocWorkflowTools::f1000_article: default
 bibliography: references.bib
+biblio-style: unsrtnat
+natbiboptions: super
 csl: biomed-central.csl
 editor_options: 
   chunk_output_type: console
