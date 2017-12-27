@@ -17,4 +17,5 @@ In this Bioconductor workflow, we will explore how different types of regulatory
 - The .Rmd source file can be used to reproduce the analysis.
 - The .html file is for visualisation in web browsers.
 - The .md file is best for visualisation on GitHub.
+- the .docx file is for visualisation with Microsoft Word.
 - The .tex and .pdf files (and all other files) are needed for submission to the F1000Research Bioconductor Gateway. 
