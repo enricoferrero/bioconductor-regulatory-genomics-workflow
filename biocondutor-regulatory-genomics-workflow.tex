@@ -83,7 +83,7 @@
 \thispagestyle{front}
 
 \begin{abstract}
-The identification of therapeutic targets is a critical issue in drug discovery, with several programmes failing because of a weak linkage between target and disease. Genome-wide association studies and large gene expression experiments are providing insights into the biology of several common and complex diseases, but the complexity of transcriptional regulation mechanisms often limit our understanding of how genetic variation can influence changes in gene expression. Several initiatives in the field of regulatory genomics are aiming to close this gap by systematically identifying and cataloguing regulatory elements such as promoters and enhacersacross different tissues and cell types. In this Bioconductor workflow, we will explore how different types of regulatory genomic data can be used for the functional interpretation of disease-associated variants and for the prioritisation of gene lists from gene expression experiments.
+The identification of therapeutic targets is a critical step in the research and developement of new drugs, with several drug discovery programmes failing because of a weak linkage between target and disease. Genome-wide association studies and large-scale gene expression experiments are providing insights into the biology of several common and complex diseases, but the complexity of transcriptional regulation mechanisms often limit our understanding of how genetic variation can influence changes in gene expression. Several initiatives in the field of regulatory genomics are aiming to close this gap by systematically identifying and cataloguing regulatory elements such as promoters and enhacers across different tissues and cell types. In this Bioconductor workflow, we will explore how different types of regulatory genomic data can be used for the functional interpretation of disease-associated variants and for the prioritisation of gene lists from gene expression experiments.
 \end{abstract}
 
 \section*{Keywords}
@@ -99,14 +99,14 @@ Discovering and bringing new drugs to the market is a long, expensive and ineffi
 Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patientsâ\euro{}™ access to medicines.
 Of note, the majority of drug discovery programmes fail for efficacy reasons \citep{Harrison2016}, with up to 40\% of these failures due to lack of a clear link between the target and the disease under investigation \citep{Cook2014}.
 
-Target selection, the first step in drug discovery programmes, is a critical decision point.
+Target selection, the first step in drug discovery programmes, is thus a critical decision point.
 It has previously been shown that therapeutic targets with a genetic link to the disease under investigation are more likely to progress through the drug discovery pipeline, suggesting that genetics can be used as a tool to prioritise and validate drug targets in early discovery \citep{Plenge2013, Nelson2015}.
 
 Over the last decade, genome-wide association studies (GWASs) have revolutionised the field of human genetics allowing to survey DNA mutations associated with disease and other complex traits on an unprecedented scale \citep{Visscher2017}.
 Similarly, phenome-wide association studies (PheWAS) are emerging as a complementary methodology to decipher the genetic bases of the human phenome \citep{Bush2016}.
-While many of these associations might not actually be relevant for the disease aetiology \citep{Boyle2017}, these methods hold much promise to guide towards the next generation of drug targets \citep{Finan2017}.
+While many of these associations might not actually be relevant for the disease aetiology \citep{Boyle2017}, these methods hold much promise to guide pharmaceutical scientists towards the next generation of drug targets \citep{Finan2017}.
 
-Arguably, the biggest challenge in translating findings from GWASs to therapies is that the great majority of single nucleotide polymorphisms (SNPs) associated with disease are found in non-coding regions of the genome and therefore cannot be easily linked to a target gene \citep{Maurano2012}.
+Arguably, one of the biggest challenges in translating findings from GWASs to therapies is that the great majority of single nucleotide polymorphisms (SNPs) associated with disease are found in non-coding regions of the genome and therefore cannot be easily linked to a target gene \citep{Maurano2012}.
 Many of these SNPs could be regulatory variants, affecting the expression of nearby or distal genes by interfering with the process of transcription (e.g.: binding of transcription factors at promoters or enhancers) \citep{Ward2012}.
 
 The most established way to map disease-associated regulatory variants to target genes is probably to use expression quantitative trait loci (eQTLs) \citep{Albert2015}, variants that affect the expression of specific genes.
@@ -140,12 +140,12 @@ We start with a common scenario: we run a RNA-seq experiment comparing patients 
 \subsection{Install required packages}\label{install-required-packages}
 
 R version 3.4.2 and Bioconductor version 3.6 were used for the analysis.
-The code below will install all required packages and dependencies from Bioconductor and CRAN.
+The code below will install all required packages and dependencies from Bioconductor and CRAN:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{source}\NormalTok{(}\StringTok{"https://bioconductor.org/biocLite.R"}\NormalTok{)}
-\CommentTok{# uncomment following line to install packages}
+\CommentTok{# uncomment the following line to install packages}
 \CommentTok{#biocLite(c("DESeq2", "GenomicFeatures", "GenomicRanges", "ggplot2", "gwascat", "recount", "pheatmap", "RColorBrewer", "rtracklayer", "R.utils", "splitstackshape", "VariantAnnotation"))}
 \end{Highlighting}
 \end{Shaded}
@@ -159,7 +159,7 @@ We are going to use \texttt{recount} \citep{Collado-Torres2017} to obtain gene-l
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(recount)}
-\CommentTok{# uncomment following line to download dataset}
+\CommentTok{# uncomment the following line to download dataset}
 \CommentTok{#download_study("SRP062966")}
 \KeywordTok{load}\NormalTok{(}\KeywordTok{file.path}\NormalTok{(}\StringTok{"SRP062966"}\NormalTok{, }\StringTok{"rse_gene.RData"}\NormalTok{))}
 \NormalTok{rse <-}\StringTok{ }\KeywordTok{scale_counts}\NormalTok{(rse_gene)}
@@ -215,8 +215,8 @@ This is what the data looks like:
 ## ENSG00000001167.14        967        737        874        886        902
 \end{verbatim}
 
-We note this is a GENCODE v25 annotation, which will be useful later on.
-Let's look at the metadata to check how we can split them between cases and controls:
+We note that genes are annotated using the GENCODE \citep{Harrow2012} v25 annotation, which will be useful later on.
+Let's look at the metadata to check how we can split samples between cases and controls:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -394,7 +394,7 @@ We will also make sure that they are encoded as factors and that the correct ref
 \end{Highlighting}
 \end{Shaded}
 
-Let's check it's what we expect:
+We can have a look at the new format:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -419,8 +419,8 @@ Let's check it's what we expect:
 ## SRR2443149            SLE whole blood     high ISM_high
 \end{verbatim}
 
-OK, this looks more readable.
-Let's check how many samples we have in each group:
+It looks more readable.
+Let's now check how many samples we have in each group:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -496,7 +496,7 @@ First, let's look at distances between samples to see if we can recover a separa
 ## SLE       99.84061   127.2800  115.06568    0.00000
 \end{verbatim}
 
-We will use the \texttt{pheatmap} \citep{Kolde2015} and \texttt{RColorBrewer} {[}Neuwirth2014{]} packages for drawing the heatmap (Figure \ref{fig:heatmap}):
+We will use the \texttt{pheatmap} \citep{Kolde2015} and \texttt{RColorBrewer} \citep{Neuwirth2014} packages for drawing the heatmap (Figure \ref{fig:heatmap}):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -702,9 +702,9 @@ An alternative is to use the GRASP \citep{Eicher2015} database with the \texttt{
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(gwascat)}
-\CommentTok{# uncomment following line to download file and build the gwasloc object all in one step}
+\CommentTok{# uncomment the following line to download file and build the gwasloc object all in one step}
 \CommentTok{#snps <- makeCurrentGwascat()}
-\CommentTok{# uncomment following line to download file}
+\CommentTok{# uncomment the following line to download file}
 \CommentTok{#download.file("http://www.ebi.ac.uk/gwas/api/search/downloads/alternative", destfile = "gwas_catalog_v1.0.1-associations_e90_r2017-12-04.tsv")}
 \NormalTok{snps <-}\StringTok{ }\KeywordTok{read.delim}\NormalTok{(}\StringTok{"gwas_catalog_v1.0.1-associations_e90_r2017-12-04.tsv"}\NormalTok{, }\DataTypeTok{check.names =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
 \NormalTok{snps <-}\StringTok{ }\NormalTok{gwascat}\OperatorTok{:::}\KeywordTok{gwdf2GRanges}\NormalTok{(snps, }\DataTypeTok{extractDate =} \StringTok{"2017-12-04"}\NormalTok{)}
@@ -771,10 +771,12 @@ We are interested in SNPs associated with SLE:
 ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 \end{verbatim}
 
-We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (Figure \ref{fig:manhattan}, note that p-values lower than 1e-25 are truncated):
+We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (Figure \ref{fig:manhattan}).
+Note that p-values lower than 1e-25 are truncated in the figure and that we have to load \texttt{ggplot2} \citep{Wickham2009} to modify the look of the plot:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
 \KeywordTok{traitsManh}\NormalTok{(}\DataTypeTok{gwr =}\NormalTok{ snps, }\DataTypeTok{sel =}\NormalTok{ snps, }\DataTypeTok{traits =} \StringTok{"Systemic lupus erythematosus"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
 \end{Highlighting}
@@ -792,16 +794,17 @@ We can visualise these as a Manhattan plot to look at the distribution of GWAS p
 We note here that genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the \emph{tag} SNPs on the array are the true casual SNPs \citep{Bush2012}.
 The alleles of other SNPs can be imputed from tag SNPs thanks to the structure of linkage disequilibrium (LD) blocks present in chromosomes.
 Thus, when linking variants to target genes in a real-world setting, it is important to take into consideration neighbouring SNPs that are in high LD and inherited with the tag SNPs.
-For simplicity, We will skip this LD expansion step and refer the reader to the Ensembl REST API \citep{Yates2015, Ensembl2017a}, the Ensembl Linkage Disequilibrium Calculator \citep{Ensembl2017b} and the Bioconductor packages \texttt{trio} \citep{Schwender2015} and \texttt{ldblock} \citep{Carey2017c} to perform this task.
+For simplicity, we will skip this LD expansion step and refer the reader to the Ensembl REST API \citep{Yates2015, Ensembl2017a}, the Ensembl Linkage Disequilibrium Calculator \citep{Ensembl2017b} and the Bioconductor packages \texttt{trio} \citep{Schwender2015} and \texttt{ldblock} \citep{Carey2017c} to perform this task.
 
 \subsection{Annotation of coding and proximal SNPs to target genes}\label{annotation-of-coding-and-proximal-snps-to-target-genes}
 
-In order to annotate these variants, We need a a \texttt{TxDb} object, a reference of where transcripts are located on the genome.
-We can build this using the \texttt{GenomicFeatutres} \citep{Lawrence2013} package and annotation from GENCODE (which is the gene annotation used in our RNA-seq experiment):
+In order to annotate these variants, we need a a \texttt{TxDb} object, a reference of where transcripts are located on the genome.
+We can build this using the \texttt{GenomicFeatutres} \citep{Lawrence2013} package and the GENCODE v25 gene annotation:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(GenomicFeatures)}
+\CommentTok{# uncomment the following line to download file}
 \CommentTok{#download.file("ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/release_25/gencode.v25.annotation.gff3.gz", destfile = "gencode.v25.annotation.gff3.gz")}
 \NormalTok{txdb <-}\StringTok{ }\KeywordTok{makeTxDbFromGFF}\NormalTok{(}\StringTok{"gencode.v25.annotation.gff3.gz"}\NormalTok{)}
 \NormalTok{txdb <-}\StringTok{ }\KeywordTok{keepStandardChromosomes}\NormalTok{(txdb)}
@@ -822,13 +825,13 @@ We can build this using the \texttt{GenomicFeatutres} \citep{Lawrence2013} packa
 ## # exon_nrow: 1182765
 ## # cds_nrow: 704859
 ## # Db created by: GenomicFeatures package from Bioconductor
-## # Creation time: 2017-12-20 18:58:38 +0000 (Wed, 20 Dec 2017)
+## # Creation time: 2017-12-27 14:34:41 +0000 (Wed, 27 Dec 2017)
 ## # GenomicFeatures version at creation time: 1.30.0
 ## # RSQLite version at creation time: 2.0
 ## # DBSCHEMAVERSION: 1.2
 \end{verbatim}
 
-We will also need to convert the \texttt{gwasloc} object into a standard \texttt{GRanges} object:
+We also have to convert the \texttt{gwasloc} object into a standard \texttt{GRanges} object:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1039,7 +1042,6 @@ We can visualise where these SNPs are located with \texttt{ggplot2} \citep{Wickh
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(ggplot2)}
 \NormalTok{loc <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\KeywordTok{table}\NormalTok{(snps_anno}\OperatorTok{$}\NormalTok{LOCATION))}
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ loc, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{reorder}\NormalTok{(Var1, }\OperatorTok{-}\NormalTok{Freq), }\DataTypeTok{y =}\NormalTok{ Freq)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat=}\StringTok{"identity"}\NormalTok{)}
@@ -1055,7 +1057,7 @@ We can visualise where these SNPs are located with \texttt{ggplot2} \citep{Wickh
 \caption{Barplot showing genomic locations associated with SLE variants.}\label{fig:barplot}
 \end{figure}
 
-As expected \citep{Maurano2012}, the great majority of SNPs is located within introns and in intergenic regions.
+As expected \citep{Maurano2012}, the great majority of SNPs are located within introns and in intergenic regions.
 For the moment, we will focus on SNPs that are either coding or in promoter and UTR regions, as these can be assigned to target genes rather unambiguously:
 
 \begin{Shaded}
@@ -1198,7 +1200,7 @@ We will store essential information about these hits in a results \texttt{data.f
 \subsection{Use of regulatory genomic data to map intronic and intergenic SNPs to target genes}\label{use-of-regulatory-genomic-data-to-map-intronic-and-intergenic-snps-to-target-genes}
 
 But what about all the SNPs in introns and intergenic regions?
-Some of those might be regulatory SNPs affecting the expression level of their target gene through a distal enhancer.
+Some of those might be regulatory SNPs affecting the expression level of their target gene(s) through a distal enhancer.
 Let's create a dataset of candidate regulatory SNPs that are either intronic or intergenic and remove the annotation obtained with \texttt{VariantAnnotation}:
 
 \begin{Shaded}
@@ -1279,7 +1281,7 @@ To get the data, you will have to register and download the file \texttt{GTEx\_A
 ## 6      6.35694e-05 5.44487e-02
 \end{verbatim}
 
-We have to extract the SNPs locations from the ID used by GTEx:
+We have to extract the genomic locations of the SNPs from the IDs used by GTEx:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1389,7 +1391,7 @@ We can then convert the \texttt{data.frame} into a \texttt{GRanges} object:
 ##   seqinfo: 23 sequences from an unspecified genome; no seqlengths
 \end{verbatim}
 
-We also need to ensure that the style of the seqlevels is consistent with the previous objects:
+We also need to ensure that the chromosome notation is consistent with the previous objects:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1441,7 +1443,7 @@ The \texttt{R.utils} package \citep{Bengtsson2017} is required to extract the gz
 \end{Highlighting}
 \end{Shaded}
 
-We will use the \texttt{GenomicRanges} package \citep{Lawrence2013} to compute the overlap between GWAS SNPs and eQTLs:
+We will use the \texttt{GenomicRanges} package \citep{Lawrence2013} to compute the overlap between GWAS SNPs and blood eQTLs:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1487,8 +1489,7 @@ We will use the \texttt{GenomicRanges} package \citep{Lawrence2013} to compute t
 \end{verbatim}
 
 So, we have 59 blood eQTL variants that are associated with SLE.
-We can now check whether any of the genes differentially expressed in SLE is an \emph{eGene}, a gene whose expression is influenced by an eQTL:
-
+We can now check whether any of the genes differentially expressed in SLE is an \emph{eGene}, a gene whose expression is influenced by an eQTL.
 We note that gene IDs in GTEx are mapped to GENCODE v19 \citep{GTEx2017a}, while we are using the newer v25 for the DEGs.
 To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl gene IDs:
 
@@ -1604,9 +1605,10 @@ We can add these 4 genes to our list:
 
 The FANTOM consortium profiled gene expression across a large panel of tissues and cell types using CAGE \citep{Fantom2014, Andersson2014}.
 This technology allows mapping of transcription start sites (TSSs) and enhancer RNAs (eRNAs) genome-wide.
-Correlations between these promoter and enhancer elements across a large panel of tissues and cell types can then be used to identify significant promoter - enhancer pairs, that we can use to map distal regulatory SNPs to target genes.
+Correlations between these promoter and enhancer elements across a large panel of tissues and cell types can then be calculated to identify significant promoter - enhancer pairs.
+In turn, we will use these correlations to map distal regulatory SNPs to target genes.
 
-We can have a look at the enhancer - promoter correlation data in this way:
+We can read in and have a look at the enhancer - promoter correlation data in this way:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1648,7 +1650,7 @@ We can have a look at the enhancer - promoter correlation data in this way:
 ## 6     0,70169
 \end{verbatim}
 
-Everything we need is in the fourth column, \texttt{name}: genomic location of the enhancer, gene identifiers, correlation and significance.
+Everything we need is in the fourth column, \texttt{name}: genomic location of the enhancer, gene identifiers, Pearson correlation coefficient and significance.
 We will use the \texttt{splitstackshape} package \citep{Mahto2014} to parse it:
 
 \begin{Shaded}
@@ -1683,7 +1685,7 @@ We will use the \texttt{splitstackshape} package \citep{Mahto2014} to parse it:
 ## 6 NM_001142467,NM_021170    HES4 R:0.236 FDR:6.28221217150423e-11
 \end{verbatim}
 
-Now we need to parse the \texttt{name\_1} column which contains the genomic location of the enhancers:
+Now we can extract the genomic locations of the enhancers and the correlation values:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1729,7 +1731,7 @@ Now we need to parse the \texttt{name\_1} column which contains the genomic loca
 ## 6 1005293 1005547    HES4 0.236 6.28221217150423e-11
 \end{verbatim}
 
-We can select only those enhancer - promoter pairs with a decent level of correlation and significance and tidy the data at the same time:
+We can select only the enhancer - promoter pairs with a decent level of correlation and significance and tidy the data at the same time:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1939,7 +1941,7 @@ Let's add these to our list:
 
 More recently, chromatin interaction data was generated across 17 human primary blood cell types \citep{Javierre2016}.
 More than 30,000 promoter baits were used to capture promoter-interacting regions genome-wide.
-These regions were then mapped to enhancer based on the Ensembl Regulatory Build \citep{Zerbino2015} and can be accessed in the supplementary data of the paper:
+These regions were then mapped to enhancers based on the Ensembl Regulatory Build \citep{Zerbino2015} and can be accessed in the supplementary data of the paper:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2189,21 +2191,24 @@ These are our final results:
 
 \section{Conclusions}\label{conclusions}
 
-In this Bioconductor workflow we have used several packages and datasets downloaded from genomic projects and publications to show how regulatory genomic data can be used to annotate significant hits from GWASs and provide an intermediate layer connecting genetic and transcriptomic data.
+In this Bioconductor workflow we have used several packages and datasets to demonstrate how regulatory genomic data can be used to annotate significant hits from GWASs and provide an intermediate layer connecting genetics and transcriptomics.
 Overall, we identified 17 SLE-associated SNPs that we mapped to 16 genes differentially expressed in SLE, using eQTL data \citep{GTEx2017a} and enhancer - promoter relationships from CAGE \citep{Fantom2014} and promoter capture Hi-C experiments \citep{Javierre2016}.
 
-While simplified, the workflow also demonstrates some real-world challenges encountered when working with genomic data from different sources, such as different genome references and gene annotation conventions as well as parsing of files with custom formats into Bioconductor-compatible objects.
+While simplified, the workflow also demonstrates some real-world challenges encountered when working with genomic data from different sources, such as the use of different genome references and gene annotation conventions, the parsing of files with custom formats into Bioconductor-compatible objects and the mapping of genomic locations to genes.
+
 As the sample size and power of GWASs and gene expression studies continue to increase, it will become more and more challenging to identify truly significant hits and interpret them.
 The use of regulatory genomics data as presented here can be an important skill and tool to gain insights into large biomedical datasets and help in the identification of biomarkers and therapeutic targets.
 
 \section{Abbreviations}\label{abbreviations}
 
 CAGE: cap analysis of gene expression\\
+DHS: DNase I hypersensitive site
 eQTL: expression quantitative trait locus\\
 GWAS: genome-wide association study\\
 PheWAS: phenome-wide association study\\
 SLE: systemic lupus erythematosus\\
-SNP: single nucleotide polymorphism
+SNP: single nucleotide polymorphism\\
+TSS: trancription start site
 
 \section{Data and software availability}\label{data-and-software-availability}
 

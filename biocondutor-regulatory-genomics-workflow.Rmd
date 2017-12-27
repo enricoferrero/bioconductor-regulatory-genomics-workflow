@@ -329,7 +329,7 @@ mcols(snps_anno) <- cbind(mcols(snps_metadata)[c("SNPS", "P-VALUE")], mcols(snps
 snps_anno
 ```
 
-We can visualise where these SNPs are located with `ggplot2` [@wickham2009] (Figure \@ref(fig:barplot)):
+We can visualise where these SNPs are located with `ggplot2` [@Wickham2009] (Figure \@ref(fig:barplot)):
 
 ```{r barplot, fig.cap = 'Barplot showing genomic locations associated with SLE variants.'}
 loc <- data.frame(table(snps_anno$LOCATION))
