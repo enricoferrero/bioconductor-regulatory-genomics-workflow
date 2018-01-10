@@ -778,7 +778,9 @@ Note that p-values lower than 1e-25 are truncated in the figure and that we have
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(ggplot2)}
 \KeywordTok{traitsManh}\NormalTok{(}\DataTypeTok{gwr =}\NormalTok{ snps, }\DataTypeTok{sel =}\NormalTok{ snps, }\DataTypeTok{traits =} \StringTok{"Systemic lupus erythematosus"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position=}\StringTok{"none"}\NormalTok{)}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"none"}\NormalTok{,}
+        \DataTypeTok{axis.title.x =} \KeywordTok{element_blank}\NormalTok{(),}
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_blank}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -825,7 +827,7 @@ We can build this using the \texttt{GenomicFeatutres} \citep{Lawrence2013} packa
 ## # exon_nrow: 1182765
 ## # cds_nrow: 704859
 ## # Db created by: GenomicFeatures package from Bioconductor
-## # Creation time: 2017-12-27 14:34:41 +0000 (Wed, 27 Dec 2017)
+## # Creation time: 2018-01-10 11:57:23 +0000 (Wed, 10 Jan 2018)
 ## # GenomicFeatures version at creation time: 1.30.0
 ## # RSQLite version at creation time: 2.0
 ## # DBSCHEMAVERSION: 1.2
@@ -2202,7 +2204,7 @@ The use of regulatory genomics data as presented here can be an important skill 
 \section{Abbreviations}\label{abbreviations}
 
 CAGE: cap analysis of gene expression\\
-DHS: DNase I hypersensitive site
+DHS: DNase I hypersensitive site\\
 eQTL: expression quantitative trait locus\\
 GWAS: genome-wide association study\\
 PheWAS: phenome-wide association study\\

@@ -270,10 +270,12 @@ snps
 We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (Figure \@ref(fig:manhattan)).
 Note that p-values lower than 1e-25 are truncated in the figure and that we have to load `ggplot2` [@Wickham2009] to modify the look of the plot:
 
-```{r manhattan, fig.cap = 'Manhattan plot showing variants significantly associated with SLE.', fig.height = 6, fig.width = 8}
+```{r manhattan, fig.cap = 'Manhattan plot showing variants significantly associated with SLE.', fig.height = 7, fig.width = 6}
 library(ggplot2)
 traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus") +
-  theme(legend.position="none")
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank())
 ```
 
 We note here that genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the *tag* SNPs on the array are the true casual SNPs [@Bush2012].
@@ -649,7 +651,7 @@ The use of regulatory genomics data as presented here can be an important skill 
 # Abbreviations
 
 CAGE: cap analysis of gene expression  
-DHS: DNase I hypersensitive site
+DHS: DNase I hypersensitive site  
 eQTL: expression quantitative trait locus  
 GWAS: genome-wide association study  
 PheWAS: phenome-wide association study  

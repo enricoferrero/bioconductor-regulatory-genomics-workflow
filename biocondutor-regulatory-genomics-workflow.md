@@ -565,7 +565,9 @@ We can visualise these as a Manhattan plot to look at the distribution of GWAS p
 ``` r
 library(ggplot2)
 traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus") +
-  theme(legend.position="none")
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),
+        axis.text.x = element_blank())
 ```
 
 ![Manhattan plot showing variants significantly associated with SLE.](biocondutor-regulatory-genomics-workflow_files/figure-markdown_github/manhattan-1.png)
@@ -598,7 +600,7 @@ txdb
     ## # exon_nrow: 1182765
     ## # cds_nrow: 704859
     ## # Db created by: GenomicFeatures package from Bioconductor
-    ## # Creation time: 2017-12-27 14:47:33 +0000 (Wed, 27 Dec 2017)
+    ## # Creation time: 2018-01-10 11:53:54 +0000 (Wed, 10 Jan 2018)
     ## # GenomicFeatures version at creation time: 1.30.0
     ## # RSQLite version at creation time: 2.0
     ## # DBSCHEMAVERSION: 1.2
@@ -1803,7 +1805,8 @@ Abbreviations
 =============
 
 CAGE: cap analysis of gene expression
-DHS: DNase I hypersensitive site eQTL: expression quantitative trait locus
+DHS: DNase I hypersensitive site
+eQTL: expression quantitative trait locus
 GWAS: genome-wide association study
 PheWAS: phenome-wide association study
 SLE: systemic lupus erythematosus
