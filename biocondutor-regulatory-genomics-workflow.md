@@ -5,7 +5,7 @@ true
 Introduction
 ============
 
-Discovering and bringing new drugs to the market is a long, expensive and inefficient process \[1, 2\]. Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patientsâ€™ access to medicines. Of note, the majority of drug discovery programmes fail for efficacy reasons \[3\], with up to 40% of these failures due to lack of a clear link between the target and the disease under investigation \[4\].
+Discovering and bringing new drugs to the market is a long, expensive and inefficient process \[1, 2\]. Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patients' access to medicines. Of note, the majority of drug discovery programmes fail for efficacy reasons \[3\], with up to 40% of these failures due to lack of a clear link between the target and the disease under investigation \[4\].
 
 Target selection, the first step in drug discovery programmes, is thus a critical decision point. It has previously been shown that therapeutic targets with a genetic link to the disease under investigation are more likely to progress through the drug discovery pipeline, suggesting that genetics can be used as a tool to prioritise and validate drug targets in early discovery \[5, 6\].
 
@@ -27,7 +27,7 @@ Workflow
 Overview
 --------
 
-In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs. We will use eQTL data from GTEx \[14\], FANTOM5 correlations between promoters and enhancers \[21\] and promoter capture Hi-C data \[Javierre2016\].
+In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs. We will use eQTL data from GTEx \[14\], FANTOM5 correlations between promoters and enhancers \[21\] and promoter capture Hi-C data \[25\].
 
 We start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
@@ -344,7 +344,7 @@ sampleDists[c(1, 18, 19, 36), c(1, 18, 19, 36)]
     ## SLE       93.30292   115.8796    0.00000  115.06568
     ## SLE       99.84061   127.2800  115.06568    0.00000
 
-We will use the `pheatmap` \[38\] and `RColorBrewer` \[39\] packages for drawing the heatmap (Figure @ref(fig:heatmap)):
+We will use the `pheatmap` \[38\] and `RColorBrewer` \[39\] packages for drawing the heatmap (Figure @ref(fig:heatmap)).
 
 ``` r
 library(pheatmap)
@@ -355,7 +355,7 @@ pheatmap(sampleDists, col = colors)
 
 ![Clustered heatmap showing distances between samples.](biocondutor-regulatory-genomics-workflow_files/figure-markdown_github/heatmap-1.png)
 
-Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure @ref(fig:pca)):
+Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure @ref(fig:pca)).
 
 ``` r
 plotPCA(vsd, intgroup = "disease_status")
@@ -417,7 +417,7 @@ summary(res)
     ## [1] see 'cooksCutoff' argument of ?results
     ## [2] see 'independentFiltering' argument of ?results
 
-We can also visualise the log fold changes using an MA plot (Figure @ref(fig:maplot)):
+We can also visualise the log fold changes using an MA plot (Figure @ref(fig:maplot)).
 
 ``` r
 plotMA(res, ylim = c(-5,5))
@@ -531,7 +531,7 @@ snps
     ##   -------
     ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 
-SNPs is a `gwasloc` object which is simply a wrapper around a `GRanges` object, the standard way to express genomic ranges in Bioconductor. We are interested in SNPs associated with SLE:
+`snps` is a `gwasloc` object which is simply a wrapper around a `GRanges` object, the standard way to express genomic ranges in Bioconductor. We are interested in SNPs associated with SLE:
 
 ``` r
 snps <- subsetByTraits(snps, tr = "Systemic lupus erythematosus")
@@ -600,7 +600,7 @@ txdb
     ## # exon_nrow: 1182765
     ## # cds_nrow: 704859
     ## # Db created by: GenomicFeatures package from Bioconductor
-    ## # Creation time: 2018-01-10 11:53:54 +0000 (Wed, 10 Jan 2018)
+    ## # Creation time: 2018-01-10 16:43:18 +0000 (Wed, 10 Jan 2018)
     ## # GenomicFeatures version at creation time: 1.30.0
     ## # RSQLite version at creation time: 2.0
     ## # DBSCHEMAVERSION: 1.2
@@ -784,7 +784,7 @@ snps_anno
     ##   -------
     ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 
-We can visualise where these SNPs are located with `ggplot2` \[44\] (Figure @ref(fig:barplot)):
+We can visualise where these SNPs are located with `ggplot2` \[44\] (Figure @ref(fig:barplot)).
 
 ``` r
 loc <- data.frame(table(snps_anno$LOCATION))

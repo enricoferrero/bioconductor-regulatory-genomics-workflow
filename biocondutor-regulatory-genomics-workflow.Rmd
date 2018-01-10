@@ -1,8 +1,7 @@
 ---
 title: "Bioconductor Regulatory Genomics Workflow"
 author:
-  affiliation: Computational Biology, GSK, Medicines Research Centre, Gunnels Wood
-    Road, Stevenage, SG1 2NY, UK
+  affiliation: Computational Biology, GSK, Medicines Research Centre, Gunnels Wood Road, Stevenage, SG1 2NY, UK
   email: enrico.x.ferrero@gsk.com
   name: Enrico Ferrero
 biblio-style: unsrtnat
@@ -30,7 +29,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, fig.width = 5, fig.heigh
 # Introduction
 
 Discovering and bringing new drugs to the market is a long, expensive and inefficient process [@Waring2015; @DiMasi2016].
-Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patients’ access to medicines.
+Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patients' access to medicines.
 Of note, the majority of drug discovery programmes fail for efficacy reasons [@Harrison2016], with up to 40% of these failures due to lack of a clear link between the target and the disease under investigation [@Cook2014].
 
 Target selection, the first step in drug discovery programmes, is thus a critical decision point.
@@ -67,7 +66,7 @@ A similar resource and valid alternative is INFERNO (inferring the molecular mec
 ## Overview
 
 In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
-We will use eQTL data from GTEx [@GTEx2017a], FANTOM5 correlations between promoters and enhancers [@Andersson2014] and promoter capture Hi-C data [Javierre2016].
+We will use eQTL data from GTEx [@GTEx2017a], FANTOM5 correlations between promoters and enhancers [@Andersson2014] and promoter capture Hi-C data [@Javierre2016].
 
 We start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
@@ -189,7 +188,7 @@ rownames(sampleDists) <- vsd$disease_status
 sampleDists[c(1, 18, 19, 36), c(1, 18, 19, 36)]
 ```
 
-We will use the `pheatmap` [@Kolde2015] and `RColorBrewer` [@Neuwirth2014] packages for drawing the heatmap (Figure \@ref(fig:heatmap)):
+We will use the `pheatmap` [@Kolde2015] and `RColorBrewer` [@Neuwirth2014] packages for drawing the heatmap (Figure \@ref(fig:heatmap)).
 
 ```{r heatmap, fig.cap = 'Clustered heatmap showing distances between samples.'}
 library(pheatmap)
@@ -198,7 +197,7 @@ colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255)
 pheatmap(sampleDists, col = colors)
 ```
 
-Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure \@ref(fig:pca)):
+Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure \@ref(fig:pca)).
 
 ```{r pca, fig.cap = 'Principal component analysis with samples coloured according to their disease status.'}
 plotPCA(vsd, intgroup = "disease_status")
@@ -218,7 +217,7 @@ We can look at a summary of the results:
 summary(res)
 ```
 
-We can also visualise the log fold changes using an MA plot (Figure \@ref(fig:maplot)):
+We can also visualise the log fold changes using an MA plot (Figure \@ref(fig:maplot)).
 
 ```{r maplot, fig.cap = 'MA plot showing genes differentially expressed in SLE patients compared to healthy patients.'}
 plotMA(res, ylim = c(-5,5))
@@ -259,7 +258,7 @@ genome(snps) <- "GRCh38"
 snps
 ```
 
-SNPs is a `gwasloc` object which is simply a wrapper around a `GRanges` object, the standard way to express genomic ranges in Bioconductor.
+`snps` is a `gwasloc` object which is simply a wrapper around a `GRanges` object, the standard way to express genomic ranges in Bioconductor.
 We are interested in SNPs associated with SLE:
 
 ```{r}
@@ -331,7 +330,7 @@ mcols(snps_anno) <- cbind(mcols(snps_metadata)[c("SNPS", "P-VALUE")], mcols(snps
 snps_anno
 ```
 
-We can visualise where these SNPs are located with `ggplot2` [@Wickham2009] (Figure \@ref(fig:barplot)):
+We can visualise where these SNPs are located with `ggplot2` [@Wickham2009] (Figure \@ref(fig:barplot)).
 
 ```{r barplot, fig.cap = 'Barplot showing genomic locations associated with SLE variants.'}
 loc <- data.frame(table(snps_anno$LOCATION))

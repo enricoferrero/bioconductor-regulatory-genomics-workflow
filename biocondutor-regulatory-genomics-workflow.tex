@@ -96,7 +96,7 @@ bioconductor; r; rstats; regulatory genomics; functional genomics; genetics; gwa
 \section{Introduction}\label{introduction}
 
 Discovering and bringing new drugs to the market is a long, expensive and inefficient process \citep{Waring2015, DiMasi2016}.
-Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patientsâ\euro{}™ access to medicines.
+Increasing the success rates of drug discovery programmes would be transformative to the pharmaceutical industry and significantly improve patients' access to medicines.
 Of note, the majority of drug discovery programmes fail for efficacy reasons \citep{Harrison2016}, with up to 40\% of these failures due to lack of a clear link between the target and the disease under investigation \citep{Cook2014}.
 
 Target selection, the first step in drug discovery programmes, is thus a critical decision point.
@@ -133,7 +133,7 @@ A similar resource and valid alternative is INFERNO (inferring the molecular mec
 \subsection{Overview}\label{overview}
 
 In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
-We will use eQTL data from GTEx \citep{GTEx2017a}, FANTOM5 correlations between promoters and enhancers \citep{Andersson2014} and promoter capture Hi-C data {[}Javierre2016{]}.
+We will use eQTL data from GTEx \citep{GTEx2017a}, FANTOM5 correlations between promoters and enhancers \citep{Andersson2014} and promoter capture Hi-C data \citep{Javierre2016}.
 
 We start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
@@ -496,7 +496,7 @@ First, let's look at distances between samples to see if we can recover a separa
 ## SLE       99.84061   127.2800  115.06568    0.00000
 \end{verbatim}
 
-We will use the \texttt{pheatmap} \citep{Kolde2015} and \texttt{RColorBrewer} \citep{Neuwirth2014} packages for drawing the heatmap (Figure \ref{fig:heatmap}):
+We will use the \texttt{pheatmap} \citep{Kolde2015} and \texttt{RColorBrewer} \citep{Neuwirth2014} packages for drawing the heatmap (Figure \ref{fig:heatmap}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -516,7 +516,7 @@ We will use the \texttt{pheatmap} \citep{Kolde2015} and \texttt{RColorBrewer} \c
 \caption{Clustered heatmap showing distances between samples.}\label{fig:heatmap}
 \end{figure}
 
-Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure \ref{fig:pca}):
+Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure \ref{fig:pca}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -596,7 +596,7 @@ We can look at a summary of the results:
 ## [2] see 'independentFiltering' argument of ?results
 \end{verbatim}
 
-We can also visualise the log fold changes using an MA plot (Figure \ref{fig:maplot}):
+We can also visualise the log fold changes using an MA plot (Figure \ref{fig:maplot}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -737,7 +737,7 @@ An alternative is to use the GRASP \citep{Eicher2015} database with the \texttt{
 ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 \end{verbatim}
 
-SNPs is a \texttt{gwasloc} object which is simply a wrapper around a \texttt{GRanges} object, the standard way to express genomic ranges in Bioconductor.
+\texttt{snps} is a \texttt{gwasloc} object which is simply a wrapper around a \texttt{GRanges} object, the standard way to express genomic ranges in Bioconductor.
 We are interested in SNPs associated with SLE:
 
 \begin{Shaded}
@@ -827,7 +827,7 @@ We can build this using the \texttt{GenomicFeatutres} \citep{Lawrence2013} packa
 ## # exon_nrow: 1182765
 ## # cds_nrow: 704859
 ## # Db created by: GenomicFeatures package from Bioconductor
-## # Creation time: 2018-01-10 11:57:23 +0000 (Wed, 10 Jan 2018)
+## # Creation time: 2018-01-10 16:47:44 +0000 (Wed, 10 Jan 2018)
 ## # GenomicFeatures version at creation time: 1.30.0
 ## # RSQLite version at creation time: 2.0
 ## # DBSCHEMAVERSION: 1.2
@@ -1040,7 +1040,7 @@ We will only keep the SNP IDs and GWAS p-values:
 ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 \end{verbatim}
 
-We can visualise where these SNPs are located with \texttt{ggplot2} \citep{Wickham2009} (Figure \ref{fig:barplot}):
+We can visualise where these SNPs are located with \texttt{ggplot2} \citep{Wickham2009} (Figure \ref{fig:barplot}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
