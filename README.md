@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/112510699.svg)](https://zenodo.org/badge/latestdoi/112510699)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1154125.svg)](https://doi.org/10.5281/zenodo.1154125)
 
 # Bioconductor Regulatory Genomics Workflow
 
