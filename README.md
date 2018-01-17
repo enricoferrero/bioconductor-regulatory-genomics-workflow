@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1154125.svg)](https://doi.org/10.5281/zenodo.1154125)
+
 # Bioconductor Regulatory Genomics Workflow
 
 Enrico Ferrero  
@@ -18,4 +20,4 @@ In this Bioconductor workflow, we will explore how different types of regulatory
 - The .html file is for visualisation in web browsers.
 - The .md file is best for visualisation on GitHub.
 - the .docx file is for visualisation with Microsoft Word.
-- The .tex and .pdf files (and all other files) are needed for submission to the F1000Research Bioconductor Gateway. 
+- The .tex and .pdf files (and all other files) are needed for submission to the F1000Research Bioconductor Gateway.
