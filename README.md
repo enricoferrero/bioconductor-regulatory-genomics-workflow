@@ -18,4 +18,9 @@ In this Bioconductor workflow, we will explore how different types of regulatory
 - The .html file is for visualisation in web browsers.
 - The .md file is best for visualisation on GitHub.
 - the .docx file is for visualisation with Microsoft Word.
-- The .tex and .pdf files (and all other files) are needed for submission to the F1000Research Bioconductor Gateway. 
+- The .tex and .pdf files (and all other files) are needed for submission to the F1000Research Bioconductor Gateway.
+
+## Citation
+
+- Repository: [![DOI](https://zenodo.org/badge/112510699.svg)](https://zenodo.org/badge/latestdoi/112510699)
+- Manuscript: TBA
