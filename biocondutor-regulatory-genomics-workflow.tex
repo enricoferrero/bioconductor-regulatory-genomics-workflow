@@ -75,7 +75,7 @@
 \begin{document}
 \pagestyle{front}
 
-\title{Bioconductor Regulatory Genomics Workflow}
+\title{Using regulatory genomics data to intepret the function of disease variants and prioritise genes from expression studies}
 
 \author{Enrico Ferrero}
 
@@ -102,19 +102,19 @@ Of note, the majority of drug discovery programmes fail for efficacy reasons \ci
 Target selection, the first step in drug discovery programmes, is thus a critical decision point.
 It has previously been shown that therapeutic targets with a genetic link to the disease under investigation are more likely to progress through the drug discovery pipeline, suggesting that genetics can be used as a tool to prioritise and validate drug targets in early discovery \citep{Plenge2013, Nelson2015}.
 
-Over the last decade, genome-wide association studies (GWASs) have revolutionised the field of human genetics allowing to survey DNA mutations associated with disease and other complex traits on an unprecedented scale \citep{Visscher2017}.
+Over the last decade, genome-wide association studies (GWASs) have revolutionised the field of human genetics, allowing to survey DNA mutations associated with disease and other complex traits on an unprecedented scale \citep{Visscher2017}.
 Similarly, phenome-wide association studies (PheWAS) are emerging as a complementary methodology to decipher the genetic bases of the human phenome \citep{Bush2016}.
 While many of these associations might not actually be relevant for the disease aetiology \citep{Boyle2017}, these methods hold much promise to guide pharmaceutical scientists towards the next generation of drug targets \citep{Finan2017}.
 
-Arguably, one of the biggest challenges in translating findings from GWASs to therapies is that the great majority of single nucleotide polymorphisms (SNPs) associated with disease are found in non-coding regions of the genome and therefore cannot be easily linked to a target gene \citep{Maurano2012}.
+Arguably, one of the biggest challenges in translating findings from GWASs to therapies is that the great majority of single nucleotide polymorphisms (SNPs) associated with disease are found in non-coding regions of the genome, and therefore cannot be easily linked to a target gene \citep{Maurano2012}.
 Many of these SNPs could be regulatory variants, affecting the expression of nearby or distal genes by interfering with the process of transcription (e.g.: binding of transcription factors at promoters or enhancers) \citep{Ward2012}.
 
 The most established way to map disease-associated regulatory variants to target genes is probably to use expression quantitative trait loci (eQTLs) \citep{Albert2015}, variants that affect the expression of specific genes.
-Over the last few years, the GTEx consortium assembled a valuable resource by performing large-scale mapping of genome-wide correlations between genetic variants and gene expression across 44 human tissues \citep{GTEx2017a}.
+Over the last few years, the GTEx consortium assembled a valuable resource by performing large-scale mapping of genome-wide correlations between genetic variants and gene expression across 44 human tissues \citep{GTEx2017}.
 
 However, depending on the power of the study, it might not be possible to detect all existing regulatory variants as eQTLs.
 An alternative is to use information on the location of promoters and distal enhancers across the genome and link these regulatory elements to their target genes.
-Large, multi-centre Initiatives such as ENCODE \citep{ENCODE2012}, Roadmap Epigenomics \citep{Roadmap2015} and BLUEPRINT \citep{Adams2012, Stunnenberg2016} mapped regulatory elements in the genome by profiling a number of chromatin features including DNase hypersensitive sites (DHSs), several types of histone marks and binding of chromatin-associated proteins in a large number of cell lines, primary cell types and tissues.
+Large, multi-centre initiatives such as ENCODE \citep{ENCODE2012}, Roadmap Epigenomics \citep{Roadmap2015} and BLUEPRINT \citep{Adams2012, Stunnenberg2016} mapped regulatory elements in the genome by profiling a number of chromatin features, including DNase hypersensitive sites (DHSs), several types of histone marks and binding of chromatin-associated proteins in a large number of cell lines, primary cell types and tissues.
 Similarly, the FANTOM consortium used cap analysis of gene expression (CAGE) to identify promoters and enhancers across hundreds of cells and tissues \citep{Fantom2014}.
 
 Knowing that a certain stretch of DNA is an enhancer is however not informative of the target gene(s).
@@ -125,15 +125,15 @@ Promoter capture Hi-C \citep{Mifsud2015, Javierre2016} extends chromatin conform
 
 Overall, linking genetic variants to their candidate target genes is not straightforward, not only because of the complexity of the human genome and transcriptional regulation, but also because of the variety of data types and approaches that can be used.
 To address this, we developed STOPGAP (systematic target opportunity assessment by genetic association predictions), a database of disease variants mapped to their most likely target gene(s) using different types of regulatory genomic data \citep{Shen2017}.
-The database is currently undergoing a major overhaul and will eventually be superseded by POSTGAP \citep{Ensembl2017}.
+The database is currently undergoing a major overhaul and will eventually be superseded by \href{https://github.com/Ensembl/postgap}{POSTGAP}.
 A similar resource and valid alternative is INFERNO (inferring the molecular mechanisms of noncoding variants) \citep{Amlie-Wolf2017}.
 
 \section{Workflow}\label{workflow}
 
 \subsection{Overview}\label{overview}
 
-In this workflow we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
-We will use eQTL data from GTEx \citep{GTEx2017a}, FANTOM5 correlations between promoters and enhancers \citep{Andersson2014} and promoter capture Hi-C data \citep{Javierre2016}.
+In this workflow, we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
+We will use eQTL data from GTEx \citep{GTEx2017}, FANTOM5 correlations between promoters and enhancers \citep{Andersson2014} and promoter capture Hi-C data \citep{Javierre2016}.
 
 We start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
@@ -496,7 +496,7 @@ First, let's look at distances between samples to see if we can recover a separa
 ## SLE       99.84061   127.2800  115.06568    0.00000
 \end{verbatim}
 
-We will use the \texttt{pheatmap} \citep{Kolde2015} and \texttt{RColorBrewer} \citep{Neuwirth2014} packages for drawing the heatmap (Figure \ref{fig:heatmap}).
+We will use the \href{http://cran.r-project.org/package=pheatmap}{\texttt{pheatmap}} and \href{https://cran.r-project.org/package=RColorBrewer}{\texttt{RColorBrewer}} packages for drawing the heatmap (Figure 1).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -509,14 +509,14 @@ We will use the \texttt{pheatmap} \citep{Kolde2015} and \texttt{RColorBrewer} \c
 
 \begin{figure}
 
-{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/heatmap-1} 
+{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/figure1-1} 
 
 }
 
-\caption{Clustered heatmap showing distances between samples.}\label{fig:heatmap}
+\caption{Clustered heatmap showing distances between samples.}\label{fig:figure1}
 \end{figure}
 
-Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure \ref{fig:pca}).
+Similarly, we can perform a principal component analysis (PCA) on the most variable 500 genes (Figure 2).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -526,11 +526,11 @@ Similarly, we can perform a principal component analysis (PCA) on the most varia
 
 \begin{figure}
 
-{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/pca-1} 
+{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/figure2-1} 
 
 }
 
-\caption{Principal component analysis with samples coloured according to their disease status.}\label{fig:pca}
+\caption{Principal component analysis with samples coloured according to their disease status.}\label{fig:figure2}
 \end{figure}
 
 This looks better, we can see some separation of healthy and SLE samples along both PC1 and PC2, though some SLE samples appear very similar to the healthy ones.
@@ -596,7 +596,7 @@ We can look at a summary of the results:
 ## [2] see 'independentFiltering' argument of ?results
 \end{verbatim}
 
-We can also visualise the log fold changes using an MA plot (Figure \ref{fig:maplot}).
+We can also visualise the log fold changes using an MA plot (Figure 3).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -606,11 +606,11 @@ We can also visualise the log fold changes using an MA plot (Figure \ref{fig:map
 
 \begin{figure}
 
-{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/maplot-1} 
+{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/figure3-1} 
 
 }
 
-\caption{MA plot showing genes differentially expressed in SLE patients compared to healthy patients.}\label{fig:maplot}
+\caption{MA plot showing genes differentially expressed in SLE patients compared to healthy patients.}\label{fig:figure3}
 \end{figure}
 
 For convenience, we will save our differentially expressed genes (DEGs) in another object:
@@ -771,7 +771,7 @@ We are interested in SNPs associated with SLE:
 ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 \end{verbatim}
 
-We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (Figure \ref{fig:manhattan}).
+We can visualise these as a Manhattan plot to look at the distribution of GWAS p-values over chromosomes on a negative log scale (Figure 4).
 Note that p-values lower than 1e-25 are truncated in the figure and that we have to load \texttt{ggplot2} \citep{Wickham2009} to modify the look of the plot:
 
 \begin{Shaded}
@@ -786,17 +786,17 @@ Note that p-values lower than 1e-25 are truncated in the figure and that we have
 
 \begin{figure}
 
-{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/manhattan-1} 
+{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/figure4-1} 
 
 }
 
-\caption{Manhattan plot showing variants significantly associated with SLE.}\label{fig:manhattan}
+\caption{Manhattan plot showing variants significantly associated with SLE.}\label{fig:figure4}
 \end{figure}
 
 We note here that genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the \emph{tag} SNPs on the array are the true casual SNPs \citep{Bush2012}.
 The alleles of other SNPs can be imputed from tag SNPs thanks to the structure of linkage disequilibrium (LD) blocks present in chromosomes.
 Thus, when linking variants to target genes in a real-world setting, it is important to take into consideration neighbouring SNPs that are in high LD and inherited with the tag SNPs.
-For simplicity, we will skip this LD expansion step and refer the reader to the Ensembl REST API \citep{Yates2015, Ensembl2017a}, the Ensembl Linkage Disequilibrium Calculator \citep{Ensembl2017b} and the Bioconductor packages \texttt{trio} \citep{Schwender2015} and \texttt{ldblock} \citep{Carey2017c} to perform this task.
+For simplicity, we will skip this LD expansion step and refer the reader to the Ensembl REST API \citep{Yates2015}, the \href{http://www.ensembl.org/Homo_sapiens/Tools/LD?db=core}{Ensembl Linkage Disequilibrium Calculator} and the Bioconductor packages \texttt{trio} \citep{Schwender2015} and \texttt{ldblock} \citep{Carey2017c} to perform this task.
 
 \subsection{Annotation of coding and proximal SNPs to target genes}\label{annotation-of-coding-and-proximal-snps-to-target-genes}
 
@@ -827,7 +827,7 @@ We can build this using the \texttt{GenomicFeatutres} \citep{Lawrence2013} packa
 ## # exon_nrow: 1182765
 ## # cds_nrow: 704859
 ## # Db created by: GenomicFeatures package from Bioconductor
-## # Creation time: 2018-01-10 16:47:44 +0000 (Wed, 10 Jan 2018)
+## # Creation time: 2018-01-17 16:42:18 +0000 (Wed, 17 Jan 2018)
 ## # GenomicFeatures version at creation time: 1.30.0
 ## # RSQLite version at creation time: 2.0
 ## # DBSCHEMAVERSION: 1.2
@@ -1040,7 +1040,7 @@ We will only keep the SNP IDs and GWAS p-values:
 ##   seqinfo: 23 sequences from GRCh38 genome; no seqlengths
 \end{verbatim}
 
-We can visualise where these SNPs are located with \texttt{ggplot2} \citep{Wickham2009} (Figure \ref{fig:barplot}).
+We can visualise where these SNPs are located with \texttt{ggplot2} \citep{Wickham2009} (Figure 5).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1052,11 +1052,11 @@ We can visualise where these SNPs are located with \texttt{ggplot2} \citep{Wickh
 
 \begin{figure}
 
-{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/barplot-1} 
+{\centering \includegraphics{biocondutor-regulatory-genomics-workflow_files/figure-latex/figure5-1} 
 
 }
 
-\caption{Barplot showing genomic locations associated with SLE variants.}\label{fig:barplot}
+\caption{Barplot showing genomic locations associated with SLE variants.}\label{fig:figure5}
 \end{figure}
 
 As expected \citep{Maurano2012}, the great majority of SNPs are located within introns and in intergenic regions.
@@ -1247,8 +1247,8 @@ Let's create a dataset of candidate regulatory SNPs that are either intronic or 
 \subsubsection{eQTL data}\label{eqtl-data}
 
 A well-established way to gain insights into target genes of regulatory SNPs is to use eQTL data, where correlations between genetic variants and expression of genes are computed across different tissues or cell types \citep{Albert2015}.
-We will use blood eQTL data from the GTEx consortium \citep{GTEx2017a}.
-To get the data, you will have to register and download the file \texttt{GTEx\_Analysis\_v7\_eQTL.tar.gz} from the GTEx portal website \citep{GTEx2017b} to the current working directory:
+We will use blood eQTL data from the GTEx consortium \citep{GTEx2017}.
+To get the data, you will have to register and download the file \texttt{GTEx\_Analysis\_v7\_eQTL.tar.gz} from the \href{https://www.gtexportal.org}{GTEx portal} to the current working directory:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1429,8 +1429,8 @@ We also need to ensure that the chromosome notation is consistent with the previ
 ## [17] "chr17" "chr18" "chr19" "chr20" "chr21" "chr22" "chrX"
 \end{verbatim}
 
-From the publication \citep{GTEx2017a}, we know the genomic coordinates are mapped to genome reference GRCh37, so we will have to uplift them to GRCh38 using \texttt{rtracklayer} \citep{Lawrence2009} and a mapping (``chain'') file.
-The \texttt{R.utils} package \citep{Bengtsson2017} is required to extract the gzipped file:
+From the publication \citep{GTEx2017}, we know the genomic coordinates are mapped to genome reference GRCh37, so we will have to uplift them to GRCh38 using \texttt{rtracklayer} \citep{Lawrence2009} and a mapping (``chain'') file.
+The \href{https://cran.r-project.org/package=R.utils}{\texttt{R.utils}} package is required to extract the gzipped file:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1492,7 +1492,7 @@ We will use the \texttt{GenomicRanges} package \citep{Lawrence2013} to compute t
 
 So, we have 59 blood eQTL variants that are associated with SLE.
 We can now check whether any of the genes differentially expressed in SLE is an \emph{eGene}, a gene whose expression is influenced by an eQTL.
-We note that gene IDs in GTEx are mapped to GENCODE v19 \citep{GTEx2017a}, while we are using the newer v25 for the DEGs.
+We note that gene IDs in GTEx are mapped to GENCODE v19 \citep{GTEx2017}, while we are using the newer v25 for the DEGs.
 To match the gene IDs in the two objects, we will simply strip the last bit containing the GENCODE gene version, which effectively gives us Ensembl gene IDs:
 
 \begin{Shaded}
@@ -1653,7 +1653,7 @@ We can read in and have a look at the enhancer - promoter correlation data in th
 \end{verbatim}
 
 Everything we need is in the fourth column, \texttt{name}: genomic location of the enhancer, gene identifiers, Pearson correlation coefficient and significance.
-We will use the \texttt{splitstackshape} package \citep{Mahto2014} to parse it:
+We will use the \href{https://cran.r-project.org/package=splitstackshape}{\texttt{splitstackshape}} package to parse it:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2194,7 +2194,7 @@ These are our final results:
 \section{Conclusions}\label{conclusions}
 
 In this Bioconductor workflow we have used several packages and datasets to demonstrate how regulatory genomic data can be used to annotate significant hits from GWASs and provide an intermediate layer connecting genetics and transcriptomics.
-Overall, we identified 17 SLE-associated SNPs that we mapped to 16 genes differentially expressed in SLE, using eQTL data \citep{GTEx2017a} and enhancer - promoter relationships from CAGE \citep{Fantom2014} and promoter capture Hi-C experiments \citep{Javierre2016}.
+Overall, we identified 17 SLE-associated SNPs that we mapped to 16 genes differentially expressed in SLE, using eQTL data \citep{GTEx2017} and enhancer - promoter relationships from CAGE \citep{Fantom2014} and promoter capture Hi-C experiments \citep{Javierre2016}.
 
 While simplified, the workflow also demonstrates some real-world challenges encountered when working with genomic data from different sources, such as the use of different genome references and gene annotation conventions, the parsing of files with custom formats into Bioconductor-compatible objects and the mapping of genomic locations to genes.
 
