@@ -1,6 +1,5 @@
 ---
-title: "Using regulatory genomics data to interpret the function of disease variants and prioritise genes:w
-from expression studies"
+title: "Using regulatory genomics data to interpret the function of disease variants and prioritise genes from expression studies"
 author:
   affiliation: Computational Biology, GSK, Medicines Research Centre, Gunnels Wood Road, Stevenage, SG1 2NY, UK
   email: enrico.x.ferrero@gsk.com

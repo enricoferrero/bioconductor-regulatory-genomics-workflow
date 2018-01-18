@@ -1,4 +1,4 @@
-Using regulatory genomics data to interpret the function of disease variants and prioritise genes:w from expression studies
+Using regulatory genomics data to interpret the function of disease variants and prioritise genes from expression studies
 ================
 true
 
@@ -600,7 +600,7 @@ txdb
     ## # exon_nrow: 1182765
     ## # cds_nrow: 704859
     ## # Db created by: GenomicFeatures package from Bioconductor
-    ## # Creation time: 2018-01-17 17:36:20 +0000 (Wed, 17 Jan 2018)
+    ## # Creation time: 2018-01-18 09:09:07 +0000 (Thu, 18 Jan 2018)
     ## # GenomicFeatures version at creation time: 1.30.0
     ## # RSQLite version at creation time: 2.0
     ## # DBSCHEMAVERSION: 1.2
