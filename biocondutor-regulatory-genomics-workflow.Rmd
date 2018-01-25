@@ -68,7 +68,7 @@ A similar resource and valid alternative is INFERNO (inferring the molecular mec
 In this workflow, we will explore how regulatory genomic data can be used to connect the genetic and transcriptional layers by providing a framework for the functional annotation of SNPs from GWASs.
 We will use eQTL data from GTEx [@GTEx2017], FANTOM5 correlations between promoters and enhancers [@Andersson2014] and promoter capture Hi-C data [@Javierre2016].
 
-We start with a common scenario: we run a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
+We start with a common scenario: we ran a RNA-seq experiment comparing patients with a disease and healthy individuals, and would like to discover key disease genes and potential therapeutic targets by integrating genetic information in our analysis.
 
 ## Install required packages
 
@@ -242,7 +242,7 @@ tail(degs)
 ## Accessing GWAS data
 
 We have more than 3500 genes of interest at this stage.
-Since we know that therapeutic targets with genetic evidence are more likely to progress through the drug discovery pipeline [@Nelson2015], one way to prioritise them could be to check which of these can be genetically linked to SLE.
+Since we know that genes with high levels of differential expression are more likely to harbour disease-associated variants [@Chen2008] and that therapeutic targets with genetic evidence are more likely to progress through the drug discovery pipeline [@Nelson2015], one way to prioritise them is to check which of these can be genetically linked to SLE.
 To get hold of relevant GWAS data, we will be using the `gwascat` Bioconductor package [@Carey2017a], which provides an interface to the GWAS catalog [@MacArthur2017].
 An alternative is to use the GRASP [@Eicher2015] database with the `grasp2db` [@Carey2017b] package.
 
@@ -285,7 +285,7 @@ For simplicity, we will skip this LD expansion step and refer the reader to the 
 ## Annotation of coding and proximal SNPs to target genes 
 
 In order to annotate these variants, we need a a `TxDb` object, a reference of where transcripts are located on the genome.
-We can build this using the `GenomicFeatutres` [@Lawrence2013] package and the GENCODE v25 gene annotation:
+We can build this using the `GenomicFeatures` [@Lawrence2013] package and the GENCODE v25 gene annotation:
 
 ```{r}
 library(GenomicFeatures)
@@ -615,7 +615,7 @@ snps_hard_in_pchic <- as.data.frame(snps_hard_in_pchic)
 snps_hard_in_pchic
 ```
 
-We check if any of these enhancer containing SLE variants are known to putatively regulate genes differentially expressed in SLE:
+We check if any of these enhancers containing SLE variants are known to putatively regulate genes differentially expressed in SLE:
 
 ```{r}
 snps_hard_in_pchic_in_degs <- merge(snps_hard_in_pchic, degs, by = "gene_id", all = FALSE)
