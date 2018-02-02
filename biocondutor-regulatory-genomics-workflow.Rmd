@@ -1,9 +1,9 @@
 ---
 title: "Using regulatory genomics data to interpret the function of disease variants and prioritise genes from expression studies"
 author:
-  affiliation: Computational Biology, GSK, Medicines Research Centre, Gunnels Wood Road, Stevenage, SG1 2NY, UK
-  email: enrico.x.ferrero@gsk.com
   name: Enrico Ferrero
+  email: enrico.x.ferrero@gsk.com
+  affiliation: Computational Biology, GSK, Medicines Research Centre, Gunnels Wood Road, Stevenage, SG1 2NY, UK
 biblio-style: unsrtnat
 output:
   html_document:
@@ -78,7 +78,7 @@ The code below will install all required packages and dependencies from Biocondu
 ```{r}
 source("https://bioconductor.org/biocLite.R")
 # uncomment the following line to install packages
-#biocLite(c("DESeq2", "GenomicFeatures", "GenomicRanges", "ggplot2", "gwascat", "recount", "pheatmap", "RColorBrewer", "rtracklayer", "R.utils", "splitstackshape", "VariantAnnotation"))
+#biocLite(c("DESeq2", "GenomicFeatures", "GenomicInteractions", GenomicRanges", "ggplot2", "Gviz", gwascat", "recount", "pheatmap", "RColorBrewer", "rtracklayer", "R.utils", "splitstackshape", "VariantAnnotation"))
 ```
 
 ## Gene expression data and differential gene expression analysis
@@ -279,8 +279,8 @@ traitsManh(gwr = snps, sel = snps, traits = "Systemic lupus erythematosus") +
 
 We note here that genotyping arrays typically include a very small fraction of all possible SNPs in the human genome, and there is no guarantee that the *tag* SNPs on the array are the true casual SNPs [@Bush2012].
 The alleles of other SNPs can be imputed from tag SNPs thanks to the structure of linkage disequilibrium (LD) blocks present in chromosomes. 
-Thus, when linking variants to target genes in a real-world setting, it is important to take into consideration neighbouring SNPs that are in high LD and inherited with the tag SNPs.
-For simplicity, we will skip this LD expansion step and refer the reader to the Ensembl REST API [@Yates2015], the [Ensembl Linkage Disequilibrium Calculator](http://www.ensembl.org/Homo_sapiens/Tools/LD?db=core) and the Bioconductor packages `trio` [@Schwender2015] and `ldblock` [@Carey2017c] to perform this task.
+Thus, when linking variants to target genes in a real-world setting, it is important to take into consideration neighbouring SNPs that are in high LD (e.g.: r^2^ > 0.8) and inherited with the tag SNPs.
+As this LD expansion step can greatly increase the number of variants under investigation, we will skip it and refer the reader to the Ensembl REST API [@Yates2015], the [Ensembl Linkage Disequilibrium Calculator](http://www.ensembl.org/Homo_sapiens/Tools/LD?db=core) and the Bioconductor packages `trio` [@Schwender2015] and `ldblock` [@Carey2017c] to perform this task.
 
 ## Annotation of coding and proximal SNPs to target genes 
 
@@ -634,8 +634,12 @@ prioritised_hits <- unique(rbind(prioritised_hits, data.frame(
   gene_symbol = snps_hard_in_pchic_in_degs$symbol,
   gene_pvalue = snps_hard_in_pchic_in_degs$padj,
   gene_log2foldchange = snps_hard_in_pchic_in_degs$log2FoldChange)))
+rownames(prioritised_hits) <- NULL
 prioritised_hits
 ```
+
+There are at least three good options to visualise genomic data and interactions in Bioconductor: ggbio [@Yin2012], Sushi [@Phanstiel2014] and Gviz [@Hahne2016] coupled with the GenomicInteractions package [@Harmston2015].
+We refer the reader to these publications and package vignettes for examples.
 
 # Conclusions
 
