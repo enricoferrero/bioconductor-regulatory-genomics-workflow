@@ -23,5 +23,6 @@ The workflow is published on [F1000Research](https://f1000research.com/) as '[Us
 - The .Rmd source file can be used to reproduce the analysis.
 - The .md file is best for visualisation on GitHub.
 - The .html file is for visualisation in web browsers.
-- the .docx file is for visualisation with Microsoft Word.
-- The .tex and .pdf files are needed for submission to the F1000Research Bioconductor Gateway.
+- the .docx file is for use with Microsoft Word.
+- The .pdf file was created for submission to F1000Research through Overleaf.
+- All other files are needed for knitting.
