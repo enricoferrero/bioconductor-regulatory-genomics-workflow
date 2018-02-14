@@ -23,7 +23,7 @@ In this workflow, we will explore how regulatory genomic data can be used to con
 
 <!--html_preserve-->
 
-<script type="application/json" data-for="htmlwidget-d484c155e87c68e701ec">{"x":{"diagram":"\n  graph TB\n\n    A[<strong>RNA-seq data<\/strong>] --> B[<strong>DEGs in SLE vs healthy blood<\/strong>]\n    C[<strong>GWAS data<\/strong>] --> D[<strong>Significant SLE GWAS SNPs<\/strong>]\n    B --> E\n    D --> E[<strong><center>Annotate coding, promoter<br>and UTR SNPs to target genes<\/center><\/strong>]\n    E --> F[<strong><center>Use GTEx blood eQTL data<br>to annotate intronic and <br> intergenic SNPs to target genes<\/center><\/strong>]\n    F --> G[<strong><center>Use FANTOM5 correlations between <br> CAGE-defined enhancers and promoters <br> to annotate intronic and intergenic <br> SNPs to target genes<\/center><\/strong>]\n    G --> H[<strong><center>Use promoter capture Hi-C data <br> from primary hematopoietic cells <br> to annotate intronic and <br> intergenic SNPs to target genes<\/center><\/strong>]\n    H --> I[<strong><center>Prioritised hits <br> for target discovery<\/center><\/strong>]\n\nclassDef default fill:#FFFFFF,stroke:#F2673C,stroke-width:4px\n"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-fd9bb7be46b009b255fb">{"x":{"diagram":"\n  graph TB\n\n    A[<strong>RNA-seq data<\/strong>] --> B[<strong>DEGs in SLE vs healthy blood<\/strong>]\n    C[<strong>GWAS data<\/strong>] --> D[<strong>Significant SLE GWAS SNPs<\/strong>]\n    B --> E\n    D --> E[<strong><center>Annotate coding, promoter<br>and UTR SNPs to target genes<\/center><\/strong>]\n    E --> F[<strong><center>Use GTEx blood eQTL data<br>to annotate intronic and <br> intergenic SNPs to target genes<\/center><\/strong>]\n    F --> G[<strong><center>Use FANTOM5 correlations between <br> CAGE-defined enhancers and promoters <br> to annotate intronic and intergenic <br> SNPs to target genes<\/center><\/strong>]\n    G --> H[<strong><center>Use promoter capture Hi-C data <br> from primary hematopoietic cells <br> to annotate intronic and <br> intergenic SNPs to target genes<\/center><\/strong>]\n    H --> I[<strong><center>Prioritised hits <br> for target discovery<\/center><\/strong>]\n\nclassDef default fill:#FFFFFF,stroke:#F2673C,stroke-width:4px\n"},"evals":[],"jsHooks":[]}</script>
 <!--/html_preserve-->
 <p class="caption">
 Diagram showing a schematic representation of the workflow and the steps involved.
@@ -708,8 +708,8 @@ ggplot(data = prioritised_genes, aes(x = method)) +
 
 We observe that all methods significantly contributed to the identification of genes associated with GWAS SNPs. The majority of genes were identified through the integration of the GTEx blood eQTL data, followed by the methods based on direct overlap, promoter capture Hi-C data and FANTOM5 correlations.
 
-Functional analysis of priortised hits
---------------------------------------
+Functional analysis of prioritised hits
+---------------------------------------
 
 We will use biological processes from the Gene Ontology \[53\] and the `clusterProfiler` package \[54\] to functionally characterise our list of genes:
 

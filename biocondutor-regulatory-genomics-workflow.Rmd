@@ -649,7 +649,7 @@ ggplot(data = prioritised_genes, aes(x = method)) +
 We observe that all methods significantly contributed to the identification of genes associated with GWAS SNPs.
 The majority of genes were identified through the integration of the GTEx blood eQTL data, followed by the methods based on direct overlap, promoter capture Hi-C data and FANTOM5 correlations.
 
-## Functional analysis of priortised hits
+## Functional analysis of prioritised hits
 
 We will use biological processes from the Gene Ontology [@Ashburner2000] and the `clusterProfiler` package [@Yu2012] to functionally characterise our list of genes:
 
