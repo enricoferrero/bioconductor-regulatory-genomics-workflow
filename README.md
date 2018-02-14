@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1154235.svg)](https://doi.org/10.5281/zenodo.1154235)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1154124.svg)](https://doi.org/10.5281/zenodo.1154124)
 
 # Bioconductor Regulatory Genomics Workflow
 
@@ -13,6 +13,10 @@ Genome-wide association studies and large gene expression experiments are provid
 Several initiatives in the field of regulatory genomics are aiming to close this gap by systematically identifying and cataloguing regulatory elements such as promoters and enhacersacross different tissues and cell types.
 
 In this Bioconductor workflow, we will explore how different types of regulatory genomic data can be used for the functional interpretation of disease-associated variants and for the prioritisation of gene lists from gene expression experiments.
+
+## Availability
+
+The workflow is published on [F1000Research](https://f1000research.com/) as '[Using regulatory genomics data to interpret the function of disease variants and prioritise genes from expression studies](https://f1000research.com/articles/7-121)'.
 
 ## Info
 
